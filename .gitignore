@@ -9,3 +9,4 @@ a.out
 *.swo
 *.a
 test*
+*.gch
