@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./Libft/libft.a
 
-SRC_F = test_main.c
+SRC_F = main.c
 SRC_D = ./sources/
 
 OBJ_F = ${SRC_F:.c=.o}
