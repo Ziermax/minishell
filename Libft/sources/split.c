@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:07:00 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/03/31 14:37:50 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:04:37 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	free_split_save(char **split, char *save)
 	}
 	free(split);
 }
-// printf("SAVE FREE %p\n", split[i]);
 
 char	**ft_split(char *str)
 {

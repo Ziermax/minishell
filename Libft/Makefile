@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 #<---------------------------------|FILES|------------------------------------>#
 
-SRC_ALL_F = length.c search.c malloc.c join.c split.c split_char.c putfd.c
+SRC_ALL_F = length.c search.c malloc.c join.c split.c split_char.c putfd.c is_alphanumeric.c is_what.c
 SRC_ALL_D = ./sources/
 
 SRC_PRINTF_F = printf.c printf_utils.c

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/04/05 18:06:15 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:02:41 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,14 @@ char	**ft_split(char *str);
 int		fd_printf(int fd, char *str, ...);
 void	error_printf(int error, char *str, ...);
 char	*get_next_line(int fd);
+/*	is_identifiers	*/
+int		ft_isdigit(int c);
+int		ft_isupper(int c);
+int		ft_islower(int c);
+int		ft_isalpha(int c);
+int		ft_isalnum(int c);
+int		ft_isspace(int c);
+int		ft_isprint(int c);
+int		ft_isacsii(int c);
 
 #endif
