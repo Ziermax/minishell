@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/27 15:30:11 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:20:30 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ void	ft_putstr_flag(char *s, t_flag *flag)
 		ft_putstr(s, flag);
 		if (flag->minus)
 			ft_add_width(flag, (int)ft_strlen(s), ' ');
+		if (flag->type != 's')
+			free(s);
 	}
 }

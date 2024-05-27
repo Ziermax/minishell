@@ -78,5 +78,4 @@ void	ft_putnbr(unsigned long n, unsigned long base, t_flag *flag)
 	nbr[i] = ft_num(n, flag->type);
 	reverse(nbr);
 	ft_putstr_flag(nbr, flag);
-	free(nbr);
 }

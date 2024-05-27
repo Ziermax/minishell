@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:24 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/27 15:47:51 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:20:49 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static char	*ft_add_aim_num(char *s, t_flag *flag)
 			return (NULL);
 		}
 		r = ft_add_aim_num2(s, r, flag);
-		s = r;
-		free(r);
+		free(s);
+		return (r);
 	}
 	return (s);
 }
