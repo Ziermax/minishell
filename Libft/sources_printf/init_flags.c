@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_bonus.c                                 :+:      :+:    :+:   */
+/*   init_flags.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 17:03:18 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/27 12:32:55 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/05/27 15:29:07 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/05/27 15:29:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/printf.h"
 
-void	ft_putchar(char c, t_flag *flag)
+t_flag	init_struct(void)
 {
-	if (write(1, &c, 1) == -1)
-		flag->error = 1;
+	t_flag	f;
+
+	f.length = 0;
+	f.error = 0;
+	return (f);
 }
 
-void	ft_putstr(char *s, t_flag *flag)
+void	reset_flags(t_flag *flag)
 {
-	int	i;
-
-	if (!s)
-		if (write(1, "(null)", 6) == -1)
-			flag->error = 1;
-	i = 0;
-	while (s[i])
-		i++;
-	return (write(1, s, i));
+	flag->width = 0;
+	flag->space = 0;
+	flag->minus = 0;
+	flag->alter = 0;
+	flag->zero = 0;
+	flag->aim = -1;
+	flag->sign = '0';
+	flag->type = '\0';
 }

@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flags_bonus.c                                   :+:      :+:    :+:   */
+/*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 17:30:20 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/25 20:02:55 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/05/27 15:27:47 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/05/27 15:28:03 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
-
-static int	is_digit(char c)
-{
-	return (c >= '0' && c <= '9');
-}
+#include "../includes/printf.h"
 
 static int	is_flag(char c)
 {
-	return (c == '+' || c == '-' || c == '#' ||
-		c == ' ' || c == '.' || is_digit(c));
+	return (c == '+' || c == '-' || c == '#'
+		|| c == ' ' || c == '.' || ft_isdigit(c));
 }
 
 static int	ft_atoi_move(char **s)
@@ -30,7 +25,7 @@ static int	ft_atoi_move(char **s)
 	num = 0;
 	if (**s == '.')
 		*s += 1;
-	while (is_digit(**s))
+	while (ft_isdigit(**s))
 	{
 		num = num * 10 + **s - '0';
 		*s += 1;

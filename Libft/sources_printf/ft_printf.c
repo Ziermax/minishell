@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 17:03:04 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/25 20:01:53 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/05/27 15:28:25 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/05/27 15:28:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/printf.h"
 
 static void	ft_type(va_list lst, t_flag *flag)
 {
 	if (flag->type == '%')
-		ft_putchar('%', flag);
-	else if (flag->type == 'c') 
-		ft_putchar(va_arg(lst, int), flag);
+		ft_putchar_flag('%', flag);
+	else if (flag->type == 'c')
+		ft_putchar_flag(va_arg(lst, int), flag);
 	else if (flag->type == 's')
-		ft_putstr(va_arg(lst, char *), flag);
+		ft_putstr_flag(va_arg(lst, char *), flag);
 	else if (flag->type == 'p')
 		ft_dir(va_arg(lst, unsigned long), flag);
-	else if (flag->type == 'd' || c == 'i')
+	else if (flag->type == 'd' || flag->type == 'i')
 		ft_di(va_arg(lst, int), flag);
 	else if (flag->type == 'u')
 		ft_u(va_arg(lst, unsigned int), flag);
-	else if (flag->type == 'x' || c == 'X')
+	else if (flag->type == 'x' || flag->type == 'X')
 		ft_xx(va_arg(lst, unsigned int), flag);
 	else if (flag->type)
-		ft_putchar(f->type, flag);
+		ft_putchar_flag(flag->type, flag);
 }
 
 static void	ft_read(va_list lst, char *s, t_flag *flag)
@@ -41,15 +41,10 @@ static void	ft_read(va_list lst, char *s, t_flag *flag)
 			s++;
 			get_flags(&s, flag);
 			flag->type = *s;
-			ban_flags(flag);
 			ft_type(lst, flag);
 		}
 		else
-		{
-			f->length++;
-			if (ft_putchar(*s) == -1)
-				f->error = 1;
-		}
+			ft_putchar(*s, flag);
 		if (*s)
 			s++;
 	}

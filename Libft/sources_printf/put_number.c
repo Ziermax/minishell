@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_bonus.c                                  :+:      :+:    :+:   */
+/*   put_number.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 17:03:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/27 12:30:22 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/05/27 15:29:42 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/05/27 15:29:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/printf.h"
 
 static size_t	ft_nbrlen(unsigned long n, unsigned long base)
 {
@@ -77,6 +77,6 @@ void	ft_putnbr(unsigned long n, unsigned long base, t_flag *flag)
 	}
 	nbr[i] = ft_num(n, flag->type);
 	reverse(nbr);
-	ft_putstr(nbr, flag);
+	ft_putstr_flag(nbr, flag);
 	free(nbr);
 }

@@ -3,32 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
+/*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 15:07:54 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/04/05 18:06:53 by mvelazqu         ###   ########.fr       */
+/*   Created: 2024/05/27 15:23:46 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/05/27 15:24:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTF_H
 # define PRINTF_H
 
+# define NUMBR "0123456789abcdef"
+
+# include <limits.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 # include "libft.h"
 
-int	fd_putchar(int fd, int c);
-int	fd_putstr(int fd, char *str);
-int	fd_printmem(int fd, unsigned long mem);
-int	ft_lhexlen(unsigned long hex);
-int	fd_printnbr(int fd, int nbr, int n);
-int	fd_putnbr(int fd, int nbr);
-int	ft_intlen(int nbr);
-int	fd_putunbr(int fd, unsigned int nbr);
-int	ft_untlen(unsigned int nbr);
-int	fd_printhex(int fd, unsigned int hex, int x);
-int	fd_puthex(int fd, unsigned int hex);
-int	ft_hexlen(int hex);
+typedef struct s_flag
+{
+	int		length;
+	int		error;
+	int		space;
+	int		minus;
+	int		alter;
+	int		zero;
+	int		width;
+	int		aim;
+	char	sign;
+	char	type;
+}	t_flag;
+
+int		ft_printf(char const *s, ...);
+void	ft_di(int n, t_flag *flag);
+void	ft_u(unsigned int n, t_flag *flag);
+void	ft_dir(unsigned long p, t_flag *flag);
+void	ft_xx(unsigned int n, t_flag *flag);
+
+void	ft_putnbr(unsigned long n, unsigned long base, t_flag *flag);
+void	ft_putchar(char c, t_flag *flag);
+void	ft_putchar_flag(char c, t_flag *flag);
+void	ft_putstr(char *s, t_flag *flag);
+void	ft_putstr_flag(char *s, t_flag *flag);
+
+t_flag	init_struct(void);
+void	reset_flags(t_flag *flag);
+void	get_flags(char **s, t_flag *flag);
+
+void	ft_add_width(t_flag *flag, int len, char c);
+char	*ft_put_flags(char *s, t_flag *flag);
 
 #endif
