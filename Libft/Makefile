@@ -8,18 +8,14 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC_ALL_F = length.c search.c malloc.c join.c split.c split_char.c putfd.c
 SRC_ALL_D = ./sources/
-SRC_ALL = ${addprefix ${SRC_ALL_D}, ${SRC_ALL_F}}
 
 SRC_PRINTF_F = printf.c printf_utils.c
 SRC_PRINTF_D = ./sources_printf/
-SRC_PRINTF = ${addprefix ${SRC_PRINTF_D}, ${SRC_PRINTF_F}}
 
 SRC_GNL_F = get_next_line.c get_next_line_utils.c
 SRC_GNL_D = ./sources_get_next_line/
-SRC_GNL = ${addprefix ${SRC_GNL_D}, ${SRC_GNL_F}}
 
 SRC_F = ${SRC_ALL_F} ${SRC_PRINTF_F} ${SRC_GNL_F}
-SRC = ${SRC_ALL} ${SRC_PRINTF} ${SRC_GNL}
 
 OBJ_F = ${SRC_F:.c=.o}
 OBJ_D = ./objects/

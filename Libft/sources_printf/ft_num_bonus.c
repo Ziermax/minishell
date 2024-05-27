@@ -6,50 +6,45 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:02:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/25 18:07:05 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:26:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	ft_dir(unsigned long p)
+void	ft_dir(unsigned long p, t_flag *flag)
 {
-	int	a;
-
-	if (write(1, "0x", 2) == -1)
-		return (-1);
-	a = ft_putnbr(p, 16, 'x');
-	if (a == -1)
-		return (-1);
-	return (a + 2);
+	f->width -= 2;
+	ft_putnbr(p, 16, flag);
 }
 
-int	ft_di(int n)
+void	ft_di(int n, t_flag *flag)
 {
-	int		a;
-	long	xd;
+	long int	aux;
 
-	if (n < 0)
+	aux = (long int)n;
+	if (aux >= INT_MIN && aux <= INT_MAX)
 	{
-		xd = (long)n;
-		xd = -xd;
-		if (ft_putchar('-') == -1)
-			return (-1);
-		a = ft_putnbr((unsigned long)xd, 10, 'a');
-		if (a == -1)
-			return (-1);
-		return (a + 1);
+		if (aux < 0)
+		{
+			var->sign = '-';
+			var->space = 0;
+			aux = -aux;
+		}
+		ft_putnbr((unsigned long)aux, 10, flag);
 	}
-	else
-		return (ft_putnbr((unsigned long)n, 10, 'a'));
 }
 
-int	ft_u(unsigned int n)
+void	ft_u(unsigned int n, t_flag *flag)
 {
-	return (ft_putnbr((unsigned long)n, 10, 'a'));
+	ft_putnbr((unsigned long)n, 10, flag);
 }
 
-int	ft_xx(unsigned int n, char x)
+void	ft_xx(unsigned int n, t_flag *flag)
 {
-	return (ft_putnbr((unsigned long)n, 16, x));
+	if (n == 0)
+		flag->alter = 0;
+	if (flag->alter)
+		flag->width -= 2;
+	ft_putnbr((unsigned long)n, 16, flag);
 }

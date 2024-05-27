@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:03:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/25 17:03:41 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:30:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static size_t	ft_nbrlen(unsigned long n, unsigned long base)
 	len = 1;
 	while (n >= base)
 	{
-		len++;
 		n /= base;
+		len++;
 	}
 	len++;
 	return (len);
 }
 
-char	ft_num(unsigned long n, char x)
+static char	ft_num(unsigned long n, char x)
 {
 	char	c;
 
@@ -36,7 +36,7 @@ char	ft_num(unsigned long n, char x)
 	return (c);
 }
 
-void	reverse(char *s)
+static void	reverse(char *s)
 {
 	int		i;
 	int		j;
@@ -57,25 +57,26 @@ void	reverse(char *s)
 	}
 }
 
-int	ft_putnbr(unsigned long n, unsigned long base, char x)
+void	ft_putnbr(unsigned long n, unsigned long base, t_flag *flag)
 {
 	int		i;
 	char	*nbr;
 
-	nbr = (char *)malloc(ft_nbrlen(n, base) * sizeof(char));
+	nbr = (char *)ft_calloc(ft_nbrlen(n, base), sizeof(char));
 	if (!nbr)
-		return (-1);
+	{
+		flag->error = 1;
+		return ;
+	}
 	i = 0;
 	while (n >= base)
 	{
-		nbr[i] = ft_num(n % base, x);
+		nbr[i] = ft_num(n % base, flag->type);
 		n /= base;
 		i++;
 	}
-	nbr[i] = ft_num(n, x);
-	nbr[i + 1] = '\0';
+	nbr[i] = ft_num(n, flag->type);
 	reverse(nbr);
-	i = ft_putstr(nbr);
+	ft_putstr(nbr, flag);
 	free(nbr);
-	return (i);
 }

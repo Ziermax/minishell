@@ -35,17 +35,19 @@ typedef struct s_flag
 	char	type;
 }	t_flag;
 
-int	ft_printf(char const *s, ...);
-int	ft_di(int n);
-int	ft_u(unsigned int n);
-int	ft_dir(unsigned long p);
-int	ft_xx(unsigned int n, char x);
+int		ft_printf(char const *s, ...);
+void	ft_di(int n, t_flag *flag);
+void	ft_u(unsigned int n, t_flag *flag);
+void	ft_dir(unsigned long p, t_flag *flag);
+void	ft_xx(unsigned int n, t_flag *flag);
 
-int	ft_putnbr(unsigned long n, unsigned long base, char x);
-int	ft_putchar(char c);
-int	ft_putstr(char *s);
+void	ft_putnbr(unsigned long n, unsigned long base, t_flag *flag);
+void	ft_putchar(char c);
+void	ft_putstr(char *s);
 
 t_flag	init_struct(void);
+void	reset_flags(t_flag *flag);
 void	get_flags(char **s, t_flag *flag);
+
 
 #endif

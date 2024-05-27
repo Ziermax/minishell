@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:42:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/25 17:42:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/25 19:39:30 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ t_flag	init_struct(void)
 	return (f);
 }
 
-void	reset_flags(t_flag *f)
+void	reset_flags(t_flag *flag)
 {
-	f->width = 0;
-	f->space = 0;
-	f->minus= 0;
-	f->alter = 0;
-	f->zero = 0;
-	f->aim = -1;
-	f->sign = '0';
-	f->type = '\0';
+	flag->width = 0;
+	flag->space = 0;
+	flag->minus= 0;
+	flag->alter = 0;
+	flag->zero = 0;
+	flag->aim = -1;
+	flag->sign = '0';
+	flag->type = '\0';
 }

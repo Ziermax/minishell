@@ -6,23 +6,25 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:03:18 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/25 17:03:27 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:32:55 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	ft_putchar(char c)
+void	ft_putchar(char c, t_flag *flag)
 {
-	return (write(1, &c, 1));
+	if (write(1, &c, 1) == -1)
+		flag->error = 1;
 }
 
-int	ft_putstr(char *s)
+void	ft_putstr(char *s, t_flag *flag)
 {
 	int	i;
 
 	if (!s)
-		return (write(1, "(null)", 6));
+		if (write(1, "(null)", 6) == -1)
+			flag->error = 1;
 	i = 0;
 	while (s[i])
 		i++;
