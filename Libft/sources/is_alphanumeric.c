@@ -6,13 +6,13 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:56:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/26 20:03:56 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:01:10 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isdigit(int c)
 {
-	return (c >= '0' || c <= '9');
+	return (c >= '0' && c <= '9');
 }
 
 int	ft_isupper(int c)
