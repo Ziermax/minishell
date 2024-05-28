@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/28 15:07:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:55:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int		print_pwd(void);
 int		print_env(char **envp);
 int		print_echo(char **s);
 int		ft_cd(char *path);
-int		ft_unset(char **envp);
-int		ft_export(char **envp);
+int		ft_export(char **s, char **envp);
+int		ft_unset(char **s, char **envp);
 int		ft_exit(void);
 
 char	*get_pwd(void);
