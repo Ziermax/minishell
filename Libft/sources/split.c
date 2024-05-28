@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:24:52 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 13:41:22 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/28 20:37:11 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,27 @@ static	char	*next_simple_word(char *str)
 char	**ft_split(char *str)
 {
 	return (ultra_split(str, skip_spaces, next_simple_word));
+}
+
+char	*next_string(char *str)
+{
+	int	quote;
+
+	if (!str)
+		return (NULL);
+	quote = 0;
+	if (*str == '\"' || *str == '\'')
+		quote = *str++;
+	if (quote == '\"')
+		while (*str && *str != '\"')
+			str++;
+	else if (quote == '\'')
+		while (*str && *str != '\'')
+			str++;
+	else
+		while (*str && !ft_isspace(*str) && *str != '\'' && *str != '\"')
+			str++;
+	if (quote && (*str == '\'' || *str == '\"'))
+		str++;
+	return (str);
 }

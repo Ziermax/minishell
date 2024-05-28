@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 16:05:43 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/28 20:34:40 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		ft_isacsii(int c);
 void	free_split(char **split);
 void	free_split_save(char **split, char *save);
 char	*skip_spaces(char *str);
+char	*next_string(char *str);
 char	**ultra_split(char *str, char *(*skip)(char *), char *(*next)(char *));
 char	**ft_split(char *str);
 /*	extra functions	*/
