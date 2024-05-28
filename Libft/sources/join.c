@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:02:55 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/03/30 15:15:26 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/28 19:53:32 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,30 @@ char	*ft_threejoin(char *str1, char *str2, char *str3)
 	join[i] = '\0';
 	return (join);
 }
+
+char	*ft_splitjoin(char	**split)
+{
+	char	*join;
+	int		len;
+	int		i;
+	int		j;
+
+	if (!split)
+		return (NULL);
+	len = ft_splitlen(split);
+	join = malloc(sizeof(char *) * (len + 1));
+	if (!join)
+		return (NULL);
+	join[0] = '\0';
+	i = 0;
+	j = 0;
+	while (split[i])
+	{
+		j = ft_strfcat(join, split[i++], len + 1, j);
+		printf("j: %d\n", j);
+	}
+	return (join);
+}
 /*
 int	main(void)
 {
@@ -79,4 +103,12 @@ int	main(void)
 	str = ft_threejoin("/bin", "/", "ls");
 	printf("path: \"%s\"\n", str);
 	free(str);
+	char	**split;
+	char	*join;
+
+	split = ft_split("      Hola Mundo Marte j o t a ");
+	for (int i = 0; split[i]; i++)
+		printf("split[%d]: \"%s\"\n", i, split[i]);
+	join = ft_splitjoin(split);
+	printf("join: \"%s\"\n", join);
 }*/

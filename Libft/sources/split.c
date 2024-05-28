@@ -5,104 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:07:00 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/26 20:04:37 by mvelazqu         ###   ########.fr       */
+/*   Created: 2024/05/28 13:24:52 by mvelazqu          #+#    #+#             */
+/*   Updated: 2024/05/28 13:41:22 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../includes/libft.h"
 
-static int	count_word(char *str)
+char	*skip_spaces(char *str)
 {
-	int	words;
-
-	words = 0;
-	while (*str)
-	{
-		while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
-			str++;
-		if (*str)
-			words += 1;
-		while (*str && *str != ' ' && (*str < '\t' || *str > '\r'))
-			str++;
-	}
-	return (words);
-}
-
-static char	*copy_word(char **position)
-{
-	char	*str;
-	char	*word;
-	int		len;
-
-	len = 0;
-	str = *position;
-	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
+	if (!str)
+		return (NULL);
+	while (ft_isspace(*str))
 		str++;
-	while (str[len] && str[len] != ' ' && (str[len] < '\t' || str[len] > '\r'))
-		len++;
-	*position = &str[len];
-	if (!len)
-		return (NULL);
-	word = malloc(sizeof(char) * (len + 1));
-	if (!word)
-		return (NULL);
-	word[len--] = '\0';
-	while (len >= 0)
-	{
-		word[len] = str[len];
-		len--;
-	}
-	return (word);
+	return (str);
 }
 
-void	free_split(char **split)
+static	char	*next_simple_word(char *str)
 {
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
-}
-
-void	free_split_save(char **split, char *save)
-{
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		if (split[i] != save)
-			free(split[i]);
-		i++;
-	}
-	free(split);
+	if (!str)
+		return (NULL);
+	while (*str && !ft_isspace(*str))
+		str++;
+	return (str);
 }
 
 char	**ft_split(char *str)
 {
-	char	**split;
-	int		words;
-	int		i;
-
-	if (!str)
-		return (NULL);
-	words = count_word(str);
-	split = malloc(sizeof(char *) * (words + 1));
-	if (!split)
-		return (NULL);
-	i = 0;
-	while (i < words)
-	{
-		split[i] = copy_word(&str);
-		if (!split[i++])
-			return (free_split(split), NULL);
-	}
-	split[i] = NULL;
-	return (split);
+	return (ultra_split(str, skip_spaces, next_simple_word));
 }

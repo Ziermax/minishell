@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:09:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/04/04 17:00:19 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:51:53 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,62 +22,31 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
-int	ft_lhexlen(unsigned long hex)
+int	ft_splitlen(char **split)
 {
 	int	len;
+	int	i;
 
-	if (hex == 0)
-		return (1);
+	if (!split || !*split)
+		return (0);
 	len = 0;
-	while (hex)
-	{
-		len++;
-		hex /= 16;
-	}
+	i = -1;
+	while (split[++i])
+		len += ft_strlen(split[i]);
 	return (len);
 }
 
-int	ft_intlen(int num)
+int	ft_intlen(int nbr)
 {
 	int	len;
 
-	if (!num)
+	if (!nbr)
 		return (1);
 	len = 0;
-	while (num)
+	while (nbr)
 	{
 		len++;
-		num = num / 10;
-	}
-	return (len);
-}
-
-int	ft_untlen(unsigned int num)
-{
-	int	len;
-
-	if (!num)
-		return (1);
-	len = 0;
-	while (num)
-	{
-		len++;
-		num = num / 10;
-	}
-	return (len);
-}
-
-int	ft_hexlen(unsigned int hex)
-{
-	int	len;
-
-	if (hex == 0)
-		return (1);
-	len = 0;
-	while (hex)
-	{
-		len++;
-		hex /= 16;
+		nbr = nbr / 10;
 	}
 	return (len);
 }
