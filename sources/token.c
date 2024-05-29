@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:08:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 20:53:23 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:54:27 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,24 @@ int	ft_istoken(int c)
 	return (c == '<' || c == '>' || c == '&' || c == '|');
 }
 
-static char	*next_special_token(char *str)
+char	*next_token(char *str)
 {
 	int	special;
 
-	special = *str;
-	while (*str == special)
-		str++;
-	return (str);
-}
-
-char	*next_token(char *str)
-{
-	if (!str || *str == '\'' || *str == '\"')
-		return (next_string(str));
 	if (ft_istoken(*str))
-		return (next_special_token(str));
-	while (*str && *str != '\'' && *str != '\"'
-		&& !ft_istoken(*str) && !ft_isspace(*str))
-		str++;
+	{
+		special = *str;
+		while (*str == special)
+			str++;
+		return (str);
+	}
+	while (*str && !ft_istoken(*str) && !ft_isspace(*str))
+	{
+		if (*str == '\'' || *str == '\"')
+			str = next_string(str);
+		if (*str)
+			str++;
+	}
 	return (str);
 }
 
@@ -61,14 +60,14 @@ int	main(void)
 {
 	char	**splitted_line;
 	int		i;
+	char	*str;
 
-	splitted_line = ultra_split(
-			">hola\"hola\">out|cat>>infile||hola<infile&&and>out<<<||",
-			skip_spaces, next_token);
+	str = "l$USER>i$USERnfile<outf\"ile cat \"e|g\"rep $USER\"hola|>outfile \"Holla mundo\"";
+	splitted_line = ultra_split(str, skip_spaces, next_token);
 	i = 0;
 	while (splitted_line[i])
 	{
-		printf("splitted_line[%d]: \"%s\"\n", i, splitted_line[i]);
+		printf("splitted_line[%d]: %s\n", i, splitted_line[i]);
 		i++;
 	}
 	free_split(splitted_line);
