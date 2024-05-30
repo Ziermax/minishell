@@ -6,52 +6,76 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:53:27 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/28 18:21:47 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:58:28 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-/*	Hay que printar las variables por orden alfabetico	*/
-
-static char	*get_lower(char *s1, char *s2)
+static size_t	ft_size(char **s)
 {
-	int	i;
+	size_t	size;
 
-	i = 0;
-	while (s1[i] <= s2[i] && s1[i] && s2[i])
-		i++;
-	if (s1[i] && s2[i])
-		return (s2);
-	else if (s2[i] && !s1[i])
-		return (s1);
+	size = 0;
+	while (s[size])
+		size++;
+	return (size);
 }
 
-static int	print_variable(char **envp)
+static char	**get_dup(char **envp)
 {
 	int		i;
-	int		j;
-	char	*lower;
-	char	*prev;
+	char	**s;
 
+	s = (char **)malloc((ft_size(envp) + 1) * sizeof(char *));
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (envp[i])
 	{
-		lower = envp[i];
-		j = i + 1;
-		while (envp[j])
-		{
-			lower = get_lower(lower, envp[j]);
-			j++;
-		}
-		printf("declare -x %s\n", lower);
-		prev = strdup(lower);
+		s[i] = strdup(envp[i]);
+		if (!s[i])
+			return (NULL);
 		i++;
 	}
-	return (0);
+	s[i] = NULL;
+	return (s);
 }
 
-static int	set_variable(char *var, char **envp)
+static void	print_variables(char **envp)
+{
+	int		i;
+	int		j;
+	char	**s;
+	char	*tmp;
+
+	s = get_dup(envp);
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		j = 0;
+		while (s[j] && s[j + 1])
+		{
+			if (strcmp(s[j], s[j + 1]) > 0)
+			{
+				tmp = s[j];
+				s[j] = s[j + 1];
+				s[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	while (*s)
+	{
+		printf("%s\n", *s);
+		s++;
+	}
+}
+
+static void	set_variable(char *var, char **envp)
 {
 	int	i;
 
@@ -60,13 +84,12 @@ static int	set_variable(char *var, char **envp)
 		i++;
 	envp[i] = var;
 	envp[i + 1] = NULL;
-	return (0);
 }
 
 int	ft_export(char **s, char **envp)
 {
-	if (!*s)
-		print_variable(envp);
+	if (!s || !(*s))
+		print_variables(envp);
 	while (*s)
 	{
 		set_variable(*s, envp);

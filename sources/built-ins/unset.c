@@ -1,33 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 13:21:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/30 16:53:39 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/05/30 16:56:20 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/05/30 17:19:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-char	*get_pwd(void)
+static void	delete_var(char *var, char **envp)
 {
-	return (getcwd(NULL, 0));
+	int	i;
+	int	len;
+
+	len = strlen(var);
+	i = 0;
+	while (envp[i])
+	{
+		if (strncmp(var, envp[i], len) == 0)
+		{
+			while (envp[i] && envp[i + 1])
+			{
+				envp[i] = envp[i + 1];
+				i++;
+			}
+			envp[i] = NULL;
+			return ;
+		}
+		i++;
+	}
 }
 
-int	print_pwd(void)
+int	ft_unset(char **s, char **envp)
 {
-	char	*pwd;
-
-	pwd = get_pwd();
-	if (!pwd)
+	if (!(*s))
+		return (0);
+	while (*s)
 	{
-		perror("Error");
-		return (1);
+		delete_var(*s, envp);
+		s++;
 	}
-	printf("%s\n", pwd);
-	free(pwd);
 	return (0);
 }

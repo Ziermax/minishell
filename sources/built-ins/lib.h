@@ -6,20 +6,23 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/28 17:55:57 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:57:40 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
-#include <sys/errno.h>
-#include "../../Libft/includes/libft.h"
+#ifndef LIB_H
+# define LIB_H
 
-#define MAX_PATH 1024
+# include <unistd.h>
+# include <stdio.h>
+# include <limits.h>
+# include <stdlib.h>
+# include <string.h>
+# include <dirent.h>
+# include <sys/errno.h>
+# include "../../Libft/includes/libft.h"
+
+# define MAX_PATH 1024
 
 # define RESET		"\x1b[0m"
 # define RED		"\x1b[31m"
@@ -30,9 +33,6 @@
 # define CYAN		"\x1b[36m"
 # define WHITE		"\033[0;97m"
 # define GRAY		"\033[0;90m"
-
-#ifndef LIB_H
-#define LIB_H
 
 int		print_pwd(void);
 int		print_env(char **envp);
