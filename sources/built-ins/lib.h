@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/30 16:57:40 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:50:41 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ int		ft_unset(char **s, char **envp);
 int		ft_exit(void);
 
 char	*get_pwd(void);
+
+char	**split(char *str, char c);
 
 #endif

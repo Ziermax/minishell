@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:53:27 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/30 16:58:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:56:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,56 @@ static char	**get_dup(char **envp)
 	return (s);
 }
 
+static void	sort(char **s)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (s[i] && s[i + 1])
+	{
+		if (strcmp(s[i], s[i + 1]) > 0)
+		{
+			tmp = s[i];
+			s[i] = s[i + 1];
+			s[i + 1] = tmp;
+		}
+		i++;
+	}
+}
+
+static void	ft_free(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		free(s[i]);
+		s[i] = NULL;
+		i++;
+	}
+	free(s);
+	s = NULL;
+}
+
+static void	put_quotts(char *s)
+{
+	char	**r;
+
+	r = split(s, '=');
+	printf("declare -x %s", r[0]);
+	if (r[1])
+		printf("=\"%s\"\n", r[1]);
+	ft_free(r);
+	free(s);
+	s = NULL;
+}
+
 static void	print_variables(char **envp)
 {
 	int		i;
-	int		j;
 	char	**s;
-	char	*tmp;
 
 	s = get_dup(envp);
 	if (!s)
@@ -55,24 +99,17 @@ static void	print_variables(char **envp)
 	i = 0;
 	while (s[i])
 	{
-		j = 0;
-		while (s[j] && s[j + 1])
-		{
-			if (strcmp(s[j], s[j + 1]) > 0)
-			{
-				tmp = s[j];
-				s[j] = s[j + 1];
-				s[j + 1] = tmp;
-			}
-			j++;
-		}
+		sort(s);
 		i++;
 	}
-	while (*s)
+	i = 0;
+	while (s[i])
 	{
-		printf("%s\n", *s);
-		s++;
+		put_quotts(s[i]);
+		i++;
 	}
+	free(s);
+	s = NULL;
 }
 
 static void	set_variable(char *var, char **envp)
@@ -90,10 +127,13 @@ int	ft_export(char **s, char **envp)
 {
 	if (!s || !(*s))
 		print_variables(envp);
-	while (*s)
+	else
 	{
-		set_variable(*s, envp);
-		s++;
+		while (*s)
+		{
+			set_variable(*s, envp);
+			s++;
+		}
 	}
 	return (0);
 }
