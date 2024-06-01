@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:23:46 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/27 15:24:23 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:06:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct s_flag
 {
+	int		fd;
 	int		length;
 	int		error;
 	int		space;
@@ -36,7 +37,7 @@ typedef struct s_flag
 	char	type;
 }	t_flag;
 
-int		ft_printf(char const *s, ...);
+int		fd_printf(int fd, char const *s, ...);
 void	ft_di(int n, t_flag *flag);
 void	ft_u(unsigned int n, t_flag *flag);
 void	ft_dir(unsigned long p, t_flag *flag);

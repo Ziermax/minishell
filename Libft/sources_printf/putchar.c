@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/27 17:20:30 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:08:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_putchar(char c, t_flag *flag)
 {
 	flag->length++;
-	if (write(1, &c, 1) == -1)
+	if (write(flag->fd, &c, 1) == -1)
 		flag->error = 1;
 }
 
@@ -36,7 +36,7 @@ void	ft_putstr(char *s, t_flag *flag)
 
 	if (!s)
 	{
-		len = write(1, "(null)", 6);
+		len = write(flag->fd, "(null)", 6);
 		if (len == -1)
 		{
 			flag->error = 1;
@@ -47,7 +47,7 @@ void	ft_putstr(char *s, t_flag *flag)
 	else
 	{
 		len = (int)ft_strlen(s);
-		if (write(1, s, len) == -1)
+		if (write(flag->fd, s, len) == -1)
 			flag->error = 1;
 		flag->length += len;
 	}

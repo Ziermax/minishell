@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   fd_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:28:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/27 15:28:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:07:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_read(va_list lst, char *s, t_flag *flag)
 	}
 }
 
-int	ft_printf(char const *s, ...)
+int	fd_printf(int fd, char const *s, ...)
 {
 	va_list	lst;
 	t_flag	flag;
@@ -58,6 +58,7 @@ int	ft_printf(char const *s, ...)
 	if (!s)
 		return (-1);
 	flag = init_struct();
+	flag.fd = fd;
 	va_start(lst, s);
 	ft_read(lst, (char *)s, &flag);
 	va_end(lst);
