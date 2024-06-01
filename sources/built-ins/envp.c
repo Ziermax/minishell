@@ -6,22 +6,22 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:56:10 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/28 14:17:24 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:28:31 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-int	print_env(char **envp)
+int	print_char(char **s)
 {
 	int	error;
 
-	while (*envp)
+	while (*s)
 	{
-		error = printf("%s\n", *envp);
+		error = printf("%s\n", *s);
 		if (error == -1)
 			return (1);
-		envp++;
+		s++;
 	}
 	return (0);
 }

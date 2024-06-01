@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:20:38 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/30 18:07:18 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:26:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	ft_cd(char *path)
 	char	*slash;
 	char	*pwd;
 
-	//if (!path)
-	//	chdir(get_home());
 	if (path[0] == '/')
 		chdir(path);
 	else
