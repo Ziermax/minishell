@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./Libft/libft.a
 
-SRC_F = minishell.c token.c #main.c
+SRC_F = minishell.c token.c token_utils.c #main.c
 SRC_D = ./sources/
 
 OBJ_F = ${SRC_F:.c=.o}

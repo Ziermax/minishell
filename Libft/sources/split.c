@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:24:52 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 20:37:11 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:28:27 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ char	*skip_spaces(char *str)
 		return (NULL);
 	while (ft_isspace(*str))
 		str++;
+	return (str);
+}
+
+char	*no_skip(char *str)
+{
 	return (str);
 }
 

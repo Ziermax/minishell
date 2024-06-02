@@ -6,16 +6,11 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:08:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/29 20:54:27 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:54:07 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	ft_istoken(int c)
-{
-	return (c == '<' || c == '>' || c == '&' || c == '|');
-}
 
 char	*next_token(char *str)
 {
@@ -30,45 +25,67 @@ char	*next_token(char *str)
 	}
 	while (*str && !ft_istoken(*str) && !ft_isspace(*str))
 	{
-		if (*str == '\'' || *str == '\"')
-			str = next_string(str);
-		if (*str)
+		if (*str != '\'' && *str != '\"')
 			str++;
+		else
+			str = next_string(str);
 	}
 	return (str);
 }
 
-t_token	*tokener(char *line)
+t_token	*assing_tokens(char **token_split)
 {
 	t_token	*tokens;
-	char	**splitted_line;
-	int		i;
+	t_token	*new;
+	int	i;
 
-	tokens = NULL;
-	splitted_line = ultra_split(line, skip_spaces, next_token);
 	i = 0;
-	while (splitted_line[i])
+	tokens = NULL;
+	while (token_split[i])
 	{
-		printf("splitted_line[%d]: \"%s\"\n", i, splitted_line[i]);
+		new = create_token();
+		if (!new)
+			return (free_tokens(&tokens), NULL);
+		new->string = token_split[i];
+		add_token(&tokens, new);
+		printf("token_split[%d]: \"%s\"\n", i, token_split[i]);
 		i++;
 	}
-	free_split(splitted_line);
+	tokens->state = DONE;
+	return (tokens);
+}
+
+t_token	*tokener(char *line)
+{
+	char	**token_split;
+	t_token	*tokens;
+
+	tokens = NULL;
+	token_split = ultra_split(line, skip_spaces, next_token);
+	if (!token_split)
+		return (NULL);
+	tokens = assing_tokens(token_split);
+	if (!tokens)
+		return (free_split(token_split), NULL);
+	free(token_split);
 	return (tokens);
 }
 
 int	main(void)
 {
-	char	**splitted_line;
+	char	**token_split;
 	int		i;
 	char	*str;
 
-	str = "l$USER>i$USERnfile<outf\"ile cat \"e|g\"rep $USER\"hola|>outfile \"Holla mundo\"";
-	splitted_line = ultra_split(str, skip_spaces, next_token);
+	str = "()()l$USER>>i$USERnfile<&'out'f\"ile ca<>|&t \"e|g\"rep $USER\" hola|>outfile \"Holla mundo\"";
+//	str = "(cat)&&$$$(echo ls -l)";
+	printf("str:\n%s\n\n", str);
+	token_split = ultra_split(str, skip_spaces, next_token);
 	i = 0;
-	while (splitted_line[i])
+	while (token_split[i])
 	{
-		printf("splitted_line[%d]: %s\n", i, splitted_line[i]);
+		printf("token_split[%d]: %s\n", i, token_split[i]);
 		i++;
 	}
-	free_split(splitted_line);
+	free_split(token_split);
 }
