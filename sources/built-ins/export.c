@@ -3,160 +3,132 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
+/*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 17:24:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/01 18:43:59 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/06/06 13:26:49 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/06/06 15:48:27 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-static char	*add_quotes(const char *s)
+static int	print_exp(char **s)
 {
-	char	*result;
-	size_t	len;
-	int		i;
+	int	i;
 
-	len = strlen(s);
-	result = calloc(len + 3, sizeof(char));
-	if (!result)
-		return (NULL);
 	i = 0;
-	while (*s)
+	if (!s)
+		return (1);
+	while (s[i])
 	{
-		result[i] = *s;
-		if (result[i] == '=' && len != -1)
-		{
-			i++;
-			result[i] = '\"';
-			len = -1;
-		}
+		if (printf("declare -x %s\n", s[i]) == -1)
+			return (1);
 		i++;
-		s++;
 	}
-	result[i] = '\"';
-	return (result);
+	return (0);
 }
 
-static int	sort_one(t_data *data, char *s)
+static int	add_to_exp(char ***exp, char *s)
 {
 	char	**new;
 	int		i;
 
-	i = 0;
-	while (data->exp[i])
-		i++;
-	new = calloc(i + 2, sizeof(char *));
+	new = calloc(get_size(*exp) + 2, sizeof(char *));
 	if (!new)
 		return (1);
 	i = 0;
-	while (data->exp[i] && strcmp(s, data->exp[i]) > 0)
+	while ((*exp)[i] && strcmp((*exp)[i], s) < 0)
 	{
-		new[i] = strdup(data->exp[i]);
+		new[i] = (*exp)[i];
 		i++;
 	}
-	new[i++] = strdup(s);
-	while (data->exp[i - 1])
+	new[i] = strdup(s);
+	if (!new[i])
 	{
-		new[i] = strdup(data->exp[i - 1]);
+		//ft_free(new);
+		return (1);
+	}
+	while ((*exp)[i])
+	{
+		new[i + 1] = (*exp)[i];
 		i++;
 	}
-	ft_freeze(data->exp);
-	data->exp = new;
+	free(*exp);
+	*exp = new;
 	return (0);
 }
 
-static int	put_var(t_data *data, char *s, int equal)
+static int	add_to_env(char ***env, char *s)
 {
-	char	*new_var;
+	char	**new;
+	int		i;
 
-	if (equal == 1)
-		new_var = add_quotes(s);
-	else
-		new_var = s;
-	if (!new_var)
+	new = calloc(get_size(*env) + 2, sizeof(char *));
+	if (!new)
 		return (1);
-	return (sort_one(data, new_var));
+	i = 0;
+	while ((*env)[i])
+	{
+		new[i] = (*env)[i];
+		i++;
+	}
+	new[i] = strdup(s);
+	if (!new[i])
+	{
+		//ft_free(new);
+		return (1);
+	}
+	free(*env);
+	*env = new;
+	return (0);
 }
 
-static int	check_export(char *s)
+static int	check_input(char *s)
 {
 	int	i;
 	int	type;
 
+	if (!s)
+		return (0);
+	if (!isalpha(s[0]) && s[0] != '_')
+		return (-1);
 	i = 0;
 	type = 0;
-	if (s[0] == '=')
-		return (-1);
 	while (s[i])
 	{
-		if (s[i] == '=')
+		if (s[i] == '=' && type != -1)
 			type = 1;
+		if (!isalnum(s[i]) && s[i] != '_' && s[i] != '=')
+			type = -1;
 		i++;
 	}
 	return (type);
 }
 
-static void	add_env(t_data *data, char *var)
-{
-	int	i;
-
-	i = 0;
-	while (data->envp[i])
-		i++;
-	data->envp[i] = var;
-	data->envp[i + 1] = NULL;
-}
-
-static int	print_exp(char **s)
-{
-	int	error;
-
-	while (*s)
-	{
-		error = printf("declare -x %s\n", *s);
-		if (error == -1)
-			return (1);
-		s++;
-	}
-	return (0);
-}
-
-static int	check_num(char *s)
-{
-	if (s[0] > '0' && s[0] < '9')
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_export(char **s, t_data *data)
+int	ft_export(t_data *data, char **input)
 {
 	int	type;
-	int	error;
+	int	flag;
 
-	error = 0;
-	if (!s || !(*s))
+	flag = 0;
+	input++;
+	if (!input || !*input)
 		return (print_exp(data->exp));
 	else
 	{
-		while (*s)	
+		while (*input)
 		{
-			type = check_export(*s);
+			type = check_input(*input);
 			if (type == -1)
-				error = 1;
-			else if (type == 1)
-				add_env(data, *s);
-			if (type != -1 && !check_num(*s))
-				error += put_var(data, *s, type);
+				flag = 1;
 			else
-				error = 1;
-			s++;
+			{
+				if (type == 1)
+					flag += add_to_env(&(data->env), *input);
+				flag += add_to_exp(&(data->exp), *input);
+			}
+			input++;
 		}
 	}
-	print_exp(data->exp);
-	if (error > 0)
-		error = 1;
-	return (error);
+	return (flag > 0);
 }

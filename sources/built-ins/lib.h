@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vilbasura.h                                        :+:      :+:    :+:   */
+/*   lib.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/01 17:36:37 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:24:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <dirent.h>
+# include <ctype.h>
 # include <sys/errno.h>
 # include "../../Libft/includes/libft.h"
 
@@ -36,25 +37,18 @@
 
 typedef struct	s_data
 {
-	char	**envp;
+	char	**env;
 	char	**exp;
-}				t_data;
+}	t_data;
 
-int		print_pwd(void);
-int		print_char(char **s);
-int		print_echo(char **s);
-int		ft_cd(char *path);
-int		ft_unset(char **s, char **envp);
-int		ft_exit(void);
+//int		print_echo(char **s);
+//int		ft_cd(char *path);
+//int		ft_unset(char **s, char **envp);
+//int		ft_exit(void);
+//char		*get_pwd(void);
 
-char	*get_pwd(void);
+int		ft_export(t_data *data, char **str);
+size_t	get_size(char **s);
 
-char	**split(char *str, char c);
-
-int		ft_export(char **s, t_data *data);
-
-void	put_quotts(char *s);
-char	**get_dup(char **envp);
-void	ft_freeze(char **s);
 
 #endif
