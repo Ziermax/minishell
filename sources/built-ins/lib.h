@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/07 14:28:39 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:18:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct	s_data
 int		ft_unset(t_data *data, char **input);
 int		ft_export(t_data *data, char **input);
 size_t	get_size(char **s);
+
+int		ft_free(char ***s);
 
 
 #endif
