@@ -6,26 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:50:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/07 18:58:29 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:57:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-static void	print_char(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		printf("%s\n", s[i]);
-		i++;
-	}
-	printf("%s\n", s[i]);
-}
-
-static int	del_var(char ***var, char *to_del, int index)
+int	del_var(char ***var, char *to_del, int index)
 {
 	int		i;
 	int		j;
@@ -46,22 +33,6 @@ static int	del_var(char ***var, char *to_del, int index)
 	}
 	ft_free(var);
 	*var = new;
-	return (0);
-}
-
-static int	check_var(char **var, char *s)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = strlen(s);
-	while (var[i])
-	{
-		if (strncmp(var[i], s, len) == 0)
-			return (i);
-		i++;
-	}
 	return (0);
 }
 

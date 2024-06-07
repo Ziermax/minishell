@@ -6,11 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:26:49 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/06 15:48:27 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/07 20:19:55 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
+
+// Falta mirar las variables que ya existen
 
 static int	print_exp(char **s)
 {
@@ -42,10 +44,10 @@ static int	add_to_exp(char ***exp, char *s)
 		new[i] = (*exp)[i];
 		i++;
 	}
-	new[i] = strdup(s);
+	new[i] = put_quots(s);
 	if (!new[i])
 	{
-		//ft_free(new);
+		ft_free(&new);
 		return (1);
 	}
 	while ((*exp)[i])
@@ -75,7 +77,7 @@ static int	add_to_env(char ***env, char *s)
 	new[i] = strdup(s);
 	if (!new[i])
 	{
-		//ft_free(new);
+		ft_free(&new);
 		return (1);
 	}
 	free(*env);
@@ -83,13 +85,11 @@ static int	add_to_env(char ***env, char *s)
 	return (0);
 }
 
-static int	check_input(char *s)
+static int	check_input(t_data *data, char *s)
 {
-	int	i;
-	int	type;
+	int		i;
+	int		type;
 
-	if (!s)
-		return (0);
 	if (!isalpha(s[0]) && s[0] != '_')
 		return (-1);
 	i = 0;
@@ -118,7 +118,7 @@ int	ft_export(t_data *data, char **input)
 	{
 		while (*input)
 		{
-			type = check_input(*input);
+			type = check_input(data, *input);
 			if (type == -1)
 				flag = 1;
 			else

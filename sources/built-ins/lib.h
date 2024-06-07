@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/07 17:18:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/07 20:06:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ int		ft_export(t_data *data, char **input);
 size_t	get_size(char **s);
 
 int		ft_free(char ***s);
+int		check_var(char **var, char *s);
+
+char	*put_quots(char *s);
 
 
 #endif
