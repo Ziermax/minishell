@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:31:35 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/08 12:50:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:23:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_var(char *s)
 	while (s[i] && s[i] != '=')
 		i++;
 	if (s[i] != '=')
-		return (NULL);
+		return (strdup(s));
 	var = calloc(i + 1, sizeof(char));
 	if (!var)
 		return (NULL);

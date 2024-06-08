@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/08 12:41:15 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:07:40 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct	s_data
 	char	**exp;
 }	t_data;
 
-int			ft_unset(t_data *data, char **input);
 int			ft_export(t_data *data, char **input);
-
+int			ft_unset(t_data *data, char **input);
+int			ft_delete_var(char ***str, char *var);
 
 // Utils
 

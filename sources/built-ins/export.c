@@ -5,130 +5,120 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 13:26:49 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/07 20:19:55 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/06/08 12:53:01 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/06/08 13:20:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-// Falta mirar las variables que ya existen
-
-static int	print_exp(char **s)
+static int	add_to_exp(char ***str, char *var)
 {
+	char	**new;
+	int		i;
+
+	new = calloc(get_size(*str) + 2, sizeof(char *));
+	if (!new)
+		return (1);
+	i = 0;
+	while ((*str)[i] && strcmp((*str)[i], var) < 0)
+	{
+		new[i] = strdup((*str)[i]);
+		i++;
+	}
+	new[i] = put_quots(var);
+	if (!new[i])
+		return (ft_free(&new));
+	while ((*str)[i])
+	{
+		new[i + 1] = strdup((*str)[i]);
+		i++;
+	}
+	new[i + 1] = NULL;
+	free(*str);
+	*str = new;
+	return (0);
+}
+
+static int	add_to_env(char ***str, char *var)
+{
+	char	**new;
+	int		i;
+
+	new = calloc(get_size(*str) + 2, sizeof(char *));
+	if (!new)
+		return (1);
+	i = 0;
+	while ((*str)[i])
+	{
+		new[i] = strdup((*str)[i]);
+		if (!new[i])
+			return (ft_free(&new));
+		i++;
+	}
+	new[i] = strdup(var);
+	new[i + 1] = NULL;
+	free(*str);
+	*str = new;
+	return (0);
+}
+
+static int	check_exp(char *var)
+{
+	int	type;
 	int	i;
 
-	i = 0;
-	if (!s)
-		return (1);
-	while (s[i])
-	{
-		if (printf("declare -x %s\n", s[i]) == -1)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	add_to_exp(char ***exp, char *s)
-{
-	char	**new;
-	int		i;
-
-	new = calloc(get_size(*exp) + 2, sizeof(char *));
-	if (!new)
-		return (1);
-	i = 0;
-	while ((*exp)[i] && strcmp((*exp)[i], s) < 0)
-	{
-		new[i] = (*exp)[i];
-		i++;
-	}
-	new[i] = put_quots(s);
-	if (!new[i])
-	{
-		ft_free(&new);
-		return (1);
-	}
-	while ((*exp)[i])
-	{
-		new[i + 1] = (*exp)[i];
-		i++;
-	}
-	free(*exp);
-	*exp = new;
-	return (0);
-}
-
-static int	add_to_env(char ***env, char *s)
-{
-	char	**new;
-	int		i;
-
-	new = calloc(get_size(*env) + 2, sizeof(char *));
-	if (!new)
-		return (1);
-	i = 0;
-	while ((*env)[i])
-	{
-		new[i] = (*env)[i];
-		i++;
-	}
-	new[i] = strdup(s);
-	if (!new[i])
-	{
-		ft_free(&new);
-		return (1);
-	}
-	free(*env);
-	*env = new;
-	return (0);
-}
-
-static int	check_input(t_data *data, char *s)
-{
-	int		i;
-	int		type;
-
-	if (!isalpha(s[0]) && s[0] != '_')
+	if (!isalpha(var[0]) && var[0] != '_')
 		return (-1);
-	i = 0;
+	i = 1;
 	type = 0;
-	while (s[i])
+	while (var[i])
 	{
-		if (s[i] == '=' && type != -1)
+		if (!isalnum(var[i]) && var[i] != '_' && var[i] != '=')
+			return (-1);
+		if (var[i] == '=')
 			type = 1;
-		if (!isalnum(s[i]) && s[i] != '_' && s[i] != '=')
-			type = -1;
 		i++;
 	}
 	return (type);
 }
 
+static int	print_exp(char **s)
+{
+	while (*s)
+	{
+		if (printf("declare -x %s\n", *s) == -1)
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
 int	ft_export(t_data *data, char **input)
 {
-	int	type;
 	int	flag;
+	int	type;
 
-	flag = 0;
 	input++;
-	if (!input || !*input)
+	if (!input)
 		return (print_exp(data->exp));
-	else
+	flag = 0;
+	while (*input)
 	{
-		while (*input)
+		type = check_exp(*input);
+		if (type == -1)
+			flag = 1;
+		else
 		{
-			type = check_input(data, *input);
-			if (type == -1)
-				flag = 1;
-			else
+			if (type)
 			{
-				if (type == 1)
-					flag += add_to_env(&(data->env), *input);
-				flag += add_to_exp(&(data->exp), *input);
+				flag += ft_delete_var(&(data->env), get_var(*input));
+				flag += ft_delete_var(&(data->exp), get_var(*input));
+				flag += add_to_env(&(data->env), *input);
 			}
-			input++;
+			flag += add_to_exp(&(data->exp), *input);
 		}
+		input++;
 	}
-	return (flag > 0);
+	return (flag);
 }
