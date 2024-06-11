@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 20:06:58 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:09:28 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 			write(1, "\n", 1);
 			continue ;
 		}
+		//check_line(argv);
 		printf("line: \"%s\"\n", line);
 		if (search_word_relative("exit", line, STR_START))
 		{
