@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:50:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/08 14:12:15 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:42:42 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_cd(const char *path)
 	return (0);
 }
 
-int	get_pwd(void)
+int	print_pwd(void)
 {
 	char	*cwd;
 
