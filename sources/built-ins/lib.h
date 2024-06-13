@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/08 13:48:45 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:58:37 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <dirent.h>
 # include <ctype.h>
 # include <sys/errno.h>
-# include "../../Libft/includes/libft.h"
+//# include "../../Libft/includes/libft.h"
 
 # define MAX_PATH 1024
 
@@ -41,8 +41,8 @@ typedef struct	s_data
 	char	**exp;
 }	t_data;
 
-int			ft_cd(const char *path);
-int			get_pwd(void);
+int			ft_cd(t_data *data, char **input);
+int			print_pwd(void);
 int			ft_export(t_data *data, char **input);
 int			ft_unset(t_data *data, char **input);
 int			ft_delete_var(char ***str, char *var);

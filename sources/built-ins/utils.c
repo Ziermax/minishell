@@ -6,13 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:31:35 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/08 13:23:06 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:27:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
-
-// getcwd(NULL, 0)
 
 int	print_char(char **s)
 {
@@ -119,6 +117,21 @@ int	check_var(char **s, char *var)
 		if (strncmp(s[idx], var, len) == 0)
 			return (idx);
 		idx++;
+	}
+	return (-1);
+}
+
+int	get_index_var(char **var, const char *to_find)
+{
+	int	i;
+	int	len;
+
+	len = strlen(to_find);
+	i = 0;
+	while (var[i])
+	{
+		if (strncmp(to_find, *var, len) == 0)
+			return (i);
 	}
 	return (-1);
 }
