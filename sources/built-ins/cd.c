@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/13 17:45:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:44:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,19 @@ static int	update_pwd(char ***env, const char *path)
 
 	pwd_idx = get_index_var(*env, "PWD=");
 	oldpwd_idx = get_index_var(*env, "OLDPWD=");
-	
-	// Viejo
-	
-	new = strjoin("OLD", (*env)[pwd_idx]);
+	if (pwd_idx == -1 || oldpwd_idx == -1)
+		return (1);
+	new = ft_join("OLD", (*env)[pwd_idx]);
 	if (!new)
 		return (1);
 	free((*env)[oldpwd_idx]);
 	(*env)[oldpwd_idx] = new;
-
-	// Nuevo
-	
-	new = strjoin("PWD", path);
+	new = ft_join("PWD=", (char *)path);
 	if (!new)
 		return (1);
 	free((*env)[pwd_idx]);
 	(*env)[pwd_idx] = new;
+	return (0);
 }
 
 static int	make_cd(t_data *data, const char *path)
@@ -45,9 +42,9 @@ static int	make_cd(t_data *data, const char *path)
 		perror("bash: cd: (Path)");
 		return (1);
 	}
-	if (update_pwd(&(data->env), path) == -1);
+	if (update_pwd(&(data->env), path) == -1)
 		return (1);
-	if (update_pwd(&(data->exp), path) == -1);
+	if (update_pwd(&(data->exp), path) == -1)
 		return (1);
 	return (0);
 }

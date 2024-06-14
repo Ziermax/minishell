@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:31:35 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/13 17:27:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:46:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	print_char(char **s)
 	return (0);
 }
 
-char *put_quots(char *s)
+char	*put_quots(char *s)
 {
 	char	*new;
 	int		i;
@@ -62,9 +62,9 @@ size_t	get_size(char **s)
 	return (i);
 }
 
-int ft_free(char ***s)
+int	ft_free(char ***s)
 {
-    char **ptr;
+	char	**ptr;
 
 	ptr = *s;
 	if (!ptr || !*ptr)
@@ -130,8 +130,36 @@ int	get_index_var(char **var, const char *to_find)
 	i = 0;
 	while (var[i])
 	{
-		if (strncmp(to_find, *var, len) == 0)
+		if (strncmp(to_find, var[i], len) == 0)
 			return (i);
+		i++;
 	}
 	return (-1);
+}
+
+char	*ft_join(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	char	*r;
+
+	if (!s1 || !s2)
+		return (NULL);
+	r = (char *)calloc(strlen(s1) + strlen(s2) + 1, sizeof(char));
+	if (!r)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		r[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j] != '\0')
+	{
+		r[i] = s2[j];
+		i++;
+		j++;
+	}
+	return (r);
 }

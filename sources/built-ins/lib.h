@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/13 16:58:37 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:30:54 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ char		*get_var(char *s);
 int			check_var(char **s, char *var);
 char		*put_quots(char *s);
 int			print_char(char **s);
+int			get_index_var(char **var, const char *to_find);
+char		*ft_join(char *s1, char *s2);
 
 #endif
