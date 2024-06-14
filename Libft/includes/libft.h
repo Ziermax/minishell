@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/06 13:02:07 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:47:39 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*next_string(char *str);
 char	**ultra_split(char *str, char *(*skip)(char *), char *(*next)(char *));
 char	**ft_split(char *str);
 /*	extra functions	*/
-int		fd_printf(int fd, char *str, ...);
+int		fd_printf(int fd, const char *str, ...);
 void	error_printf(int error, char *str, ...);
 char	*get_next_line(int fd);
 

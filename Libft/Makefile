@@ -9,7 +9,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_ALL_F = length.c search.c malloc.c join.c split.c ultra_split.c is_alphanumeric.c is_what.c string.c
 SRC_ALL_D = ./sources/
 
-SRC_PRINTF_F = flags.c ft_num.c ft_printf.c init_flags.c put_flags.c put_number.c putchar.c
+SRC_PRINTF_F = flags.c ft_num.c fd_printf.c init_flags.c put_flags.c put_number.c putchar.c
 SRC_PRINTF_D = ./sources_printf/
 
 SRC_GNL_F = get_next_line.c get_next_line_utils.c
