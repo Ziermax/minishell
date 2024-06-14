@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:24:52 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/31 20:28:27 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:50:34 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*next_string(char *str)
 		while (*str && *str != '\'')
 			str++;
 	else
-		while (*str && !ft_isspace(*str) && *str != '\'' && *str != '\"')
+		while (*str && *str != '\'' && *str != '\"')
 			str++;
 	if (quote && (*str == '\'' || *str == '\"'))
 		str++;
