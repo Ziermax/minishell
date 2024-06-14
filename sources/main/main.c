@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/11 14:09:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:51:40 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
+	t_data	data;
+
+	if (init_data(&data, envp) == -1)
+		return (1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	argc = 0;
 	argv = 0;

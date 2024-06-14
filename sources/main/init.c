@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
+/*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/11 17:40:52 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/06/14 13:54:14 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../includes/minishell.h"
-#include "lib2.h"
+#include "lib.h"
 
 static void	sort(char **s)
 {
@@ -39,10 +38,9 @@ static void	sort(char **s)
 
 static int	init_exp(char ***exp, char **envp)
 {
-	size_t	i;
-	size_t	size;
+	size_t			i;
+	const size_t	size = get_size(envp);
 
-	size = get_size(envp);
 	*exp = calloc(size + 1, sizeof(char *));
 	if (!*exp)
 		return (-1);
@@ -61,10 +59,9 @@ static int	init_exp(char ***exp, char **envp)
 
 static int	init_env(char ***env, char **envp)
 {
-	size_t	i;
-	size_t	size;
-	  
-	size = get_size(envp);
+	size_t			i;
+	const size_t	size = get_size(envp);
+
 	*env = calloc(size + 1, sizeof(char *));
 	if (!*env)
 		return (-1);
@@ -80,26 +77,11 @@ static int	init_env(char ***env, char **envp)
 	return (0);
 }
 
-static int	init_data(t_data *data, char **envp)
+int	init_data(t_data *data, char **envp)
 {
 	if (init_env(&(data->env), envp) == -1)
-		return (-1);
+	   return (-1);
 	if (init_exp(&(data->exp), envp) == -1)
 		return (-1);
-	data->flag = 0;
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_data data;
-
-	if (init_data(&data, envp) == -1)
-		return (1);
-	while (1)
-	{
-		printf("minishell: ", get_pwd());
-	}
-	(void)argc;
-	(void)argv;
-	return (data.flag);
+	return (0);
 }
