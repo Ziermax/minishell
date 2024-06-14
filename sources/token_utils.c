@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:28:05 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/31 21:25:12 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:13:13 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	ft_istoken(int c)
 {
-	return (c == '<' || c == '>' || c == '&'
+	return (c == '<' || c == '>'
 		|| c == '|' || c == '(' || c == ')');
 }
+// || c == '&'
 
 t_token	*create_token(void)
 {
@@ -28,9 +29,9 @@ t_token	*create_token(void)
 	token->string = NULL;
 	token->next = NULL;
 	token->type = 0;
-	token->to_expand = 1;
 	return (token);
 }
+//	token->to_expand = 1;
 
 void	add_token(t_token **lst_token, t_token *token)
 {
@@ -38,7 +39,7 @@ void	add_token(t_token **lst_token, t_token *token)
 
 	if (!lst_token || !token)
 		return ;
-	if (!lst_token)
+	if (!*lst_token)
 	{
 		*lst_token = token;
 		return ;
@@ -60,8 +61,7 @@ void	free_tokens(t_token **lst_token)
 	while (aux)
 	{
 		tmp = aux->next;
-		if ((*lst_token)->state == DONE)
-			free(aux->string);
+		free(aux->string);
 		free(aux);
 		aux = tmp;
 	}
@@ -73,10 +73,13 @@ void	print_tokens(t_token *token)
 	while (token)
 	{
 		printf("TOKEN [%p]:\n", token);
-		printf("| string: \"_%s_\"\n", token->string);
-		printf("| type: %d\n", token->type);
-		printf("| to_expand: %d\n", token->to_expand);
+		printf("| string: _%s_\n", token->string);
+		if (token->type)
+			printf("| type: '%c'\n", token->type);
+		else
+			printf("| type: %d\n", token->type);
 		printf("| next: [%p]\n", token->next);
 		token = token->next;
 	}
 }
+//		printf("| to_expand: %d\n", token->to_expand);
