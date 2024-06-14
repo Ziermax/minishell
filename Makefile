@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./Libft/libft.a
 
-SRC_F = minishell.c token.c token_utils.c #main.c
+SRC_F = minishell.c clean.c token_utils.c token.c analize_tokens.c # main.c
 SRC_D = ./sources/
 
 OBJ_F = ${SRC_F:.c=.o}
@@ -37,7 +37,7 @@ BBLACK=\033[1;30m#		Bold Black
 all: libftmake ${NAME}
 
 ${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT}
-	@${CC} ${CFLAGS} ${LIBFT} ${OBJ} -o ${NAME}
+	@${CC} ${CFLAGS} ${OBJ} ${LIBFT} -o ${NAME}
 	@echo "\n${RED}Compiling progam:${DF}"
 	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS}${DF} ${BIGREEN}${OBJ_F}${DF} \
 	${BIPRPL}${LIBFT}${DF} ${BCYAN}-o${DF} ${RED}${NAME}${DF}"
