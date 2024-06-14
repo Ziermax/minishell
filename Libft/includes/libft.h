@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/14 17:26:56 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:39:48 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	*ft_calloc(int count, int size);
 char	*ft_strdup(char *str);
 char	*ft_strjoin(char *str1, char *str2);
 char	*ft_threejoin(char *str1, char *str2, char *str3);
+char	*ft_splitjoin(char **split);
 /*	search functions	*/
 char	*search_word_relative(char *word, char *str, int flag);
 char	*search_word_in_str(char *word, char *str);

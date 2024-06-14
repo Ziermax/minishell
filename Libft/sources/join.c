@@ -6,14 +6,12 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:02:55 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 19:53:32 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:51:22 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "../includes/libft.h"
-
-#include <stdio.h>
 
 char	*ft_strjoin(char *str1, char *str2)
 {
@@ -89,10 +87,7 @@ char	*ft_splitjoin(char	**split)
 	i = 0;
 	j = 0;
 	while (split[i])
-	{
 		j = ft_strfcat(join, split[i++], len + 1, j);
-		printf("j: %d\n", j);
-	}
 	return (join);
 }
 /*
