@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:31:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/16 12:09:08 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 13:33:49 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ typedef struct s_data
 	char			**exp;
 }	t_data;
 
-void	minisheller(char *line);
-t_token	*tokener(char *line);
+void				minisheller(char *line);
+t_token				*tokener(char *line);
+int					init_data(t_data *data, char **envp);
+int					ft_free(char ***s);
 
 #endif

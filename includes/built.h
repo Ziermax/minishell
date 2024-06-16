@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/16 11:57:12 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 13:32:56 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int			ft_delete_var(char ***str, char *var);
 
 // Utils
 
-int			ft_free(char ***s);
 size_t		get_size(char **s);
 char		*get_var(char *s);
 int			check_var(char **s, char *var);
