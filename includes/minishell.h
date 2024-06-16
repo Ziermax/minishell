@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:31:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/26 18:08:35 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 11:42:51 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <limits.h>
+# include <sys/errno.h>
 # include "../Libft/includes/libft.h"
 
 typedef struct s_token
@@ -26,6 +28,12 @@ typedef struct s_token
 	char			type;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_data
+{
+	char			**env;
+	char			**exp;
+}	t_data;
 
 void	minisheller(char *line);
 t_token	*tokener(char *line);
