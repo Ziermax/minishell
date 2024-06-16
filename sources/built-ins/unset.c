@@ -6,11 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:43:07 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/08 13:04:20 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 11:52:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/built.h"
 
 static int	ft_get_new(char **old, char ***new, int index)
 {
@@ -23,7 +23,7 @@ static int	ft_get_new(char **old, char ***new, int index)
 	{
 		if (i != index)
 		{
-			(*new)[j] = strdup(old[i]);
+			(*new)[j] = ft_strdup(old[i]);
 			if (!(*new)[j])
 				return (-1);
 			j++;
@@ -45,7 +45,7 @@ int	ft_delete_var(char ***str, char *var)
 		free(var);
 		return (1);
 	}
-	new = calloc(get_size(*str), sizeof(char *));
+	new = ft_calloc(get_size(*str), sizeof(char *));
 	if (!new)
 	{
 		free(var);

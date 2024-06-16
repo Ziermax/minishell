@@ -6,11 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:31:35 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/14 13:46:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 12:02:11 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/built.h"
 
 int	print_char(char **s)
 {
@@ -30,7 +30,7 @@ char	*put_quots(char *s)
 	int		j;
 	int		equal;
 
-	new = calloc(strlen(s) + 3, sizeof(char));
+	new = ft_calloc(ft_strlen(s) + 3, sizeof(char));
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -89,8 +89,8 @@ char	*get_var(char *s)
 	while (s[i] && s[i] != '=')
 		i++;
 	if (s[i] != '=')
-		return (strdup(s));
-	var = calloc(i + 1, sizeof(char));
+		return (ft_strdup(s));
+	var = ft_calloc(i + 1, sizeof(char));
 	if (!var)
 		return (NULL);
 	i = 0;
@@ -110,11 +110,11 @@ int	check_var(char **s, char *var)
 
 	if (!var || !s || !*s)
 		return (-1);
-	len = strlen(var);
+	len = ft_strlen(var);
 	idx = 0;
 	while (s[idx])
 	{
-		if (strncmp(s[idx], var, len) == 0)
+		if (ft_strncmp(s[idx], var, len) == 0)
 			return (idx);
 		idx++;
 	}
@@ -126,40 +126,29 @@ int	get_index_var(char **var, const char *to_find)
 	int	i;
 	int	len;
 
-	len = strlen(to_find);
+	len = ft_strlen((char *)to_find);
 	i = 0;
 	while (var[i])
 	{
-		if (strncmp(to_find, var[i], len) == 0)
+		if (ft_strncmp(to_find, var[i], len) == 0)
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-char	*ft_join(char *s1, char *s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		i;
-	int		j;
-	char	*r;
+	size_t	i;
 
-	if (!s1 || !s2)
-		return (NULL);
-	r = (char *)calloc(strlen(s1) + strlen(s2) + 1, sizeof(char));
-	if (!r)
-		return (NULL);
 	i = 0;
-	while (s1[i] != '\0')
+	while (i < n)
 	{
-		r[i] = s1[i];
+		if (!s1[i] || !s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		r[i] = s2[j];
-		i++;
-		j++;
-	}
-	return (r);
+	return (0);
 }

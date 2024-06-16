@@ -6,11 +6,11 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:18:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/01 14:19:25 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 11:48:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/built.h"
 
 static int	print_echo2(char **s, int newline)
 {

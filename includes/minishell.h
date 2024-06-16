@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:31:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 14:48:08 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 12:01:36 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct s_token
 	char			type;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_data
+{
+	char			**env;
+	char			**exp;
+}	t_data;
 
 void	minisheller(char *line);
 t_token	*tokener(char *line);

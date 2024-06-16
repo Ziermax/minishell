@@ -6,24 +6,24 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 12:53:01 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/08 13:20:17 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 11:51:25 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/built.h"
 
 static int	add_to_exp(char ***str, char *var)
 {
 	char	**new;
 	int		i;
 
-	new = calloc(get_size(*str) + 2, sizeof(char *));
+	new = ft_calloc(get_size(*str) + 2, sizeof(char *));
 	if (!new)
 		return (1);
 	i = 0;
-	while ((*str)[i] && strcmp((*str)[i], var) < 0)
+	while ((*str)[i] && ft_strcmp((*str)[i], var) < 0)
 	{
-		new[i] = strdup((*str)[i]);
+		new[i] = ft_strdup((*str)[i]);
 		i++;
 	}
 	new[i] = put_quots(var);
@@ -31,7 +31,7 @@ static int	add_to_exp(char ***str, char *var)
 		return (ft_free(&new));
 	while ((*str)[i])
 	{
-		new[i + 1] = strdup((*str)[i]);
+		new[i + 1] = ft_strdup((*str)[i]);
 		i++;
 	}
 	new[i + 1] = NULL;
@@ -45,18 +45,18 @@ static int	add_to_env(char ***str, char *var)
 	char	**new;
 	int		i;
 
-	new = calloc(get_size(*str) + 2, sizeof(char *));
+	new = ft_calloc(get_size(*str) + 2, sizeof(char *));
 	if (!new)
 		return (1);
 	i = 0;
 	while ((*str)[i])
 	{
-		new[i] = strdup((*str)[i]);
+		new[i] = ft_strdup((*str)[i]);
 		if (!new[i])
 			return (ft_free(&new));
 		i++;
 	}
-	new[i] = strdup(var);
+	new[i] = ft_strdup(var);
 	new[i + 1] = NULL;
 	free(*str);
 	*str = new;
@@ -68,13 +68,13 @@ static int	check_exp(char *var)
 	int	type;
 	int	i;
 
-	if (!isalpha(var[0]) && var[0] != '_')
+	if (!ft_isalpha(var[0]) && var[0] != '_')
 		return (-1);
 	i = 1;
 	type = 0;
 	while (var[i])
 	{
-		if (!isalnum(var[i]) && var[i] != '_' && var[i] != '=')
+		if (!ft_isalnum(var[i]) && var[i] != '_' && var[i] != '=')
 			return (-1);
 		if (var[i] == '=')
 			type = 1;

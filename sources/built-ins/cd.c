@@ -6,11 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/14 13:44:47 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/16 11:48:25 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/built.h"
 
 static int	update_pwd(char ***env, const char *path)
 {
@@ -22,12 +22,12 @@ static int	update_pwd(char ***env, const char *path)
 	oldpwd_idx = get_index_var(*env, "OLDPWD=");
 	if (pwd_idx == -1 || oldpwd_idx == -1)
 		return (1);
-	new = ft_join("OLD", (*env)[pwd_idx]);
+	new = ft_strjoin("OLD", (*env)[pwd_idx]);
 	if (!new)
 		return (1);
 	free((*env)[oldpwd_idx]);
 	(*env)[oldpwd_idx] = new;
-	new = ft_join("PWD=", (char *)path);
+	new = ft_strjoin("PWD=", (char *)path);
 	if (!new)
 		return (1);
 	free((*env)[pwd_idx]);
@@ -52,6 +52,6 @@ static int	make_cd(t_data *data, const char *path)
 int	ft_cd(t_data *data, char **input)
 {
 	if (!input || !(*input) || !(*input)[0])
-		return (make_cd(data, strdup(getenv("HOME"))) > 0);
+		return (make_cd(data, ft_strdup(getenv("HOME"))) > 0);
 	return (make_cd(data, *input) > 0);
 }
