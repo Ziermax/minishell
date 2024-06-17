@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/16 13:27:31 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:10:08 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	init_env(char ***env, char **envp)
 int	init_data(t_data *data, char **envp)
 {
 	if (init_env(&(data->env), envp) == -1)
-	   return (-1);
+		return (-1);
 	if (init_exp(&(data->exp), envp) == -1)
 		return (-1);
 	return (0);

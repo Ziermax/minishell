@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/17 15:19:04 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:09:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*get_newline(char *newline)
 	line = readline("> ");
 	if (!line)
 		return (newline);
-	new = ft_strjoin(newline, line);
+	new = ft_threejoin(newline, "\n", line);
 	free(line);
 	if (!new)
 		return (newline);
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		 line = readline("minishell> ");
+		line = readline("minishell> ");
 		if (line)
 		{
 			line = check_line(line);
@@ -94,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 				free(line);
 				break ;
 			}
-			// add_history(line);
+			add_history(line);
 		}
 		free(line);
 	}
