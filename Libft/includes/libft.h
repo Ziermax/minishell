@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/14 17:47:39 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:23:05 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# include <stdlib.h>
 
 # define STR_START 1
 # define STR_ANY 2
@@ -23,13 +24,16 @@
 int		ft_strcmp(char *str1, char *str2);
 int		ft_strlcat(char *dst, char *src, int dstsize);
 int		ft_strfcat(char *dst, char *src, int dstsize, int from);
+void	ft_print_split(char **split);
 /*	length	functions	*/
 int		ft_intlen(int nbr);
 int		ft_splitlen(char **split);
 int		ft_strlen(char *str);
+int		ft_arraylen(void **array);
 /*	mallocers functions	*/
 void	*ft_calloc(int count, int size);
 char	*ft_strdup(char *str);
+void	**add_dir(void **array, void *dir);
 char	*ft_strjoin(char *str1, char *str2);
 char	*ft_threejoin(char *str1, char *str2, char *str3);
 char	*ft_splitjoin(char **split);
