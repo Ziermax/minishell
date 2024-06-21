@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/17 17:10:08 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:31:53 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int	init_data(t_data *data, char **envp)
 		return (-1);
 	if (init_exp(&(data->exp), envp) == -1)
 		return (-1);
+	data->exit = 0;
 	return (0);
 }
