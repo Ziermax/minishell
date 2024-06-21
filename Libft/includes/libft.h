@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/14 17:39:48 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:51:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*ft_splitjoin(char **split);
 char	*search_word_relative(char *word, char *str, int flag);
 char	*search_word_in_str(char *word, char *str);
 char	*search_word_in_split(char *word, char **split);
+int		search_char(const char c, const char *set);
 /*	is_identifiers functions	*/
 int		ft_isdigit(int c);
 int		ft_isupper(int c);

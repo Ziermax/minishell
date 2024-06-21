@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 14:55:30 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/05/28 20:07:14 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:50:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,17 @@ char	*search_word_in_split(char *word, char **split)
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
 
-int	main(void)
+int	search_char(const char c, const char *set)
 {
-	char	*str = "/usr/bin/user";
-	char	*word = "/bin/";
-	char	*found;
+	int	i;
 
-	found = search_word_relative(word, str, STR_START);
-	printf("found start: \"%s\"\n", found);
-	found = search_word_relative(word, str, STR_ANY);
-	printf("found _any_: \"%s\"\n", found);
-	found = search_word_relative(word, str, STR_END);
-	printf("found _end_: \"%s\"\n", found);
-}*/
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}

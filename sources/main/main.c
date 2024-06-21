@@ -6,73 +6,11 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/17 17:09:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:28:44 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	find_comma(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\"')
-		{
-			i++;
-			while (line[i] && line[i] != '\"')
-				i++;
-			if (line[i] != '\"')
-				return ('\"');
-		}
-		else if (line[i] == '\'')
-		{
-			i++;
-			while (line[i] && line[i] != '\'')
-				i++;
-			if (line[i] != '\'')
-				return ('\'');
-		}
-		i++;
-	}
-	return ('\0');
-}
-
-static char	*get_newline(char *newline)
-{
-	char	*line;
-	char	*new;
-
-	line = readline("> ");
-	if (!line)
-		return (newline);
-	new = ft_threejoin(newline, "\n", line);
-	free(line);
-	if (!new)
-		return (newline);
-	free(newline);
-	return (new);
-}
-
-static char	*check_line(char *line)
-{
-	char	*newline;
-	char	comma;
-
-	comma = find_comma(line);
-	if (!comma)
-		return (line);
-	newline = ft_strdup(line);
-	free(line);
-	while (comma)
-	{
-		newline = get_newline(newline);
-		comma = find_comma(newline);
-	}
-	return (newline);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -89,6 +27,8 @@ int	main(int argc, char **argv, char **envp)
 		if (line)
 		{
 			line = check_line(line);
+			if (!line)
+				break ;
 			if (ft_strcmp("exit", line) == 0)
 			{
 				free(line);

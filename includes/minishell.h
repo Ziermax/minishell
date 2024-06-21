@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:31:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/16 13:33:49 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:29:11 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void				minisheller(char *line);
 t_token				*tokener(char *line);
 int					init_data(t_data *data, char **envp);
 int					ft_free(char ***s);
+char				*check_line(char *line);
 
 #endif
