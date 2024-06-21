@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/21 13:50:41 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:06:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,26 @@
 
 static int	look_for(char *line, int *i, char c)
 {
+	int	p;
+
+	p = 0;
 	(*i)++;
 	if (c == '(')
 		c = ')';
 	while (line[*i])
 	{
+		if (line[*i] == '(')
+			p++;
 		if (c == ')' && (line[*i] == '\'' || line[*i] == '\"'))
 			if (look_for(line, i, line[*i]))
 				return (1);
 		if (line[*i] == c)
-			return (0);
+		{
+			if (p)
+				p--;
+			else
+				return (0);
+		}
 		(*i)++;
 	}
 	return (1);
@@ -77,7 +87,7 @@ static int	check_parenthesis(char *line)
 	{
 		if (line[j] == '(')
 		{	
-			if (search_char(line[i], " \t\r=$"))
+			if (search_char(line[i], " \t\r=$()\'\""))
 				return (1);
 		}	
 		i++;
