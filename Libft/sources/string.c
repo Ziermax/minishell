@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:32 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/18 20:22:36 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:33:17 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void	ft_print_split(char **split)
 {
 	int	i;
 
+	if (!split)
+		return ;
 	i = 0;
 	while (split[i])
 	{
-		fd_printf(1, "split[%d]: \"%s\"\n", split[i]);
+		fd_printf(1, "split[%d]: \"%s\"\n", i, split[i]);
 		i++;
 	}
 }
