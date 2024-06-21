@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:31:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/21 13:29:11 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:16:27 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <sys/errno.h>
 # include "../Libft/includes/libft.h"
+# include <signal.h>
 
 typedef struct s_token
 {
