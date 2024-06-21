@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/18 20:23:05 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:40 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # define STR_START 1
 # define STR_ANY 2
@@ -58,6 +59,10 @@ char	*skip_spaces(char *str);
 char	*next_string(char *str);
 char	**ultra_split(char *str, char *(*skip)(char *), char *(*next)(char *));
 char	**ft_split(char *str);
+/*	list functions	*/
+void	lst_add_back(void *list, void *node);
+void	lst_add_front(void *list, void *node);
+void	lst_clear(void *list, void (*del)(void *));
 /*	extra functions	*/
 int		fd_printf(int fd, const char *str, ...);
 void	error_printf(int error, char *str, ...);
