@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/21 14:52:44 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:27:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@ static void	read_shell(void)
 		line = readline("minishell> ");
 		if (line)
 		{
-			line = check_line(line);
-			if (!line)
-				break ;
-			if (ft_strcmp("exit", line) == 0)
+			if (check_line(line))
+				printf("Error\n");
+			if (!check_exit(line))
 			{
 				free(line);
 				break ;
 			}
-			add_history(line);
+			if (line)
+				add_history(line);
 		}
 		else
 			return ;
-		free(line);
+		if (line)
+			free(line);
 	}
 }
 
