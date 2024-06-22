@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:43:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/21 23:46:16 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/22 20:30:08 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	*add_dir(void *array, void *dir)
 	void	**old_array;
 	int		len;
 	int		i;
-	
+
 	old_array = array;
 	len = ft_arraylen(old_array);
 	new_array = malloc(sizeof(void *) * (len + 2));
