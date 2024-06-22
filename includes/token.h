@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:10:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 22:30:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/22 22:53:33 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 bool	analize_tokens(t_token *token);
 int		ft_istoken(int c);
+//t_type	ft_istoken(char *str);
 int		ft_isvarchar(int c);
 t_token	*create_token(void);
 void	del_token(void *token);
