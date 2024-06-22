@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 20:29:18 by mvelazqu         ###   ########.fr       */
+/*   Created: 2024/06/16 20:10:26 by mvelazqu          #+#    #+#             */
+/*   Updated: 2024/06/22 22:30:00 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef TOKEN_H
+# define TOKEN_H
 
-# include "../Libft/includes/libft.h"
+# include <stdbool.h>
 # include "structs.h"
-# include <stdio.h>
 
-t_token	*tokeinator(char *line, char **envp);
+bool	analize_tokens(t_token *token);
+int		ft_istoken(int c);
+int		ft_isvarchar(int c);
+t_token	*create_token(void);
 void	del_token(void *token);
-void	del_file(void *file);
-void	del_command(void *command);
-char	**get_cmd_split(t_token *token);
-t_file	*get_files(t_token *token);
-t_cmd	*get_command(t_token *token, char **path_split);
-char	**split_path_env(char **envp);
+//Borrar PRINT_TOKENS
+void	print_token(void *token);
+void	print_file(void *file);
+void	print_command(void *command);
+void	clean_tokens(t_token **lst_token, char **envp);
+char	*next_var(char *str);
+char	*find_exec_path(char *command, char **path_split);
 
 #endif

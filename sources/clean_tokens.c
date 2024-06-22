@@ -1,68 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:09:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/09 20:03:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/22 10:41:07 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int	ft_isvarchar(int c)
-{
-	return (ft_isalpha(c) || c == '_');
-}
-
-char	*next_var2(char *str)
-{
-	int	is_var;
-
-	is_var = 0;
-	if (*str == '$')
-		is_var = *(str++);
-	if (is_var && *str == '?')
-		return (str + 1);
-	if (is_var && ft_isvarchar(*str))
-	{
-		while (ft_isvarchar(*str))
-			str++;
-		return (str);
-	}
-	while (*str)
-	{
-		if (*str == '$' && (ft_isvarchar(str[1]) || str[1] == '?'))
-			break ;
-		str++;
-	}
-	return (str);
-}
-/*
-char	*next_var(char *str)
-{
-	if (*str == '$' && str[1] == '?')
-		return (&str[2]);
-	if (*str == '$' && ft_isvarchar(*(str + 1)))
-	{
-		str++;
-		while (ft_isvarchar(*str))
-			str++;
-		return (str);
-	}
-	if (*str == '$')
-		str++;
-	while (*str && *str != '$')
-	{
-		if (str[1] == '$' && !ft_isvarchar(str[2]) && str[2] != '?')
-			str++;
-		if (*str)
-			str++;
-	}
-	return (str);
-}*/
+#include "../Libft/includes/libft.h"
+#include "../includes/token.h"
 
 char	*search_envvar(char *envvar, char **envp)
 {
@@ -77,8 +26,8 @@ char	*search_envvar(char *envvar, char **envp)
 	len = ft_strlen(envvar);
 	while (envp[i])
 	{
-		if (search_word_relative(envvar, envp[i], STR_START)
-			&& envp[i][len])
+		if (search_word_relative(envvar, envp[i], STR_START,
+				ft_strlen(envvar) - 1) && envp[i][len])
 			return (&envp[i][len + 1]);
 		i++;
 	}
@@ -91,7 +40,7 @@ char	*expand_string(char *string, char **envp)
 	char	*tmp;
 	int		i;
 
-	split_var = ultra_split(string, no_skip, next_var2);
+	split_var = ultra_split(string, no_skip, next_var);
 	if (!split_var)
 		return (NULL);
 	i = -1;
@@ -142,24 +91,73 @@ char	*expand_token(char *token, char **envp)
 void	clean_tokens(t_token **lst_token, char **envp)
 {
 	t_token	*aux;
-	char	*tmp;
 
 	if (!lst_token || !*lst_token)
 		return ;
 	aux = *lst_token;
 	while (aux)
 	{
-		if (!ft_istoken(aux->string[0]))
+		if (!ft_istoken(aux->string[0]) && ft_strncmp(aux->string, "&&", 3))
 		{
-			tmp = expand_token(aux->string, envp);
-			if (!tmp)
-				return (free_tokens(lst_token));
-			free(aux->string);
-			aux->string = tmp;
+			aux->expanded = expand_token(aux->string, envp);
+			if (!aux->expanded)
+				return (lst_clear(lst_token, del_token));
 		}
 		aux = aux->next;
 	}
 }
+/*
+int	ft_isvarchar(int c)
+{
+	return (ft_isalpha(c) || c == '_');
+}
+
+char	*next_var2(char *str)
+{
+	int	is_var;
+
+	is_var = 0;
+	if (*str == '$')
+		is_var = *(str++);
+	if (is_var && *str == '?')
+		return (str + 1);
+	if (is_var && ft_isvarchar(*str))
+	{
+		while (ft_isvarchar(*str))
+			str++;
+		return (str);
+	}
+	while (*str)
+	{
+		if (*str == '$' && (ft_isvarchar(str[1]) || str[1] == '?'))
+			break ;
+		str++;
+	}
+	return (str);
+}*/
+/*
+char	*next_var(char *str)
+{
+	if (*str == '$' && str[1] == '?')
+		return (&str[2]);
+	if (*str == '$' && ft_isvarchar(*(str + 1)))
+	{
+		str++;
+		while (ft_isvarchar(*str))
+			str++;
+		return (str);
+	}
+	if (*str == '$')
+		str++;
+	while (*str && *str != '$')
+	{
+		if (str[1] == '$' && !ft_isvarchar(str[2]) && str[2] != '?')
+			str++;
+		if (*str)
+			str++;
+	}
+	return (str);
+}*/
 /*
 int	main(int argc, char **argv, char **envp)
 {

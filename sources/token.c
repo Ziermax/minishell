@@ -6,11 +6,12 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:08:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/13 13:06:46 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:27:27 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../Libft/includes/libft.h"
+#include "../includes/token.h"
 
 char	*next_special_token(char *str)
 {
@@ -23,10 +24,9 @@ char	*next_special_token(char *str)
 	count = 0;
 	while (*str == special)
 	{
-		if (count == 1 && (special == ')' || special == '('))
-			break ;
-		if (count >= 2 && (special == '>' || special == '<' || special == '&'
-				|| special == '|'))
+		if ((count == 1 && (special == ')' || special == '('))
+			|| (count >= 2 && (special == '>' || special == '<'
+					|| special == '&' || special == '|')))
 			break ;
 		str++;
 		count++;
@@ -52,7 +52,7 @@ char	*next_token(char *str)
 	return (str);
 }
 
-t_token	*assing_tokens(char **token_split)
+static t_token	*assing_tokens(char **token_split)
 {
 	t_token	*tokens;
 	t_token	*aux;
@@ -64,8 +64,8 @@ t_token	*assing_tokens(char **token_split)
 	{
 		aux = create_token();
 		if (!aux)
-			return (free_tokens(&tokens), NULL);
-		add_token(&tokens, aux);
+			return (lst_clear(&tokens, del_token), NULL);
+		lst_add_back(&tokens, aux);
 	}
 	i = -1;
 	aux = tokens;
@@ -77,7 +77,7 @@ t_token	*assing_tokens(char **token_split)
 	return (tokens);
 }
 
-t_token	*tokener(char *line)
+t_token	*tokenize(char *line)
 {
 	char	**token_split;
 	t_token	*tokens;
@@ -92,6 +92,23 @@ t_token	*tokener(char *line)
 	free(token_split);
 	return (tokens);
 }
+
+t_token	*tokeinator(char *line, char **envp)
+{
+	t_token	*tokens;
+
+	tokens = tokenize(line);
+	if (!tokens)
+		return (NULL);
+	if (!analize_tokens(tokens))
+		return (lst_clear(&tokens, del_token), NULL);
+	clean_tokens(&tokens, envp);
+	if (!tokens)
+		return (NULL);
+	return (tokens);
+}
+/*	CLEAN_TOKENS
+*/
 /*
 int	main(void)
 {
