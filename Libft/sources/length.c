@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:09:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:11:22 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 23:45:14 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int	ft_intlen(int nbr)
 	return (len);
 }
 
-int	ft_arraylen(void **array)
+int	ft_arraylen(void *array)
 {
-	int	len;
+	int		len;
 
-	if (!array || !*array)
+	if (!array || !*(void **)array)
 		return (0);
 	len = 0;
-	while (array[len])
+	while (((void **)array)[len])
 		len++;
 	return (len);
 }

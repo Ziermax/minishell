@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:43:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/18 20:15:41 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 23:46:16 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ char	*ft_strdup(char *str)
 	return (dup);
 }
 
-void	**add_dir(void **old_array, void *dir)
+void	*add_dir(void *array, void *dir)
 {
 	void	**new_array;
+	void	**old_array;
 	int		len;
 	int		i;
 	
+	old_array = array;
 	len = ft_arraylen(old_array);
 	new_array = malloc(sizeof(void *) * (len + 2));
 	if (!new_array)

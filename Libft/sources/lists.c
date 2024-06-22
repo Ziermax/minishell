@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:12:34 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/20 19:01:31 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/21 23:28:48 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,18 @@ void	lst_clear(void *list, void (*del)(void *))
 		aux = tmp;
 	}
 	*(void **)list = NULL;
+}
+
+void	lst_for_each(void *list, void (*func)(void *))
+{
+	void	**aux;
+
+	if (!list || !func)
+		return ;
+	aux = list;
+	while (aux)
+	{
+		func(aux);
+		aux = *aux;
+	}
 }
