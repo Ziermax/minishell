@@ -6,11 +6,12 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:02:55 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/09 19:51:22 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/22 22:52:51 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdarg.h>
 #include "../includes/libft.h"
 
 char	*ft_strjoin(char *str1, char *str2)
@@ -88,6 +89,29 @@ char	*ft_splitjoin(char	**split)
 	j = 0;
 	while (split[i])
 		j = ft_strfcat(join, split[i++], len + 1, j);
+	return (join);
+}
+
+char	*ft_multiplejoin(int num, ...)
+{
+	va_list	ap;
+	char	**multiple;
+	char	*join;
+	int		i;
+
+	if (num <= 0)
+		return (NULL);
+	multiple = malloc(sizeof(char *) * (num + 1));
+	if (!multiple)
+		return (NULL);
+	va_start(ap, num);
+	i = 0;
+	while (i < num)
+		multiple[i++] = va_arg(ap, char *);
+	multiple[i] = NULL;
+	va_end(ap);
+	join = ft_splitjoin(multiple);
+	free(multiple);
 	return (join);
 }
 /*

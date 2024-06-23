@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 14:55:30 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 20:14:17 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 02:22:14 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strncmp(char *str1, char *str2, int bytes)
 {
 	if (!str1 || !str2 || bytes <= 0)
 		return (0);
-	while (*str1 && *str1 == *str2 && bytes--)
+	while (*str1 && *str1 == *str2 && bytes-- > 1)
 	{
 		str2++;
 		str1++;

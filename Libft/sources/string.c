@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:32 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/18 20:33:17 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 01:02:51 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,25 @@ int	ft_strlcat(char	*dst, char *src, int dstsize)
 
 int	ft_strfcat(char	*dst, char *src, int dstsize, int from)
 {
+	if (!dst || !src || !dstsize)
+		return (dstsize);
 	if (from >= dstsize)
 		return (dstsize);
 	while (*src && from < dstsize)
 		dst[from++] = *(src++);
 	dst[from] = '\0';
 	return (ft_strlen(src) + from);
+}
+
+void	ft_memset(void *dir, int c, size_t bytes)
+{
+	while (bytes--)
+		*(char *)dir++ = c;
+}
+
+void	ft_bzero(void *dir, size_t bytes)
+{
+	ft_memset(dir, 0, bytes);
 }
 
 void	ft_print_split(char **split)
