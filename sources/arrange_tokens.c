@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:15:52 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 03:41:54 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 04:39:37 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**get_cmd_split(t_token *token)
 	return (cmd_split);
 }
 
-t_cmd	*get_command(t_token *token, char	**path_split)
+t_cmd	*get_command2(t_token *token, char	**path_split)
 {
 	t_cmd	*commands;
 

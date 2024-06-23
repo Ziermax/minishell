@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 03:37:13 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 05:04:41 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 		tokens = tokeinator(argv[1], envp);
 	}
 	lst_for_each(tokens, print_token);
-	printf("\n\n###GETTING COMMANDS\n");
+	printf("\n###GETTING COMMANDS\n\n");
 	path_split = split_path_env(envp);
 	commands = get_command(tokens, path_split);
 	lst_for_each(commands, print_command);

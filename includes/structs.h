@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 03:29:19 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 04:15:43 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ typedef enum e_type
 typedef struct s_anal
 {
 	t_type	last_type;
+	int		parenthesis;
 	bool	is_cmd_assign;
 	bool	is_cmd_syntax;
 	bool	content;
-	int		parenthesis;
 }	t_anal;
 
 typedef struct s_token
@@ -51,8 +51,8 @@ typedef struct s_token
 typedef struct s_files
 {
 	struct s_files	*next;
-	t_type			open_mode;
 	char			*string;
+	t_type			open_mode;
 }	t_file;
 
 typedef struct s_cmd
