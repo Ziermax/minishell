@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_utils.c                                      :+:      :+:    :+:   */
+/*   clean_tokens_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:35:37 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/18 16:31:25 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:42:16 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,3 @@ char	*next_var(char *str)
 	}
 	return (str);
 }
-/*
-	is_var = false;
-	if (*str == '$' && ft_isvarchar(str[1]) && !ft_isdigit(str[1]))
-		is_var = true;
-	if (is_var && *(++str)== '?')
-		return (str + 1);
-	if (is_var && ft_isvarchar(*str))
-	{
-		while (ft_is
-	}
-}*/

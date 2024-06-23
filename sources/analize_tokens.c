@@ -3,34 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   analize_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:14:45 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 03:02:30 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:40:45 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
-
-/*static t_type	select_type(char *type)
-{
-	if (!ft_strncmp(type, "&&", 2))
-		return (AND);
-	if (!ft_strncmp(type, "||", 2))
-		return (OR);
-	if (!ft_strncmp(type, "|", 1))
-		return (PIPE);
-	if (!ft_strncmp(type, "<", 1))
-		return (R_IN);
-	if (!ft_strncmp(type, ">", 1))
-		return (R_OUT);
-	if (!ft_strncmp(type, "<<", 2))
-		return (HDOC);
-	if (!ft_strncmp(type, ">>", 2))
-		return (APP);
-	return (0);
-}*/
 
 static t_type	assing_type(char *string, t_anal *anal)
 {
@@ -75,31 +56,10 @@ static bool	error_syntax(t_anal *anal, t_type current_type)
 		anal->is_cmd_syntax = false;
 		anal->content = false;
 	}
-	if (current_type == R_OUT || current_type == CMD)
+	if (current_type >= R_IN && current_type <= CMD)
 		anal->content = true;
 	return (anal->parenthesis < 0);
 }
-/*	if ((anal->is_cmd_syntax && (current_type == 'c' || current_type == '('))
-		|| (!anal->content && (current_type == '&' || current_type == '|'
-				|| current_type == ')'))
-		|| ((anal->last_type == '<' || anal->last_type == '>')
-			&& current_type != 'f'))
-		return (true);
-	if (current_type == '(')
-		anal->parenthesis += 1;
-	else if (current_type == ')')
-		anal->parenthesis -= 1;
-	if (current_type == 'c' || current_type == ')')
-		anal->is_cmd_syntax = 1;
-	else if (current_type == '&' || current_type == '|')
-	{
-		anal->is_cmd_syntax = false;
-		anal->content = false;
-	}
-	if (current_type == '>' || current_type == 'c')
-		anal->content = 1;
-	return (anal->parenthesis < 0 || (current_type != 'f'
-			&& (anal->last_type == '<' || anal->last_type == '>')));*/
 
 bool	analize_tokens(t_token *token)
 {

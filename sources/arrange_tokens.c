@@ -1,36 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arrange_tokens2.c                                  :+:      :+:    :+:   */
+/*   arrange_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:15:52 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 02:49:54 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:41:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
-
-void	del_file(void *file)
-{
-	free(((t_file *)file)->string);
-}
-
-void	print_file(void *file)
-{
-	t_file	*aux;
-
-	aux = file;
-	printf("FILE [%p]:\n", aux);
-	printf("| file: \"%s\"\n", aux->string);
-	if (aux->open_mode)
-		printf("| mode: '%c'\n", aux->open_mode);
-	else
-		printf("| mode: %d\n", aux->open_mode);
-	printf("| next: [%p]\n", aux->next);
-}
 
 t_file	*get_files(t_token *token)
 {
@@ -82,35 +63,6 @@ char	**get_cmd_split(t_token *token)
 		token = token->next;
 	}
 	return (cmd_split);
-}
-
-void	print_command(void *command)
-{
-	t_cmd	*aux;
-
-	aux = command;
-	printf("COMMAND [%p]:\n", aux);
-	printf("| connection: '%c'\n", aux->connection_type);
-	printf("| cmd_split+\n/\n");
-	ft_print_split(aux->cmd_split);
-	printf("\\\n| end_cmd_split-\n");
-	printf("| files+\n/\n");
-	lst_for_each(aux->files, print_file);
-	printf("\\\n| end files-\n");
-	printf("| path: \"%s\"\n", aux->path);
-	printf("| next: [%p]\n", aux->next);
-}
-
-void	del_command(void *command)
-{
-	t_cmd	*aux;
-
-	if (!command)
-		return ;
-	aux = command;
-	free_split(aux->cmd_split);
-	free(aux->path);
-	lst_clear(&aux->files, del_file);
 }
 
 t_cmd	*get_command(t_token *token, char	**path_split)

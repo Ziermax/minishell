@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token2.c                                           :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:08:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 02:42:29 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:38:01 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //	static int	i;
 //	printf("analizing %d: \"%s\"\n", i++, str);
 //	printf("| type: %d\n", type);
-char	*next_token(char *str)
+static char	*next_token(char *str)
 {
 	t_type	type;
 
@@ -62,7 +62,7 @@ static t_token	*assing_tokens(char **token_split)
 	return (tokens);
 }
 
-t_token	*tokenize(char *line)
+static t_token	*tokenize(char *line)
 {
 	char	**token_split;
 	t_token	*tokens;
@@ -92,8 +92,6 @@ t_token	*tokeinator(char *line, char **envp)
 		return (NULL);
 	return (tokens);
 }
-/*	CLEAN_TOKENS
-*/
 /*
 int	main(void)
 {

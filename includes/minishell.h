@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 20:29:18 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:28:26 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include <stdio.h>
 
 t_token	*tokeinator(char *line, char **envp);
-void	del_token(void *token);
-void	del_file(void *file);
-void	del_command(void *command);
 char	**get_cmd_split(t_token *token);
 t_file	*get_files(t_token *token);
 t_cmd	*get_command(t_token *token, char **path_split);

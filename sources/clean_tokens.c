@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_tokens2.c                                    :+:      :+:    :+:   */
+/*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:09:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 23:33:21 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:35:51 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
 
-char	*search_envvar(char *envvar, char **envp)
+static char	*search_envvar(char *envvar, char **envp)
 {
 	int	i;
 	int	len;
@@ -34,7 +34,7 @@ char	*search_envvar(char *envvar, char **envp)
 	return ("");
 }
 
-char	*expand_string(char *string, char **envp)
+static char	*expand_string(char *string, char **envp)
 {
 	char	**split_var;
 	char	*tmp;
@@ -61,7 +61,7 @@ char	*expand_string(char *string, char **envp)
 	return (tmp);
 }
 
-char	*expand_token(char *token, char **envp)
+static char	*expand_token(char *token, char **envp)
 {
 	char	**split_string;
 	char	*tmp;
@@ -104,45 +104,3 @@ void	clean_tokens(t_token **lst_token, char **envp)
 		aux = aux->next;
 	}
 }
-/*
-int	main(int argc, char **argv, char **envp)
-{
-	char	**var_split;
-	int		i;
-	char	*str;
-
-	argc = argc + 1;
-	argv = argv;
-	envp = envp;
-	str = "hola$ $?$$$$.hola=$hola.PATH=$PATH._Mundo $  USER=$USER";
-//	str = "(cat)&&$$$(echo ls -l)";
-	printf("str:\n%s\n\n", str);
-	var_split = ultra_split(str, no_skip, next_var2);
-	i = 0;
-	while (var_split[i])
-	{
-		printf("var_split[%d]: \"%s\"\n",
-			i, var_split[i]);
-		if (var_split[i][0] == '$' && (ft_isvarchar(var_split[i][1])
-			|| var_split[i][1] == '?'))
-		{
-		//	printf("ENTERED IF\nWhatsInside[%d] %c[%p] %c[%p]\n",
-		//		i, var_split[i][0], var_split[i],
-		//		var_split[i][1], &var_split[i][1]);
-		//	printf("searching: \"%s\", %d\n",
-		//		&(var_split[i][1]), var_split[i][1]);
-		//	printf("EXITING IF\n\n");
-			var_split[i] = search_envvar(&var_split[i][1], envp);
-		}
-		i++;
-	}
-	i = 0;
-	printf("Finished searcing\n\n");
-	while (var_split[i])
-	{
-		printf("var_split[%d]: %s\n", i, var_split[i]);
-		i++;
-	}
-	printf("\nstr: \"%s\"\n", str);
-	printf("\njoinsplit: \"%s\"\n", ft_splitjoin(var_split));
-}*/
