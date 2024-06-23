@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arrange_tokens.c                                   :+:      :+:    :+:   */
+/*   arrange_tokens2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:15:52 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 20:56:48 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 02:49:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_file(void *file)
 
 t_file	*get_files(t_token *token)
 {
-	int		last_type;
+	t_type	last_type;
 	t_file	*files;
 	t_file	*aux;
 
@@ -42,10 +42,9 @@ t_file	*get_files(t_token *token)
 		return (NULL);
 	last_type = 0;
 	files = NULL;
-	while (token && token->type != '|' && token->type != '('
-		&& token->type != '&' && token->type != ')')
+	while (token && (token->type < AND || token->type > C_PAR))
 	{
-		if (last_type == '>' || last_type == '<')
+		if (last_type >= R_IN && last_type <= APP)
 		{
 			aux = ft_calloc(sizeof(t_file), 1);
 			if (!aux)
@@ -72,7 +71,7 @@ char	**get_cmd_split(t_token *token)
 	if (!token)
 		return (NULL);
 	cmd_split = NULL;
-	while (token && (token->type == 'c' || token->type == 'a'))
+	while (token && (token->type == CMD || token->type == ARG))
 	{
 		tmp = ft_strdup(token->string);
 		if (!tmp)
@@ -84,7 +83,6 @@ char	**get_cmd_split(t_token *token)
 	}
 	return (cmd_split);
 }
-	//ft_print_split(cmd_split);
 
 void	print_command(void *command)
 {
@@ -102,12 +100,6 @@ void	print_command(void *command)
 	printf("| path: \"%s\"\n", aux->path);
 	printf("| next: [%p]\n", aux->next);
 }
-/*
-	printf("| connection_type: \"%s\"\n", aux->string);
-	if (aux->open_mode)
-		printf("| mode: '%c'\n", aux->open_mode);
-	else
-		printf("| mode: %d\n", aux->open_mode);*/
 
 void	del_command(void *command)
 {
@@ -142,8 +134,3 @@ t_cmd	*get_command(t_token *token, char	**path_split)
 		return (lst_clear(&commands, del_command), NULL);
 	return (commands);
 }
-	/*while (token && token->type != '|' && token->type != '('
-		&& token->type != '&' && token->type != ')')
-	{
-		token = token->next;
-	}*/

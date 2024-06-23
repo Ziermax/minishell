@@ -1,49 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   token2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:08:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/20 19:27:27 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 02:42:29 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
 
-char	*next_special_token(char *str)
-{
-	int	special;
-	int	count;
-
-	if (!str)
-		return (NULL);
-	special = *str;
-	count = 0;
-	while (*str == special)
-	{
-		if ((count == 1 && (special == ')' || special == '('))
-			|| (count >= 2 && (special == '>' || special == '<'
-					|| special == '&' || special == '|')))
-			break ;
-		str++;
-		count++;
-	}
-	return (str);
-}
-
+//	static int	i;
+//	printf("analizing %d: \"%s\"\n", i++, str);
+//	printf("| type: %d\n", type);
 char	*next_token(char *str)
 {
+	t_type	type;
+
 	if (!str)
 		return (NULL);
-	if (ft_istoken(*str) || (*str == '&' && *(str + 1) == '&'))
-		return (next_special_token(str));
-	while (*str && !ft_istoken(*str) && !ft_isspace(*str))
+	type = ft_istoken(str);
+	if (type >= PIPE && type <= R_OUT)
+		return (str + 1);
+	else if (type != 0)
+		return (str + 2);
+	while (*str && !ft_istoken(str) && !ft_isspace(*str))
 	{
-		if (*str == '&' && *(str + 1) == '&')
-			break ;
 		if (*str != '\'' && *str != '\"')
 			str++;
 		else
@@ -62,7 +47,7 @@ static t_token	*assing_tokens(char **token_split)
 	tokens = NULL;
 	while (token_split[++i])
 	{
-		aux = create_token();
+		aux = ft_calloc(sizeof(t_token), 1);
 		if (!aux)
 			return (lst_clear(&tokens, del_token), NULL);
 		lst_add_back(&tokens, aux);

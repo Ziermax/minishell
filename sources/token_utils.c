@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:28:05 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/21 23:41:32 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:03:09 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,30 @@
 #include "../includes/token.h"
 #include <stdio.h>
 
-int	ft_istoken(int c)
+t_type	ft_istoken(char *str)
 {
-	return (c == '<' || c == '>'
-		|| c == '|' || c == '(' || c == ')');
+	if (!str)
+		return (0);
+	if (!ft_strncmp(str, "&&", 2))
+		return (AND);
+	if (!ft_strncmp(str, "||", 2))
+		return (OR);
+	if (!ft_strncmp(str, "<<", 2))
+		return (HDOC);
+	if (!ft_strncmp(str, ">>", 2))
+		return (APP);
+	if (!ft_strncmp(str, "|", 1))
+		return (PIPE);
+	if (!ft_strncmp(str, "(", 1))
+		return (O_PAR);
+	if (!ft_strncmp(str, ")", 1))
+		return (C_PAR);
+	if (!ft_strncmp(str, "<", 1))
+		return (R_IN);
+	if (!ft_strncmp(str, ">", 1))
+		return (R_OUT);
+	return (0);
 }
-// || c == '&'
-
-t_token	*create_token(void)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->string = NULL;
-	token->expanded = NULL;
-	token->next = NULL;
-	token->type = 0;
-	return (token);
-}
-//	token->to_expand = 1;
 
 void	del_token(void *token)
 {
@@ -45,6 +48,35 @@ void	del_token(void *token)
 	free(aux->expanded);
 }
 
+static char	*get_type_str(t_type type)
+{
+	if (type == AND)
+		return ("AND");
+	if (type == OR)
+		return ("OR");
+	if (type == PIPE)
+		return ("PIPE");
+	if (type == O_PAR)
+		return ("OPEN_PARANTHESIS");
+	if (type == C_PAR)
+		return ("CLOSE_PARANTHESIS");
+	if (type == R_IN)
+		return ("RED_INFILE");
+	if (type == R_OUT)
+		return ("RED_OUTFILE");
+	if (type == HDOC)
+		return ("HEREDOC");
+	if (type == APP)
+		return ("APPEND");
+	if (type == CMD)
+		return ("COMMAND");
+	if (type == ARG)
+		return ("ARGUMENT");
+	if (type == FILES)
+		return ("FILES");
+	return ("NO_TYPE");
+}
+
 void	print_token(void *token)
 {
 	t_token	*aux;
@@ -53,9 +85,8 @@ void	print_token(void *token)
 	printf("TOKEN [%p]:\n", aux);
 	printf("| string: _%s_\n", aux->string);
 	printf("| expanded: _%s_\n", aux->expanded);
-	if (aux->type)
-		printf("| type: '%c'\n", aux->type);
-	else
-		printf("| type: %d\n", aux->type);
+	printf("| type: %s\n", get_type_str(aux->type));
 	printf("| next: [%p]\n", aux->next);
+	if (aux->next)
+		printf("|\n");
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_tokens.c                                     :+:      :+:    :+:   */
+/*   clean_tokens2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:09:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 10:41:07 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:33:21 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*expand_string(char *string, char **envp)
 	free_split(split_var);
 	return (tmp);
 }
-//		printf("expandString %d: %s\n", i, split_var[i]);
-//		printf("tmp: %s\n", tmp);
 
 char	*expand_token(char *token, char **envp)
 {
@@ -97,7 +95,7 @@ void	clean_tokens(t_token **lst_token, char **envp)
 	aux = *lst_token;
 	while (aux)
 	{
-		if (!ft_istoken(aux->string[0]) && ft_strncmp(aux->string, "&&", 3))
+		if (aux->type >= CMD && aux->type <= FILES)
 		{
 			aux->expanded = expand_token(aux->string, envp);
 			if (!aux->expanded)
@@ -106,58 +104,6 @@ void	clean_tokens(t_token **lst_token, char **envp)
 		aux = aux->next;
 	}
 }
-/*
-int	ft_isvarchar(int c)
-{
-	return (ft_isalpha(c) || c == '_');
-}
-
-char	*next_var2(char *str)
-{
-	int	is_var;
-
-	is_var = 0;
-	if (*str == '$')
-		is_var = *(str++);
-	if (is_var && *str == '?')
-		return (str + 1);
-	if (is_var && ft_isvarchar(*str))
-	{
-		while (ft_isvarchar(*str))
-			str++;
-		return (str);
-	}
-	while (*str)
-	{
-		if (*str == '$' && (ft_isvarchar(str[1]) || str[1] == '?'))
-			break ;
-		str++;
-	}
-	return (str);
-}*/
-/*
-char	*next_var(char *str)
-{
-	if (*str == '$' && str[1] == '?')
-		return (&str[2]);
-	if (*str == '$' && ft_isvarchar(*(str + 1)))
-	{
-		str++;
-		while (ft_isvarchar(*str))
-			str++;
-		return (str);
-	}
-	if (*str == '$')
-		str++;
-	while (*str && *str != '$')
-	{
-		if (str[1] == '$' && !ft_isvarchar(str[2]) && str[2] != '?')
-			str++;
-		if (*str)
-			str++;
-	}
-	return (str);
-}*/
 /*
 int	main(int argc, char **argv, char **envp)
 {
