@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/16 11:48:25 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:32:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	make_cd(t_data *data, const char *path)
 {
 	if (chdir(path) == -1)
 	{
-		perror("bash: cd: (Path)");
+		fd_printf(1, "minishell: cd: %s: %s", path, strerror(errno));
 		return (1);
 	}
 	if (update_pwd(&(data->env), path) == -1)
