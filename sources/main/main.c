@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/24 15:28:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:44:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static int	read_shell(t_data *data)
 {
 	char	*line;
 
+
+	char *s[3];
+	s[2] = NULL;
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -26,7 +29,10 @@ static int	read_shell(t_data *data)
 				printf("Error\n");
 			if (line)
 				add_history(line);
-			//parse(line);
+			//(line);
+			s[0] = ft_strdup("cd");
+			s[1] = ft_strdup(line);
+			ft_cd(data, s);
 		}
 		else
 			return (0);

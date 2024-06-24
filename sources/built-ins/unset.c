@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 11:43:07 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/16 13:27:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:49:53 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_delete_var(char ***str, char *var)
 	if (idx_del == -1)
 	{
 		free(var);
-		return (1);
+		return (0);
 	}
 	new = ft_calloc(get_size(*str), sizeof(char *));
 	if (!new)

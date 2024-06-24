@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/24 14:32:16 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:56:05 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ static int	update_pwd(char ***env, const char *path)
 
 static int	make_cd(t_data *data, const char *path)
 {
+	if (!ft_strcmp((char *)path, ".") && !getcwd(NULL, 0))
+        fd_printf(1, "cd: error retrieving current directory: getcwd: cannot access parent directories: %s\n", strerror(errno));
 	if (chdir(path) == -1)
 	{
-		fd_printf(1, "minishell: cd: %s: %s", path, strerror(errno));
+		fd_printf(1, "cd: %s: %s\n", path, strerror(errno));
 		return (1);
 	}
 	if (update_pwd(&(data->env), path) == -1)
@@ -51,6 +53,12 @@ static int	make_cd(t_data *data, const char *path)
 
 int	ft_cd(t_data *data, char **input)
 {
+	input++;
+	if (get_size(input) != 1)
+	{
+		fd_printf(1, "cd: too many arguments\n");
+		return (1);
+	}
 	if (!input || !(*input) || !(*input)[0])
 		return (make_cd(data, ft_strdup(getenv("HOME"))) > 0);
 	return (make_cd(data, *input) > 0);
