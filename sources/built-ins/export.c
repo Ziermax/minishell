@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 12:53:01 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/16 13:28:18 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:23:53 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_export(t_data *data, char **input)
 	int	type;
 
 	input++;
-	if (!input)
+	if (!input || !*input || !**input)
 		return (print_exp(data->exp));
 	flag = 0;
 	while (*input)
