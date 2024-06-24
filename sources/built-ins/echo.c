@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:18:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/16 11:48:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:03:31 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,11 @@ int	print_echo(char **s)
 	int	i;
 
 	newline = 1;
-	while ((*s)[0] == '-')
+	if ((*s)[0] == '-' && (*s)[1] == 'n')
 	{
 		i = 1;
 		while ((*s)[i] == 'n')
 			i++;
-		if ((*s)[i])
-			break ;
 		newline = 0;
 		s++;
 	}

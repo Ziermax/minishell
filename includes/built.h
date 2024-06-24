@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/16 13:32:56 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:52:42 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int			print_pwd(void);
 int			ft_export(t_data *data, char **input);
 int			ft_unset(t_data *data, char **input);
 int			ft_delete_var(char ***str, char *var);
+int			print_echo(char **s);
 
 // Utils
 
