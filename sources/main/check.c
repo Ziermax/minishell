@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/21 17:22:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:00:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ static int	look_for(char *line, int *i, char c)
 	{
 		if (p == -1 && line[*i] == '(')
 			p++;
-		if (c == ')' && (line[*i] == '\'' || line[*i] == '\"'))
+		else if (c == ')' && (line[*i] == '\'' || line[*i] == '\"'))
 			if (look_for(line, i, line[*i]))
 				return (1);
 		if (line[*i] == c)
 		{
-			if (p > 0)
-				p--;
-			else
+			if (p <= 0)
 				return (0);
+			p--;
 		}
 		(*i)++;
 	}

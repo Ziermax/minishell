@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/24 17:56:05 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:56:14 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ static int	update_pwd(char ***env, const char *path)
 static int	make_cd(t_data *data, const char *path)
 {
 	if (!ft_strcmp((char *)path, ".") && !getcwd(NULL, 0))
-        fd_printf(1, "cd: error retrieving current directory: getcwd: cannot access parent directories: %s\n", strerror(errno));
+	{
+		fd_printf(1, "cd: error retrieving current directory: getcwd: cannot");
+		fd_printf(1, " access parent directories: %s\n", strerror(errno));
+		return (1);
+	}
 	if (chdir(path) == -1)
 	{
 		fd_printf(1, "cd: %s: %s\n", path, strerror(errno));
