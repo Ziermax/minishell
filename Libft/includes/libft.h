@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/21 17:42:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:49:42 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int		ft_arraylen(void **array);
 /*	mallocers functions	*/
 void	*ft_calloc(int count, int size);
 char	*ft_strdup(char *str);
-void	**add_dir(void **array, void *dir);
+void	*add_dir(void *array, void *dir);
+int		*add_integer(int *array, int len, int to_add);
 char	*ft_strjoin(char *str1, char *str2);
 char	*ft_threejoin(char *str1, char *str2, char *str3);
 char	*ft_splitjoin(char **split);
@@ -66,5 +67,6 @@ void	lst_clear(void *list, void (*del)(void *));
 int		fd_printf(int fd, const char *str, ...);
 void	error_printf(int error, char *str, ...);
 char	*get_next_line(int fd);
+void	dont(char null, ...);
 
 #endif

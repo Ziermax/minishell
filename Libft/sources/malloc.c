@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:43:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/18 20:15:41 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:50:09 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,26 @@ void	**add_dir(void **old_array, void *dir)
 	new_array[i] = dir;
 	new_array[i + 1] = NULL;
 	free(old_array);
+	return (new_array);
+}
+
+int	*add_integer(int *array, int len, int to_add)
+{
+	int	*new_array;
+	int	i;
+
+	if (len <= 0)
+		return (free(array), NULL);
+	new_array = malloc(sizeof(int) * len);
+	if (!new_array)
+		return (free(array), NULL);
+	i = 0;
+	while (i < len - 1)
+	{
+		new_array[i] = array[i];
+		i++;
+	}
+	free(array);
+	new_array[i] = to_add;
 	return (new_array);
 }
