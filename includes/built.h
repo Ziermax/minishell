@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/24 14:52:42 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:40:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int			ft_export(t_data *data, char **input);
 int			ft_unset(t_data *data, char **input);
 int			ft_delete_var(char ***str, char *var);
 int			print_echo(char **s);
-
-// Utils
 
 size_t		get_size(char **s);
 char		*get_var(char *s);
