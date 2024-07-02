@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 16:31:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/24 14:21:59 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
+/*   Updated: 2024/07/02 18:20:15 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,21 @@
 # include "../Libft/includes/libft.h"
 # include <signal.h>
 # include <errno.h>
-
-typedef struct s_token
-{
-	char			*string;
-	char			type;
-	struct s_token	*next;
-}	t_token;
-
-typedef struct s_data
-{
-	char			**env;
-	char			**exp;
-	int				exit;
-}	t_data;
+# include "structs.h"
 
 void				minisheller(char *line);
 t_token				*tokener(char *line);
 int					init_data(t_data *data, char **envp);
 int					ft_free(char ***s);
 int					check_line(char *line);
+/*	*
+ *	Functions of Maxi
+ */
+t_token	*tokeinator(char *line, char **envp);
+char	**get_cmd_split(t_token *token);
+t_file	*get_files(t_token *token);
+t_cmd	*get_command(t_token *token, char **path_split);
+char	**split_path_env(char **envp);
+int		executor(t_cmd *command);
 
 #endif

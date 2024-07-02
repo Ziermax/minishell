@@ -6,15 +6,17 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 14:55:30 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/21 13:50:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:17:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_strcmp(char *str1, char *str2)
+int	ft_strncmp(char *str1, char *str2, int bytes)
 {
-	while (*str1 && *str1 == *str2)
+	if (!str1 || !str2 || bytes <= 0)
+		return (0);
+	while (*str1 && *str1 == *str2 && bytes-- > 1)
 	{
 		str2++;
 		str1++;
@@ -22,30 +24,14 @@ int	ft_strcmp(char *str1, char *str2)
 	return ((unsigned char)*str1 - (unsigned char)*str2);
 }
 
-char	*search_word_relative(char *word, char *str, int flag)
+char	*ft_strchr(char *str, int c)
 {
-	int	i;
-	int	start;
-
-	if (!word || !str)
+	if (!str)
 		return (NULL);
-	if (flag == STR_START && word[0] != str[0])
-		return (NULL);
-	start = 0;
-	while (str[start])
-	{
-		i = 0;
-		while (word[i] && str[start + i] == word[i])
-			i++;
-		if (flag == STR_START && word[i] == '\0' && start == 0)
-			return (str);
-		if (flag == STR_END && word[i] == '\0' && str[start + i] == '\0')
-			return (&str[start]);
-		if (flag == STR_ANY && word[i] == '\0'
-			&& start != 0 && str[start + i] != '\0')
-			return (&str[start]);
-		start++;
-	}
+	while (*str && (unsigned char)*str != (unsigned char)c)
+		str++;
+	if (*str == c)
+		return (str);
 	return (NULL);
 }
 
@@ -67,23 +53,72 @@ char	*search_word_in_str(char *word, char *str)
 	return (NULL);
 }
 
-char	*search_word_in_split(char *word, char **split)
+char	*search_word_in_split(char *word, char **split, int bytes)
 {
-	char	*found;
 	int		i;
 
-	if (!word || !split)
+	if (!word || !split || bytes <= 0)
 		return (NULL);
 	i = 0;
 	while (split[i])
 	{
-		found = search_word_in_str(word, split[i]);
-		if (found)
-			return (found);
+		if (ft_strncmp(word, split[i], bytes) == 0)
+			return (split[i]);
 		i++;
 	}
 	return (NULL);
 }
+
+char	*search_word_relative(char *word, char *str, int flag, int bytes)
+{
+	int	i;
+	int	j;
+
+	if (!word || !str || bytes <= 0)
+		return (NULL);
+	if (flag == STR_START)
+		if (ft_strncmp(word, str, bytes) == 0)
+			return (str);
+	if (flag == STR_ANY)
+		return (search_word_in_str(word, str));
+	if (flag == STR_END)
+	{
+		i = ft_strlen(str);
+		j = ft_strlen(word);
+		while (--i >= 0 && --j >= 0 && bytes--)
+			if (word[j] != str[i] || j == 0)
+				break ;
+		if (j == 0 && bytes == 0)
+			return (&str[i]);
+	}
+	return (NULL);
+}
+	/*int	i;
+	int	start;
+
+	if (!word || !str)
+		return (NULL);
+	if (flag == STR_START && word[0] != str[0])
+		return (NULL);
+	start = 0;
+	while (str[start])
+	{
+		i = 0;
+		while (word[i] && str[start + i] == word[i])
+			i++;
+		if (flag == STR_START && word[i] == '\0' && start == 0)
+			return (str);
+		if (flag == STR_END && word[i] == '\0' && str[start + i] == '\0')
+			return (&str[start]);
+		if (flag == STR_ANY && word[i] == '\0'
+			&& start != 0 && str[start + i] != '\0')
+			return (&str[start]);
+		start++;
+	}
+	return (NULL);*/
+/*
+#include <stdio.h>
+>>>>>>> parser-input
 
 int	search_char(const char c, const char *set)
 {
@@ -97,4 +132,4 @@ int	search_char(const char c, const char *set)
 		i++;
 	}
 	return (1);
-}
+}*/
