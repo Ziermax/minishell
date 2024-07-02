@@ -6,14 +6,14 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 03:09:53 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 05:21:49 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/30 13:56:44 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
 
-static char	*get_type_str(t_type type)
+char	*get_type_str(t_type type)
 {
 	if (type == AND)
 		return ("AND");
@@ -62,15 +62,16 @@ void	print_command(void *command)
 
 	aux = command;
 	printf("%d. COMMAND [%p]:\n", i++, aux);
+	printf(" | path: %s\n", aux->path);
 	printf(" | cmd_split:\n /\n");
 	ft_print_split(aux->cmd_split);
 	printf(" \\ end_cmd_split-\n |\n");
 	printf(" | files:\n /\n");
 	lst_for_each(aux->files, print_file);
 	printf(" \\ end files-\n |\n");
-	printf(" | path: %s\n", aux->path);
 	printf(" | subcommand: [%p]\n", aux->subcommand);
 	printf(" | connection: '%s'\n", get_type_str(aux->connection_type));
+	printf(" | read_from: %d\n | write_to %d\n", aux->fd_read, aux->fd_write);
 	printf(" | next: [%p]\n", aux->next);
 	if (aux->next)
 		printf(" |-----------------------\n |-----------------------\n");

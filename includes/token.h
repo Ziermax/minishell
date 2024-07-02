@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:10:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 03:28:11 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/30 13:34:49 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdbool.h>
 # include "structs.h"
 
+char	*get_type_str(t_type type);
 bool	analize_tokens(t_token *token);
 t_type	ft_istoken(char *str);
 int		ft_isvarchar(int c);

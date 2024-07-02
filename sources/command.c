@@ -6,12 +6,32 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 03:52:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 05:26:50 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:53:04 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
+
+t_cmd	*new_command_node(void)
+{
+	t_cmd	*new;
+
+	new = malloc(sizeof(t_cmd));
+	if (!new)
+		return (NULL);
+	new->next = NULL;
+	new->connection_type = 0;
+	new->cmd_split = NULL;
+	new->path = NULL;
+	new->files = NULL;
+	new->subcommand = NULL;
+	new->fd_read = -1;
+	new->fd_write = -1;
+	new->fd_aux = -1;
+	new->envp = NULL;
+	return (new);
+}
 
 t_cmd	*get_command(t_token *token, char **path_split)
 {
@@ -32,7 +52,7 @@ t_cmd	*get_command(t_token *token, char **path_split)
 		}
 		if (!data.content)
 		{
-			aux = ft_calloc(sizeof(t_cmd), 1);
+			aux = new_command_node();
 			if (!aux)
 				return (lst_clear(&command, del_command), NULL);
 			lst_add_back(&command, aux);
@@ -77,7 +97,6 @@ t_cmd	*get_command(t_token *token, char **path_split)
 					data.parenthesis -= 1;
 				token = token->next;
 			}
-			//data.last_type = token->type;
 			continue ;
 		}
 		data.last_type = token->type;
@@ -85,3 +104,4 @@ t_cmd	*get_command(t_token *token, char **path_split)
 	}
 	return (command);
 }
+//			data.last_type = token->type;

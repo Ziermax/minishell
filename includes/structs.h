@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 04:15:43 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:11:34 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 typedef enum e_type
 {
-	AND = 1,
+	NO_TYPE = 0,
+	AND,
 	OR,
 	PIPE,
 	O_PAR,
@@ -40,30 +41,58 @@ typedef struct s_anal
 	bool	content;
 }	t_anal;
 
-typedef struct s_token
-{
-	struct s_token	*next;
-	char			*string;
-	char			*expanded;
-	t_type			type;
-}	t_token;
+typedef struct s_token	t_token;
 
-typedef struct s_files
+struct s_token
 {
-	struct s_files	*next;
-	char			*string;
-	t_type			open_mode;
-}	t_file;
+	t_token	*next;
+	char	*string;
+	char	*expanded;
+	t_type	type;
+};
 
-typedef struct s_cmd
+typedef struct s_file	t_file;
+
+struct s_file
 {
-	struct s_cmd	*next;
-	char			connection_type;
-	char			**cmd_split;
-	char			*path;
-	t_file			*files;
-	t_token			*subcommand;
-}	t_cmd;
+	t_file	*next;
+	char	*string;
+	t_type	open_mode;
+};
+
+typedef struct s_cmd	t_cmd;
+
+struct s_cmd
+{
+	t_cmd	*next;
+	char	connection_type;
+	char	**cmd_split;
+	char	*path;
+	char	**envp;
+	t_file	*files;
+	t_token	*subcommand;
+	int		fd_read;
+	int		fd_write;
+	int		fd_aux;
+};
+
+typedef struct s_pipe	t_pipe;
+
+struct s_pipe
+{
+	t_pipe	*next;
+	int		end[2];
+};
+
+typedef struct s_executor
+{
+	int		pid;
+	int		num_of_cmd;
+	int		exit_status;
+	t_pipe	*pipes;
+	int		error;
+	int		*pids;
+}	t_executor;
 
 void	del_token(void *token);
 void	del_file(void *file);

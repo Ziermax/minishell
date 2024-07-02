@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/30 18:20:45 by mvelazqu         ###   ########.fr       */
+/*   Created: 2024/06/26 10:11:35 by mvelazqu          #+#    #+#             */
+/*   Updated: 2024/06/30 15:11:25 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
-# include "../Libft/includes/libft.h"
-# include "structs.h"
+# include <unistd.h>
 # include <stdio.h>
+# include <errno.h>
+# include <fcntl.h>
+# include "structs.h"
 
-t_token	*tokeinator(char *line, char **envp);
-char	**get_cmd_split(t_token *token);
-t_file	*get_files(t_token *token);
-t_cmd	*get_command(t_token *token, char **path_split);
-char	**split_path_env(char **envp);
-int		executor(t_cmd *command);
+# define RD 0
+# define WR 1
 
 #endif
