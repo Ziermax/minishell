@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:20:15 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:22:07 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 # include <errno.h>
 # include "structs.h"
 
-void				minisheller(char *line);
-t_token				*tokener(char *line);
-int					init_data(t_data *data, char **envp);
-int					ft_free(char ***s);
-int					check_line(char *line);
+void	minisheller(char *line);
+t_token	*tokener(char *line);
+int		init_data(t_data *data, char **envp);
+int		ft_free(char ***s);
+int		check_line(char *line);
 /*	*
  *	Functions of Maxi
  */
