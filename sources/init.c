@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/03 13:18:30 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:27:38 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static void	sort(char **s)
 static int	init_exp(char ***exp, char **envp)
 {
 	size_t			i;
-	const size_t	size = ft_splitlen(envp);
+	const size_t	size = ft_arraylen(envp);
 
-	*exp = calloc(size + 1, sizeof(char *));
+	*exp = ft_calloc(size + 1, sizeof(char *));
 	if (!*exp)
 		return (-1);
 	i = 0;
@@ -60,15 +60,15 @@ static int	init_exp(char ***exp, char **envp)
 static int	init_env(char ***env, char **envp)
 {
 	size_t			i;
-	const size_t	size = ft_splitlen(envp);
+	const size_t	size = ft_arraylen(envp);
 
-	*env = calloc(size + 1, sizeof(char *));
+	*env = ft_calloc(size + 1, sizeof(char *));
 	if (!*env)
 		return (-1);
 	i = 0;
 	while (i < size)
 	{
-		(*env)[i] = strdup(envp[i]);
+		(*env)[i] = ft_strdup(envp[i]);
 		if (!(*env)[i])
 			return (-ft_free(env));
 		i++;

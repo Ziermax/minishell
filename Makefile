@@ -3,16 +3,17 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+READLINE_LIBS = -Lreadline -lreadline -lhistory -lncurses
 
 #<---------------------------------|FILES|------------------------------------>#
 
 LIBFT = ./Libft/libft.a
 
-SRC_F = minishell.c token_utils.c token.c analize_tokens.c clean_tokens.c	\
-		clean_tokens_utils.c arrange_tokens.c path.c print_struct.c 		\
-		delete_struct.c command.c executor.c								\
-		cd.c echo.c export.c pwd.c unset.c utils.c							\
-		check.c main.c init.c												\ 
+SRC_F = minishell.c token_utils.c token.c analize_tokens.c clean_tokens.c \
+        clean_tokens_utils.c arrange_tokens.c path.c print_struct.c \
+        delete_struct.c command.c executor.c \
+        cd.c echo.c export.c pwd.c unset.c utils.c \
+        check.c main.c init.c
 SRC_D = ./sources/
 BLT_D = ./built-ins/
 
@@ -42,14 +43,15 @@ BBLACK=\033[1;30m#		Bold Black
 all: libftmake ${NAME}
 
 ${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT}
-	@${CC} ${CFLAGS} ${OBJ} ${LIBFT} -o ${NAME}
-	@echo "\n${RED}Compiling progam:${DF}"
+	@${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
+	@echo "\n${RED}Compiling program:${DF}"
 	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS}${DF} ${BIGREEN}${OBJ_F}${DF} \
-	${BIPRPL}${LIBFT}${DF} ${BCYAN}-o${DF} ${RED}${NAME}${DF}"
+	${BIPRPL}${LIBFT}${DF} ${BCYAN}${READLINE_LIBS}${DF} ${BCYAN}-o${DF} ${RED}${NAME}${DF}"
 
 libftmake:
 	@echo "${BCYAN}### LIBFT ###${DF}${BIGREEN}"
 	@make -C Libft --no-print-directory
+	@make -C readline static
 	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}libft.a${DF} ${BCYAN}made ---${DF}\n"
 
 ${OBJ_D}%.o: ${SRC_D}%.c Makefile
@@ -74,6 +76,13 @@ ${DEP_D}:
 	@mkdir ${DEP_D}
 	@echo "${BCYAN}mkdir${DF} ${BCYAN}${DEP_D}${DF}"
 
+$(READLINE_LIBS): readline/Makefile
+	@make -C readline static
+
+readline/Makefile:
+	echo "READLINE WILL BE CONFIGURED";
+	cd readline && ./configure;
+
 #<---------------------------------|PHONY|------------------------------------>#
 
 clean:
@@ -94,3 +103,4 @@ re: fclean all
 
 .PHONY: all clean fclean re
 #<---------------------------------------------------------------------------->#
+
