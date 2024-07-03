@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = ${PWD}/readline
+BUILD_DIR = ${PWD}
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
