@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:48:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:40:10 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:30:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # define MAX_PATH 1024
 
-# include "minishell.h"
+# include "../Libft/includes/libft.h"
+# include <errno.h>
+# include "structs.h"
+# include <unistd.h>
+# include <string.h>
 
 int			ft_cd(t_data *data, char **input);
 int			print_pwd(void);
@@ -24,12 +28,10 @@ int			ft_unset(t_data *data, char **input);
 int			ft_delete_var(char ***str, char *var);
 int			print_echo(char **s);
 
-size_t		get_size(char **s);
 char		*get_var(char *s);
+int			ft_free(char ***s);
 int			check_var(char **s, char *var);
 char		*put_quots(char *s);
-int			print_char(char **s);
-int			get_index_var(char **var, const char *to_find);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			get_index_var(char **var, char *to_find);
 
 #endif

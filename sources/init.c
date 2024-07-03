@@ -6,11 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/21 17:31:53 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:18:30 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built.h"
+#include "../includes/built.h"
 
 static void	sort(char **s)
 {
@@ -39,7 +39,7 @@ static void	sort(char **s)
 static int	init_exp(char ***exp, char **envp)
 {
 	size_t			i;
-	const size_t	size = get_size(envp);
+	const size_t	size = ft_splitlen(envp);
 
 	*exp = calloc(size + 1, sizeof(char *));
 	if (!*exp)
@@ -60,7 +60,7 @@ static int	init_exp(char ***exp, char **envp)
 static int	init_env(char ***env, char **envp)
 {
 	size_t			i;
-	const size_t	size = get_size(envp);
+	const size_t	size = ft_splitlen(envp);
 
 	*env = calloc(size + 1, sizeof(char *));
 	if (!*env)

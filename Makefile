@@ -8,10 +8,13 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./Libft/libft.a
 
-SRC_F = minishell.c token_utils.c token.c analize_tokens.c clean_tokens.c \
-		clean_tokens_utils.c arrange_tokens.c path.c print_struct.c \
-		delete_struct.c command.c executor.c
+SRC_F = minishell.c token_utils.c token.c analize_tokens.c clean_tokens.c	\
+		clean_tokens_utils.c arrange_tokens.c path.c print_struct.c 		\
+		delete_struct.c command.c executor.c								\
+		cd.c echo.c export.c pwd.c unset.c utils.c							\
+		check.c main.c init.c												\ 
 SRC_D = ./sources/
+BLT_D = ./built-ins/
 
 OBJ_F = ${SRC_F:.c=.o}
 OBJ_D = ./objects/
@@ -50,6 +53,13 @@ libftmake:
 	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}libft.a${DF} ${BCYAN}made ---${DF}\n"
 
 ${OBJ_D}%.o: ${SRC_D}%.c Makefile
+	@${CC} ${CFLAGS} -MMD -c $< -o $@
+	@mv ${@:.o=.d} ${DEP_D}
+	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS} -MMD${DF} ${BCYAN}-c${DF} \
+	${BIRED}$<${DF} ${BCYAN}-o${DF} ${BIGREEN}$@${DF}"
+	@echo "${BCYAN}mv${DF} ${BYELLOW}${@:.o=.d}${DF} ${BCYAN}${DEP_D}${DF}"
+
+${OBJ_D}%.o: ${BLT_D}%.c Makefile
 	@${CC} ${CFLAGS} -MMD -c $< -o $@
 	@mv ${@:.o=.d} ${DEP_D}
 	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS} -MMD${DF} ${BCYAN}-c${DF} \

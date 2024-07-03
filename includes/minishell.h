@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:22:07 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:21:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <errno.h>
 # include "structs.h"
+# include "built.h"
 
 void	minisheller(char *line);
 t_token	*tokener(char *line);
@@ -39,5 +40,6 @@ t_file	*get_files(t_token *token);
 t_cmd	*get_command(t_token *token, char **path_split);
 char	**split_path_env(char **envp);
 int		executor(t_cmd *command);
+int		minishell(char *line, t_data *data);
 
 #endif

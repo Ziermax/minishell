@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/30 19:32:01 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:53:12 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,29 @@
 /*	line: ">hola cat|ls -l>out&&$USER'<NOTOKEN$NOUSERninada'"
  *	sep: "> hola cat | ls -l > out && $USER '<NOTOKEN$NOUSERninada' "	*/
 //	t_file	*files;
-int	minishell(char *line, char **envp)
+int	minishell(char *line, t_data *data)
 {
 	t_token	*tokens;
 	t_cmd	*commands;
 	char	**path_split;
 
-	tokens = tokeinator(line, envp);
+	tokens = tokeinator(line, data->env);
 	if (!tokens)
 		return (-1);
-	path_split = split_path_env(envp);
+	path_split = split_path_env(data->env);
 	if (!path_split)
 		return (-1);
 	commands = get_command(tokens, path_split);
 	if (!commands)
 		return (-1);
+	executor(commands);
+	lst_clear(&commands, del_command);
+	free_split(path_split);
+	lst_clear(&tokens, del_token);
 	return (0);
 }
 	//return (executor(commands));
-
+/*
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
@@ -66,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 	free_split(path_split);
 	lst_clear(&tokens, del_token);
 }
-/*	cmd_split = get_cmd_split(tokens);
+	cmd_split = get_cmd_split(tokens);
 	free_split(cmd_split);
 	files = get_files(tokens);
 	lst_for_each(files, print_file);

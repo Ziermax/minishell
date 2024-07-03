@@ -6,22 +6,22 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 12:53:01 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/06/24 16:48:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:14:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built.h"
+#include "../includes/built.h"
 
 static int	add_to_exp(char ***str, char *var)
 {
 	char	**new;
 	int		i;
 
-	new = ft_calloc(get_size(*str) + 2, sizeof(char *));
+	new = ft_calloc(ft_splitlen(*str) + 2, sizeof(char *));
 	if (!new)
 		return (1);
 	i = 0;
-	while ((*str)[i] && ft_strcmp((*str)[i], var) < 0)
+	while ((*str)[i] && !ft_strncmp((*str)[i], var, ft_strlen(var)))
 	{
 		new[i] = ft_strdup((*str)[i]);
 		i++;
@@ -45,7 +45,7 @@ static int	add_to_env(char ***str, char *var)
 	char	**new;
 	int		i;
 
-	new = ft_calloc(get_size(*str) + 2, sizeof(char *));
+	new = ft_calloc(ft_splitlen(*str) + 2, sizeof(char *));
 	if (!new)
 		return (1);
 	i = 0;
@@ -85,6 +85,8 @@ static int	check_exp(char *var)
 
 static int	print_exp(char **s)
 {
+	if (!s)
+		return (1);
 	while (*s)
 	{
 		if (printf("declare -x %s\n", *s) == -1)

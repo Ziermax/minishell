@@ -6,12 +6,11 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:15:32 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:24:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../includes/minishell.h"
-#include "../../includes/built.h"
+#include "../includes/minishell.h"
 
 static int	read_shell(t_data *data)
 {
@@ -50,10 +49,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	argc++;
+	argv++;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_sigint);
-	argc = 0;
-	argv = 0;
 	if (init_data(&data, envp) == -1)
 		return (1);
 	read_shell(&data);

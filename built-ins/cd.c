@@ -6,11 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/02 16:56:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:02:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/built.h"
+#include "../includes/built.h"
 
 static int	update_pwd(char ***env, const char *path)
 {
@@ -35,17 +35,17 @@ static int	update_pwd(char ***env, const char *path)
 	return (0);
 }
 
-static int	make_cd(t_data *data, const char *path)
+static int	make_cd(t_data *data, char *path)
 {
-	if (!ft_strcmp((char *)path, ".") && !getcwd(NULL, 0))
+	if (!ft_strncmp(path, ".", 2) && !getcwd(NULL, 0))
 	{
-		fd_printf(1, "cd: error retrieving current directory: getcwd: cannot");
-		fd_printf(1, " access parent directories: %s\n", strerror(errno));
+		fd_printf(2, "cd: error retrieving current directory: getcwd: cannot");
+		fd_printf(2, " access parent directories: %s\n", strerror(errno));
 		return (1);
 	}
 	if (chdir(path) == -1)
 	{
-		fd_printf(1, "cd: %s: %s\n", path, strerror(errno));
+		fd_printf(2, "cd: %s: %s\n", path, strerror(errno));
 		return (1);
 	}
 	if (update_pwd(&(data->env), path) == -1)
@@ -58,9 +58,9 @@ static int	make_cd(t_data *data, const char *path)
 int	ft_cd(t_data *data, char **input)
 {
 	input++;
-	if (get_size(input) != 1)
+	if (ft_splitlen(input) != 1)
 	{
-		fd_printf(1, "cd: too many arguments\n");
+		fd_printf(2, "cd: too many arguments\n");
 		return (1);
 	}
 	if (!input || !(*input) || !(*input)[0])
