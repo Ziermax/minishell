@@ -51,7 +51,6 @@ ${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT}
 libftmake:
 	@echo "${BCYAN}### LIBFT ###${DF}${BIGREEN}"
 	@make -C Libft --no-print-directory
-	@make -C readline static
 	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}libft.a${DF} ${BCYAN}made ---${DF}\n"
 
 ${OBJ_D}%.o: ${SRC_D}%.c Makefile
