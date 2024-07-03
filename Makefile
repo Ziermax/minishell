@@ -42,7 +42,7 @@ BBLACK=\033[1;30m#		Bold Black
 
 all: libftmake ${NAME}
 
-${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT}
+${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT} ${READLINE_LIBS}
 	@${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
 	@echo "\n${RED}Compiling program:${DF}"
 	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS}${DF} ${BIGREEN}${OBJ_F}${DF} \
@@ -52,6 +52,8 @@ libftmake:
 	@echo "${BCYAN}### LIBFT ###${DF}${BIGREEN}"
 	@make -C Libft --no-print-directory
 	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}libft.a${DF} ${BCYAN}made ---${DF}\n"
+
+#@make -C readline static
 
 ${OBJ_D}%.o: ${SRC_D}%.c Makefile
 	@${CC} ${CFLAGS} -MMD -c $< -o $@
@@ -75,8 +77,10 @@ ${DEP_D}:
 	@mkdir ${DEP_D}
 	@echo "${BCYAN}mkdir${DF} ${BCYAN}${DEP_D}${DF}"
 
-$(READLINE_LIBS): readline/Makefile
+${READLINE_LIBS}: readline/Makefile
+	@echo "${BCYAN}### READLINE ###${DF}${BIRED}"
 	@make -C readline static
+	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}READLINE${DF} ${BCYAN}made ---${DF}\n"
 
 readline/Makefile:
 	echo "READLINE WILL BE CONFIGURED";
