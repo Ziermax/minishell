@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/03 13:21:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:21:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int		check_line(char *line);
 t_token	*tokeinator(char *line, char **envp);
 char	**get_cmd_split(t_token *token);
 t_file	*get_files(t_token *token);
-t_cmd	*get_command(t_token *token, char **path_split);
+t_cmd	*get_command(t_token *token, t_data *data, char **path_split);
 char	**split_path_env(char **envp);
-int		executor(t_cmd *command);
+int		executor(t_cmd *command, t_data	*data);
 int		minishell(char *line, t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:19:43 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:15:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ typedef enum e_type
 	ARG,
 	FILES,
 }	t_type;
+
+typedef enum e_built
+{
+	ECHO = 1,
+	UNSET,
+	EXPORT,
+	ENV,
+	CD,
+	PWD,
+	EXIT,
+}	t_built;
 
 typedef struct s_data
 {
