@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 03:09:53 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/30 13:56:44 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 21:53:49 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	print_file(void *file)
 
 	aux = file;
 	printf("FILE [%p]:\n", aux);
-	printf("| file: \"%s\"\n", aux->string);
+	if (aux->open_mode != HDOC)
+		printf("| file: \"%s\"\n", aux->string);
 	printf("| mode: %s\n", get_type_str(aux->open_mode));
 	printf("| next: [%p]\n", aux->next);
 	if (aux->next)
@@ -64,7 +65,7 @@ void	print_command(void *command)
 	printf("%d. COMMAND [%p]:\n", i++, aux);
 	printf(" | path: %s\n", aux->path);
 	printf(" | cmd_split:\n /\n");
-	ft_print_split(aux->cmd_split);
+	print_split(aux->cmd_split);
 	printf(" \\ end_cmd_split-\n |\n");
 	printf(" | files:\n /\n");
 	lst_for_each(aux->files, print_file);

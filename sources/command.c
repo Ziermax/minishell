@@ -6,12 +6,13 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 03:52:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/30 18:53:04 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 22:24:17 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
+#include <unistd.h>
 
 t_cmd	*new_command_node(void)
 {
@@ -33,8 +34,36 @@ t_cmd	*new_command_node(void)
 	return (new);
 }
 
-t_cmd	*get_command(t_token *token, char **path_split)
+char	*heredoc_read(char *word)
 {
+	char	*line;
+	char	*text;
+	char	*tmp;
+	int		len;
+
+	text = ft_strdup("");
+	if (!text)
+		return (NULL);
+	len = ft_strlen(word);
+	while (1)
+	{
+		write(1, "> ", 2);
+		line = get_next_line(0);
+		if (!line || (!ft_strncmp(line, word, len)
+				&& line[len] == '\n' && line[len] != '\0'))
+			break ;
+		tmp = ft_strjoin(text, line);
+		free(text);
+		free(line);
+		if (!tmp)
+			return (NULL);
+		text = tmp;
+	}
+	free(line);
+	return (text);
+}
+
+t_cmd	*get_command(t_token *token, t_data *denv, char **path_split) {
 	t_cmd	*command;
 	t_cmd	*aux;
 	t_anal	data;
@@ -55,6 +84,7 @@ t_cmd	*get_command(t_token *token, char **path_split)
 			aux = new_command_node();
 			if (!aux)
 				return (lst_clear(&command, del_command), NULL);
+			aux->envp = denv->env;
 			lst_add_back(&command, aux);
 			data.content = true;
 		}
@@ -79,7 +109,10 @@ t_cmd	*get_command(t_token *token, char **path_split)
 			if (!file)
 				return (lst_clear(&command, del_command), NULL);
 			lst_add_back(&aux->files, file);
-			file->string = ft_strdup(token->string);
+			if (data.last_type != HDOC)
+				file->string = ft_strdup(token->string);
+			else
+				file->string = heredoc_read(token->string);
 			if (!file->string)
 				return (lst_clear(&command, del_command), NULL);
 			file->open_mode = data.last_type;

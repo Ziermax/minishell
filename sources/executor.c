@@ -6,15 +6,26 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:10:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 16:39:14 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 22:31:52 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/executor.h"
 #include "../includes/token.h"
+#include "../includes/built.h"
 #include <sys/types.h>
 #include <sys/wait.h>
+
+int	ft_pwd(void)
+{
+	return (print_pwd());
+}
+
+int	ft_echo(char **argv)
+{
+	return (print_echo(argv));
+}
 
 t_pipe	*circular_pipes(void)
 {
@@ -32,16 +43,22 @@ t_pipe	*circular_pipes(void)
 	return (pip1);
 }
 
-int	heredoc_case(char *word)
+int	heredoc_case(char *content)
 {
 	int		pipe_doc[2];
-	char	*line;
-	char	*limitator;
 
-	printf("heredoc\n");
 	if (pipe(pipe_doc) == -1)
 		return (-1);
-	limitator = ft_strjoin(word, "\n");
+	write(pipe_doc[1], content, ft_strlen(content));
+	close(pipe_doc[1]);
+	return (pipe_doc[0]);
+}
+/*	char	*line;
+	char	*limitator;
+
+	if (pipe(pipe_doc) == -1)
+		return (-1);
+	limitator = ft_strjoin(content, "\n");
 	if (!limitator)
 		return (-1);
 	while (1)
@@ -58,9 +75,10 @@ int	heredoc_case(char *word)
 	free(line);
 	free(limitator);
 	close(pipe_doc[1]);
-	return (pipe_doc[0]);
-}
+	return (pipe_doc[0]);*/
 
+	//printf("opening: \"%s\" in %d ass: %s\n",
+		//file, fd, get_type_str(open_mode));
 int	open_file(char *file, t_type open_mode, int last_fd)
 {
 	int	o_flag;
@@ -79,16 +97,17 @@ int	open_file(char *file, t_type open_mode, int last_fd)
 		fd = heredoc_case(file);
 	if (fd == -1)
 		return (-1);
-	printf("opening: \"%s\" in %d ass: %s\n",
-		file, fd, get_type_str(open_mode));
 	return (fd);
 }
 
+		//printf("Mode: %s read: %d write: %d\n", get_type_str(file->open_mode),
+			//command->fd_read, command->fd_write);
 void	manage_files(t_cmd *command)
 {
 	t_file	*file;
 
 	file = command->files;
+	//lst_for_each(file, print_file);
 	while (file)
 	{
 		if (file->open_mode == R_OUT || file->open_mode == APP)
@@ -97,15 +116,15 @@ void	manage_files(t_cmd *command)
 		else if (file->open_mode == R_IN || file->open_mode == HDOC)
 			command->fd_read = open_file(file->string, file->open_mode,
 					command->fd_read);
-		printf("Mode: %s read: %d write: %d\n",
-			get_type_str(file->open_mode), command->fd_read, command->fd_write);
 		if (((file->open_mode == R_IN || file->open_mode == HDOC)
 				&& command->fd_read == -1) || ((file->open_mode == R_OUT
 					|| file->open_mode == APP) && command->fd_write == -1))
+		{
+			fd_printf(2, "minichell: %s: %s\n", file->string, strerror(errno));
 			break ;
+		}
 		file = file->next;
 	}
-	printf("Exiting\n");
 	if (file)
 		file = file->next;
 	while (file)
@@ -116,11 +135,77 @@ void	manage_files(t_cmd *command)
 	}
 }
 
-void	execute_command(t_cmd *command)
+void	error_command(char *command)
 {
-	//sleep(5);
+	DIR	*aux;
+
+	aux = opendir(command);
+	if (!command)
+		fd_printf(2, "minichell: : permission denied\n");
+	else if (aux)
+	{
+		closedir(aux);
+		fd_printf(2, "minichell: %s: Is a directory\n", command);
+	}
+	else if (!ft_strchr(command, '/'))
+		fd_printf(2, "minichell: %s: command not found\n", command);
+	else if (access(command, F_OK) == 0)
+		fd_printf(2, "minichell: %s: Permission denied\n", command);
+	else
+		fd_printf(2, "minichell: %s: No such file or directory\n", command);
+}
+
 	//printf("cmd: %s, read: %d, write: %d\n",
 	//	command->path, command->fd_read, command->fd_write);
+	//fd_printf(2, "Problem: %s, split: %p, envp: %p\n", command->path,
+		//command->cmd_split, command->envp);
+	//perror(command->path);
+
+int	ft_isbuilting(char *str)
+{
+	if (!ft_strncmp(str, "echo", 5))
+		return (ECHO);
+	if (!ft_strncmp(str, "unset", 6))
+		return (UNSET);
+	if (!ft_strncmp(str, "export", 7))
+		return (EXPORT);
+	if (!ft_strncmp(str, "env", 4))
+		return (ENV);
+	if (!ft_strncmp(str, "cd", 3))
+		return (CD);
+	if (!ft_strncmp(str, "pwd", 4))
+		return (PWD);
+	if (!ft_strncmp(str, "exit", 6))
+		return (EXIT);
+	return (0);
+}
+
+void	execbuilt(char	**cmd_argv, t_data *data)
+{
+	int	cmd_flag;
+
+	cmd_flag = ft_isbuilting(cmd_argv[0]);
+	if (cmd_flag == ECHO)
+		ft_echo(&cmd_argv[1]);
+	if (cmd_flag == UNSET)
+		ft_unset(data, cmd_argv);
+	if (cmd_flag == EXPORT)
+		ft_export(data, cmd_argv);
+	//if (cmd_flag == ENV)
+		//ft_env(data, cmd_argv);
+	if (cmd_flag == CD)
+		ft_cd(data, cmd_argv);
+	if (cmd_flag == PWD)
+		ft_pwd();
+	//if (cmd_flag == EXIT)
+		//ft_export(data, cmd_argv);
+	exit(0);
+	return ;
+}
+
+void	execute_command(t_cmd *command, t_data *data)
+{
+	data = data;
 	if (command->fd_write != -1)
 		dup2(command->fd_write, STDOUT_FILENO);
 	if (command->fd_read != -1)
@@ -128,10 +213,12 @@ void	execute_command(t_cmd *command)
 	close(command->fd_read);
 	close(command->fd_write);
 	close(command->fd_aux);
+	if (!command->cmd_split)
+		exit(0);
+	if (ft_isbuilting(command->cmd_split[0]))
+		execbuilt(command->cmd_split, data);
 	execve(command->path, command->cmd_split, command->envp);
-	//fd_printf(2, "Problem: %s, split: %p, envp: %p\n", command->path,
-		//command->cmd_split, command->envp);
-	//perror(command->path);
+	error_command(command->cmd_split[0]);
 	exit(0);
 }
 
@@ -150,7 +237,11 @@ void	get_exit_status(t_executor *executor_data)
 	executor_data->num_of_cmd = 0;
 }
 
-int	executor(t_cmd *command)
+		//printf("executring: %s\n", command->path);
+			//printf("pipe: [%d, %d]\n", pipe_end[RD], pipe_end[WR]);
+		//printf("closeing: %d\n", command->fd_read);
+		//printf("closeing: %d\n\n", command->fd_write);
+int	executor(t_cmd *command, t_data *data)
 {
 	t_executor	exdt;
 	int			pipe_end[2];
@@ -158,27 +249,25 @@ int	executor(t_cmd *command)
 	ft_bzero(&exdt, sizeof(t_executor));
 	while (command)
 	{
-		//printf("executring: %s\n", command->path);
 		exdt.num_of_cmd += 1;
 		if (command->connection_type == PIPE)
 		{
 			pipe(pipe_end);
-			printf("pipe: [%d, %d]\n", pipe_end[RD], pipe_end[WR]);
 			command->fd_write = pipe_end[WR];
 			command->fd_aux = pipe_end[RD];
 			command->next->fd_read = pipe_end[RD];
 		}
 		manage_files(command);
 		exdt.pid = fork();
+		if (exdt.pid == -1)
+			return (-1);
 		if (!exdt.pid)
-			execute_command(command);
+			execute_command(command, data);
 		exdt.pids = add_integer(exdt.pids, exdt.num_of_cmd, exdt.pid);
 		if (!exdt.pids)
 			return (-1);
 		close(command->fd_read);
-		printf("closeing: %d\n", command->fd_read);
 		close(command->fd_write);
-		printf("closeing: %d\n\n", command->fd_write);
 		if (command->connection_type == AND || command->connection_type == OR
 			|| command->connection_type == NO_TYPE)
 		{

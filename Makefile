@@ -43,10 +43,11 @@ BBLACK=\033[1;30m#		Bold Black
 all: libftmake ${NAME}
 
 ${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT} ${READLINE_LIBS}
-	@${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
+	@${CC} ${CFLAGS} -fsanitize=address ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
 	@echo "\n${RED}Compiling program:${DF}"
 	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS}${DF} ${BIGREEN}${OBJ_F}${DF} \
-	${BIPRPL}${LIBFT}${DF} ${BCYAN}${READLINE_LIBS}${DF} ${BCYAN}-o${DF} ${RED}${NAME}${DF}"
+	${BIPRPL}${LIBFT}${DF} ${BCYAN}${READLINE_LIBS}${DF} ${BCYAN}-o${DF} \
+	${RED}${NAME}${DF}"
 
 libftmake:
 	@echo "${BCYAN}### LIBFT ###${DF}${BIGREEN}"
