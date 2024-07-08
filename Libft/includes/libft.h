@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:08:01 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:53:13 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 int		ft_strncmp(char *str1, char *str2, int bytes);
 int		ft_strlcat(char *dst, char *src, int dstsize);
 int		ft_strfcat(char *dst, char *src, int dstsize, int from);
-void	ft_print_split(char **split);
+void	print_split(char **split);
 void	ft_memset(void *dir, int c, size_t bytes);
 void	ft_bzero(void *dir, size_t bytes);
 /*	length	functions	*/
