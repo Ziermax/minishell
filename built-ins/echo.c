@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
+/*   By: adrmarqu <adrmarqu@argvtudent.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:18:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/03 13:03:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:33:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/built.h"
+#include "../includeargv/built.h"
 
-static int	print_echo2(char **s, int newline)
+static int	print_echo2(char **argv, int newline)
 {
-	while (*s)
+	while (*argv)
 	{
-		if (fd_printf(1, "%s", *s) == -1)
+		if (fd_printf(1, "%s", *argv) == -1)
 			return (1);
-		s++;
-		if (*s)
+		argv++;
+		if (*argv)
 			if (fd_printf(1, " ") == -1)
 				return (1);
 	}
@@ -29,19 +29,20 @@ static int	print_echo2(char **s, int newline)
 	return (0);
 }
 
-int	print_echo(char **s)
+int	print_echo(char **argv, t_data *data)
 {
 	int	newline;
 	int	i;
 
+	argv++;
 	newline = 1;
-	if ((*s)[0] == '-' && (*s)[1] == 'n')
+	if ((*argv)[0] == '-' && (*argv)[1] == 'n')
 	{
 		i = 1;
-		while ((*s)[i] == 'n')
+		while ((*argv)[i] == 'n')
 			i++;
 		newline = 0;
-		s++;
+		argv++;
 	}
-	return (print_echo2(s, newline));
+	return (print_echo2(argv, newline));
 }
