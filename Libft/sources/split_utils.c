@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 10:54:11 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 10:55:06 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:02:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,29 @@ char	*next_string(char *str)
 	if (quote && (*str == '\'' || *str == '\"'))
 		str++;
 	return (str);
+}
+
+char	**ft_splitdup(char **split)
+{
+	char	**dup;
+	int		i;
+	int		size;
+
+	size = ft_arraylen(split);
+	dup = ft_calloc(size + 1, sizeof(char *));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		dup[i] = ft_strdup(split[i]);
+		if (!dup[i])
+		{
+			free_split(dup);
+			return (NULL);
+		}
+		i++;
+	}
+	dup[i] = NULL;
+	return (dup);
 }

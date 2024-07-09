@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/08 18:53:13 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:58:49 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*next_string(char *str);
 char	**ultra_split(char *str, char *(*skip)(char *), char *(*next)(char *));
 char	**ft_split(char *str);
 char	**ft_split_char(char *str, char *separator);
+char	**ft_splitdup(char **split);
 /*	list functions	*/
 void	lst_add_back(void *list, void *node);
 void	lst_add_front(void *list, void *node);
