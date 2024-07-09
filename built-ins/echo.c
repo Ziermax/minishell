@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrmarqu <adrmarqu@argvtudent.42barcel>       +#+  +:+       +#+        */
+/*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 14:18:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 11:40:59 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/07/09 12:37:43 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/07/09 12:46:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,45 @@
 
 static int	print_echo(char **argv, int newline)
 {
-	while (*argv)
+	int	i;
+
+	i = 0;
+	while (argv[i])
 	{
-		if (fd_printf(1, "%s", *argv) == -1)
-			return (1);
-		argv++;
-		if (*argv)
-			if (fd_printf(1, " ") == -1)
-				return (1);
+		fd_printf(1, "%s", argv[i]);
+		i++;
+		if (argv[i])
+			fd_printf(1, " ");
 	}
 	if (newline)
-		if (fd_printf(1, "\n") == -1)
-			return (1);
+		fd_printf(1, "\n");
 	return (0);
+}
+
+static int	check_newline(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (str[0] == '-' && str[1] == 'n')
+	{
+		while (str[i] == 'n')
+			i++;
+		if (str[i])
+			return (1);
+		return (0);
+	}
+	else
+		return (1);
 }
 
 int	ft_echo(char **argv, t_data *data)
 {
 	int	newline;
-	int	i;
 
 	argv++;
-	newline = 1;
-	if ((*argv)[0] == '-' && (*argv)[1] == 'n')
-	{
-		i = 1;
-		while ((*argv)[i] == 'n')
-			i++;
-		newline = 0;
+	newline = check_newline(*argv);
+	if (!newline)
 		argv++;
-	}
-	data->exit = print_echo(argv, newline);
-	return (data->exit);
+	return (print_echo(argv, newline));
 }
