@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:49:04 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 14:03:42 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:35:09 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	update_data(char **data, const char *s, char *path, int idx)
 static int	pwd_quots(t_data *da, char **data, int idx_pwd)
 {
 	char	*tmp;
-	
+
 	tmp = put_quots(data[idx_pwd]);
 	free(data[idx_pwd]);
 	data[idx_pwd] = ft_strdup(tmp);
@@ -81,7 +81,9 @@ static int	make_cd(t_data *data, char *path)
 		fd_printf(2, "cd: %s: %s\n", path, strerror(errno));
 		return (1);
 	}
-	if (update_pwd(data, data->envp, path, 0) || update_pwd(data, data->exp, path, 1))
+	if (update_pwd(data, data->envp, path, 0))
+		return (1);
+	if (update_pwd(data, data->exp, path, 1))
 		return (1);
 	return (0);
 }

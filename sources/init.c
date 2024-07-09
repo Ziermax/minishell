@@ -6,10 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/03 15:27:38 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:14:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../Libft/includes/libft.h"
 #include "../includes/built.h"
 
 static void	sort(char **s)
@@ -36,53 +37,15 @@ static void	sort(char **s)
 	}
 }
 
-static int	init_exp(char ***exp, char **envp)
-{
-	size_t			i;
-	const size_t	size = ft_arraylen(envp);
-
-	*exp = ft_calloc(size + 1, sizeof(char *));
-	if (!*exp)
-		return (-1);
-	i = 0;
-	while (i < size)
-	{
-		(*exp)[i] = put_quots(envp[i]);
-		if (!(*exp)[i])
-			return (-ft_free(exp));
-		i++;
-	}
-	(*exp)[i] = NULL;
-	sort(*exp);
-	return (0);
-}
-
-static int	init_env(char ***env, char **envp)
-{
-	size_t			i;
-	const size_t	size = ft_arraylen(envp);
-
-	*env = ft_calloc(size + 1, sizeof(char *));
-	if (!*env)
-		return (-1);
-	i = 0;
-	while (i < size)
-	{
-		(*env)[i] = ft_strdup(envp[i]);
-		if (!(*env)[i])
-			return (-ft_free(env));
-		i++;
-	}
-	(*env)[i] = NULL;
-	return (0);
-}
-
 int	init_data(t_data *data, char **envp)
 {
-	if (init_env(&(data->env), envp) == -1)
-		return (-1);
-	if (init_exp(&(data->exp), envp) == -1)
-		return (-1);
-	data->exit = 0;
+	data->envp = ft_splitdup(envp);
+	data->exp = ft_splitdup(envp);
+	if (!data->envp || !data->exp)
+		return (1);
+	sort(data->exp);
+	data->exit_status = 0;
+	data->end = 0;
+	data->heredoc = NULL;
 	return (0);
 }

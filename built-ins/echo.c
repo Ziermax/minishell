@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:37:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 12:46:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:08:37 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,21 @@ static int	check_newline(char *str)
 int	ft_echo(char **argv, t_data *data)
 {
 	int	newline;
+	int	tmp;
+	int	new;
 
 	argv++;
-	newline = check_newline(*argv);
-	if (!newline)
-		argv++;
+	new = 1;
+	while (*argv)
+	{
+		tmp = check_newline(argv);
+		if (new)
+		{
+			newline = tmp;
+			new = 0;
+		}
+		if (!tmp)
+			argv++;
+	}
 	return (print_echo(argv, newline));
 }

@@ -6,26 +6,43 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/03 15:32:15 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:34:38 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+static void	manage_heredoc(t_data *data, char *line)
+{
+	char	*newline;
+
+	newline = ft_threejoin(line, "\n", data->heredoc);
+	free(data->heredoc);
+	if (!newline)
+	{
+		data->end = 1;
+		return ;
+	}
+	add_history(newline);
+	free(newline);
+}
+
 static int	read_shell(t_data *data)
 {
 	char	*line;
 
-	while (1)
+	while (!data->end)
 	{
 		line = readline("minishell> ");
 		if (line)
 		{
 			if (check_line(line))
-				fd_printf(2, "Error\n");
-			if (line)
-				add_history(line);
+				fd_printf(2, "Error: input not close\n");
 			minishell(line, data);
+			if (data->heredoc)
+				manage_heredoc(data, line);
+			else if (line)
+				add_history(line);
 		}
 		else
 			return (0);
@@ -55,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 	if (init_data(&data, envp) == -1)
 		return (1);
 	read_shell(&data);
-	ft_free(&data.env);
-	ft_free(&data.exp);
+	free_split(data.envp);
+	free_split(data.exp);
 	return (0);
 }

@@ -5,32 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 16:21:35 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 11:38:05 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/07/09 14:05:15 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/07/09 17:42:09 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built.h"
+#include "../Libft/includes/libft.h"
+
+int	check_options(char *str)
+{
+	if (!str || !str[0])
+		return (0);
+	if (str[0] == '-')
+	{
+		fd_printf(2, "pwd: options are not avaliable\n");
+		return (1);
+	}
+	return (0);
+}
 
 int	ft_pwd(char **argv, t_data *data)
 {
 	char	*cwd;
 
 	argv++;
-	if (*argv && (*argv)[0] == '-')
-	{
-		fd_printf(2, "minishell: pwd: We are not accepting options today\n");
+	if (check_options(*argv))
 		return (1);
-	}
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		fd_printf(2, "pwd: %s", strerror(errno));
+		fd_printf(2, "pwd: %s\n", strerror(errno));
+		data->end = 0;
 		return (1);
 	}
-	printf("%s\n", cwd);
+	fd_printf(1, "%s\n", cwd);
 	free(cwd);
-	data->exit = 0;
-	argv++;
 	return (0);
 }

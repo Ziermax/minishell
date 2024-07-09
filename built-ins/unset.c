@@ -5,14 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 11:43:07 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/08 18:49:27 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/07/09 17:31:29 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/07/09 17:58:14 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built.h"
+#include "../includes/built_utils.h"
+#include "../Libft/includes/libft.h"
 
-static int	ft_get_new(char **old, char ***new, int index)
+static void	ft_get_new(char **old, char **new, int index)
 {
 	int	i;
 	int	j;
@@ -23,57 +25,61 @@ static int	ft_get_new(char **old, char ***new, int index)
 	{
 		if (i != index)
 		{
-			(*new)[j] = ft_strdup(old[i]);
-			if (!(*new)[j])
-				return (-1);
+			new[j] = old[i];
 			j++;
 		}
 		i++;
 	}
-	(*new)[j] = NULL;
-	return (0);
+	free(old[index]);
 }
 
-int	ft_delete_var(char ***str, char *var)
+int	ft_delete_var(char **data, char *var)
 {
 	int		idx_del;
 	char	**new;
 
-	idx_del = check_var(*str, var);
+	idx_del = check_var(data, var);
 	if (idx_del == -1)
 	{
 		free(var);
 		return (0);
 	}
-	new = ft_calloc(ft_splitlen(*str), sizeof(char *));
+	new = ft_calloc(ft_arraylen(data), sizeof(char *));
 	if (!new)
 	{
 		free(var);
-		return (1);
+		return (free_split(new), 1);
 	}
-	if (ft_get_new(*str, &new, idx_del) == -1)
-	{
-		free(var);
-		return (ft_free(&new));
-	}
-	free(*str);
-	*str = new;
+	ft_get_new(data, new, idx_del);
+	free(data);
+	data = new;
 	free(var);
 	return (0);
 }
 
-int	ft_unset(char **argv, t_data *data)
+static int	check_options(char *str)
+{
+	if (str[0] == '-')
+	{
+		fd_printf(2, "minishell: unset: options are not avaliable\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_unset(**argv, t_data *data)
 {
 	int	flag;
 
 	argv++;
-	if (!argv)
+	if (!argv || !*argv)
 		return (0);
 	flag = 0;
 	while (*argv)
 	{
-		flag += ft_delete_var(&(data->env), get_var(*argv));
-		flag += ft_delete_var(&(data->exp), get_var(*argv));
+		flag += check_option(*argv);
+		flag += ft_delete_var(data->env, get_var(*argv));
+		flag += ft_delete_var(data->exp, get_var(*argv));
 		argv++;
 	}
 	return (flag > 0);
