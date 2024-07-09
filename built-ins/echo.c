@@ -6,13 +6,13 @@
 /*   By: adrmarqu <adrmarqu@argvtudent.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:18:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/08 18:33:16 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:40:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includeargv/built.h"
+#include "../includes/built.h"
 
-static int	print_echo2(char **argv, int newline)
+static int	print_echo(char **argv, int newline)
 {
 	while (*argv)
 	{
@@ -29,7 +29,7 @@ static int	print_echo2(char **argv, int newline)
 	return (0);
 }
 
-int	print_echo(char **argv, t_data *data)
+int	ft_echo(char **argv, t_data *data)
 {
 	int	newline;
 	int	i;
@@ -44,5 +44,6 @@ int	print_echo(char **argv, t_data *data)
 		newline = 0;
 		argv++;
 	}
-	return (print_echo2(argv, newline));
+	data->exit = print_echo(argv, newline);
+	return (data->exit);
 }

@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   built_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 16:21:35 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 11:38:05 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/07/08 18:39:52 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/07/08 18:42:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/built.h"
+#ifndef BUILT_UTILS_H
+# define BUILT_UTILS_H
 
-int	ft_pwd(char **argv, t_data *data)
-{
-	char	*cwd;
+# define MAX_PATH 1024
 
-	argv++;
-	if (*argv && (*argv)[0] == '-')
-	{
-		fd_printf(2, "minishell: pwd: We are not accepting options today\n");
-		return (1);
-	}
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		fd_printf(2, "pwd: %s", strerror(errno));
-		return (1);
-	}
-	printf("%s\n", cwd);
-	free(cwd);
-	data->exit = 0;
-	argv++;
-	return (0);
-}
+# include <errno.h>
+# include <unistd.h>
+# include <string.h>
+
+int			ft_delete_var(char ***str, char *var);
+char		*get_var(char *s);
+int			ft_free(char ***s);
+int			check_var(char **s, char *var);
+char		*put_quots(char *s);
+int			get_index_var(char **var, char *to_find);
+
+#endif
+

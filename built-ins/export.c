@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 12:53:01 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/03 13:14:35 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:48:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,31 +96,31 @@ static int	print_exp(char **s)
 	return (0);
 }
 
-int	ft_export(t_data *data, char **input)
+int	ft_export(char **argv, t_data *data)
 {
 	int	flag;
 	int	type;
 
-	input++;
-	if (!input || !*input || !**input)
+	argv++;
+	if (!argv || !*argv || !**argv)
 		return (print_exp(data->exp));
 	flag = 0;
-	while (*input)
+	while (*argv)
 	{
-		type = check_exp(*input);
+		type = check_exp(*argv);
 		if (type == -1)
 			flag = 1;
 		else
 		{
 			if (type)
 			{
-				flag += ft_delete_var(&(data->env), get_var(*input));
-				flag += ft_delete_var(&(data->exp), get_var(*input));
-				flag += add_to_env(&(data->env), *input);
+				flag += ft_delete_var(&(data->env), get_var(*argv));
+				flag += ft_delete_var(&(data->exp), get_var(*argv));
+				flag += add_to_env(&(data->env), *argv);
 			}
-			flag += add_to_exp(&(data->exp), *input);
+			flag += add_to_exp(&(data->exp), *argv);
 		}
-		input++;
+		argv++;
 	}
 	return (flag);
 }

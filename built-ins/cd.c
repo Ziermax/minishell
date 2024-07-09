@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/03 13:02:22 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:47:08 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ static int	make_cd(t_data *data, char *path)
 	return (0);
 }
 
-int	ft_cd(t_data *data, char **input)
+int	ft_cd(char **argv, t_data *data)
 {
-	input++;
-	if (ft_splitlen(input) != 1)
+	argv++;
+	if (ft_splitlen(argv) != 1)
 	{
 		fd_printf(2, "cd: too many arguments\n");
 		return (1);
 	}
-	if (!input || !(*input) || !(*input)[0])
+	if (!argv || !(*argv) || !(*argv)[0])
 		return (make_cd(data, ft_strdup(getenv("HOME"))) > 0);
-	return (make_cd(data, *input) > 0);
+	return (make_cd(data, *argv) > 0);
 }
