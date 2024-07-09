@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/08 17:21:54 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:10:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 void	minisheller(char *line);
 t_token	*tokener(char *line);
 int		init_data(t_data *data, char **envp);
-int		ft_free(char ***s);
 int		check_line(char *line);
 /*	*
  *	Functions of Maxi

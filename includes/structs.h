@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/08 19:15:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:46:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ typedef enum e_built
 
 typedef struct s_data
 {
-	char			**env;
-	char			**exp;
-	int				exit;
+	char	**envp;
+	char	**exp;
+	char	*heredoc;
+	int		exit_status;
+	int		end;
 }	t_data;
 
 typedef struct s_anal
