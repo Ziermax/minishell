@@ -5,33 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 16:21:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/08 18:47:08 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/07/09 12:49:04 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/07/09 14:03:42 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../Libft/includes/libft.h"
 #include "../includes/built.h"
 
-static int	update_pwd(char ***env, const char *path)
+static int	update_data(char **data, const char *s, char *path, int idx)
 {
-	int		oldpwd_idx;
-	int		pwd_idx;
 	char	*new;
 
-	pwd_idx = get_index_var(*env, "PWD=");
-	oldpwd_idx = get_index_var(*env, "OLDPWD=");
+	new = ft_strjoin(s, path);
+	if (!new)
+		return (1);
+	free(data[idx]);
+	data[idx] = ft_strdup(new);
+	free(new);
+	if (!data[idx])
+		return (1);
+	return (0);
+}
+
+static int	pwd_quots(t_data *da, char **data, int idx_pwd)
+{
+	char	*tmp;
+	
+	tmp = put_quots(data[idx_pwd]);
+	free(data[idx_pwd]);
+	data[idx_pwd] = ft_strdup(tmp);
+	free(tmp);
+	if (!data[idx_pwd])
+	{
+		da->end = 1;
+		return (1);
+	}
+	return (0);
+}
+
+static int	update_pwd(t_data *da, char **data, char *path, int quots)
+{
+	int		idx_pwd;
+	int		idx_old;
+
+	idx_pwd = get_index_var(data, "PWD=");
+	idx_old = get_index_var(data, "OLDPWD=");
 	if (pwd_idx == -1 || oldpwd_idx == -1)
 		return (1);
-	new = ft_strjoin("OLD", (*env)[pwd_idx]);
-	if (!new)
+	if (update_data(data, "OLD", data[idx_pwd], idx_old))
+	{
+		da->end = 1;
 		return (1);
-	free((*env)[oldpwd_idx]);
-	(*env)[oldpwd_idx] = new;
-	new = ft_strjoin("PWD=", (char *)path);
-	if (!new)
+	}
+	if (update_data(data, "PWD=", path, idx_pwd))
+	{
+		da->end = 1;
 		return (1);
-	free((*env)[pwd_idx]);
-	(*env)[pwd_idx] = new;
+	}
+	if (quots)
+		return (pwd_quots(da, data, idx_pwd));
 	return (0);
 }
 
@@ -48,22 +81,35 @@ static int	make_cd(t_data *data, char *path)
 		fd_printf(2, "cd: %s: %s\n", path, strerror(errno));
 		return (1);
 	}
-	if (update_pwd(&(data->env), path) == -1)
-		return (1);
-	if (update_pwd(&(data->exp), path) == -1)
+	if (update_pwd(data, data->envp, path, 0) || update_pwd(data, data->exp, path, 1))
 		return (1);
 	return (0);
 }
 
 int	ft_cd(char **argv, t_data *data)
 {
+	int		size;
+	char	*dir;
+
 	argv++;
-	if (ft_splitlen(argv) != 1)
+	size = ft_arraylen(argv);
+	if (size > 1)
 	{
-		fd_printf(2, "cd: too many arguments\n");
+		fd_printf(2, "minnishell: cd: too many arguments\n");
 		return (1);
 	}
-	if (!argv || !(*argv) || !(*argv)[0])
-		return (make_cd(data, ft_strdup(getenv("HOME"))) > 0);
-	return (make_cd(data, *argv) > 0);
+	else if (size == 1)
+	{
+		dir = ft_strdup(getenv("HOME"));
+		if (!dir)
+		{
+			data->end = 1;
+			return (1);
+		}
+		size = make_cd(data, dir);
+		free(dir);
+		return (size);
+	}
+	else if (!size)
+		return (make_cd(data, *argv));
 }
