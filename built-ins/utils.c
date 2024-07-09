@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:38:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 18:16:49 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:33:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ char	*put_quots(char *s)
 		new[j++] = s[i];
 		if (s[i] == '=' && !equal)
 		{
-			new[j++] == '\"';
+			new[j++] = '\"';
 			equal = 1;
 		}
 		i++;
 	}
 	if (equal)
-		new[j] == '\"';
+		new[j] = '\"';
 	return (new);
 }
 

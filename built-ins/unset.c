@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:31:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 17:58:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:33:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	check_options(char *str)
 	return (0);
 }
 
-int	ft_unset(**argv, t_data *data)
+int	ft_unset(char **argv, t_data *data)
 {
 	int	flag;
 
@@ -77,8 +77,8 @@ int	ft_unset(**argv, t_data *data)
 	flag = 0;
 	while (*argv)
 	{
-		flag += check_option(*argv);
-		flag += ft_delete_var(data->env, get_var(*argv));
+		flag += check_options(*argv);
+		flag += ft_delete_var(data->envp, get_var(*argv));
 		flag += ft_delete_var(data->exp, get_var(*argv));
 		argv++;
 	}

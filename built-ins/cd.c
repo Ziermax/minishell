@@ -6,18 +6,19 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:49:04 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 16:35:09 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:24:26 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/built.h"
+#include "../includes/built_utils.h"
 
 static int	update_data(char **data, const char *s, char *path, int idx)
 {
 	char	*new;
 
-	new = ft_strjoin(s, path);
+	new = ft_strjoin((char *)s, path);
 	if (!new)
 		return (1);
 	free(data[idx]);
@@ -51,7 +52,7 @@ static int	update_pwd(t_data *da, char **data, char *path, int quots)
 
 	idx_pwd = get_index_var(data, "PWD=");
 	idx_old = get_index_var(data, "OLDPWD=");
-	if (pwd_idx == -1 || oldpwd_idx == -1)
+	if (idx_pwd == -1 || idx_old == -1)
 		return (1);
 	if (update_data(data, "OLD", data[idx_pwd], idx_old))
 	{
@@ -112,6 +113,6 @@ int	ft_cd(char **argv, t_data *data)
 		free(dir);
 		return (size);
 	}
-	else if (!size)
+	else
 		return (make_cd(data, *argv));
 }

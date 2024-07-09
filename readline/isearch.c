@@ -6,7 +6,7 @@
 /*								    */
 /* **************************************************************** */
 
-/* Copyright (C) 1987-2021 Free Software Foundation, Inc.
+/* Copyright (C) 1987-2020 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
    for reading lines of text with interactive input and history editing.      
@@ -59,10 +59,13 @@ char *_rl_isearch_terminators = (char *)NULL;
 
 _rl_search_cxt *_rl_iscxt = 0;
 
-static int rl_search_history (int, int);
+/* Variables imported from other files in the readline library. */
+extern HIST_ENTRY *_rl_saved_line_for_history;
 
-static _rl_search_cxt *_rl_isearch_init (int);
-static void _rl_isearch_fini (_rl_search_cxt *);
+static int rl_search_history PARAMS((int, int));
+
+static _rl_search_cxt *_rl_isearch_init PARAMS((int));
+static void _rl_isearch_fini PARAMS((_rl_search_cxt *));
 
 /* Last line found by the current incremental search, so we don't `find'
    identical lines many times in a row.  Now part of isearch context. */
@@ -194,10 +197,7 @@ rl_display_search (char *search_string, int flags, int where)
 
   rl_message ("%s", message);
   xfree (message);
-#if 0
-  /* rl_message calls this */
   (*rl_redisplay_function) ();
-#endif
 }
 
 static _rl_search_cxt *
@@ -276,8 +276,6 @@ _rl_isearch_fini (_rl_search_cxt *cxt)
   last_isearch_string = cxt->search_string;
   last_isearch_string_len = cxt->search_string_index;
   cxt->search_string = 0;
-  cxt->search_string_size = 0;
-  cxt->search_string_index = 0;
 
   if (cxt->last_found_line < cxt->save_line)
     rl_get_previous_history (cxt->save_line - cxt->last_found_line, 0);
@@ -323,7 +321,7 @@ _rl_search_getchar (_rl_search_cxt *cxt)
 #if defined (HANDLE_MULTIBYTE)
   /* This ends up with C (and LASTC) being set to the last byte of the
      multibyte character.  In most cases c == lastc == mb[0] */
-  if (c >= 0 && MB_CUR_MAX > 1 && rl_byte_oriented == 0)
+  if (MB_CUR_MAX > 1 && rl_byte_oriented == 0)
     c = cxt->lastc = _rl_read_mbstring (cxt->lastc, cxt->mb, MB_LEN_MAX);
 #endif
 
@@ -682,7 +680,7 @@ opcode_dispatch:
       paste = _rl_bracketed_text (&pastelen);
       if (paste == 0 || *paste == 0)
 	{
-	  xfree (paste);
+	  free (paste);
 	  break;
 	}
       if (_rl_enable_active_region)
@@ -692,10 +690,9 @@ opcode_dispatch:
 	  cxt->search_string_size += pastelen + 2;
 	  cxt->search_string = (char *)xrealloc (cxt->search_string, cxt->search_string_size);
 	}
-      memcpy (cxt->search_string + cxt->search_string_index, paste, pastelen);
+      strcpy (cxt->search_string + cxt->search_string_index, paste);
       cxt->search_string_index += pastelen;
-      cxt->search_string[cxt->search_string_index] = '\0';
-      xfree (paste);
+      free (paste);
       break;
 
     /* Add character to search string and continue search. */

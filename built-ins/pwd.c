@@ -6,12 +6,15 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:05:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 17:42:09 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:32:20 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built.h"
 #include "../Libft/includes/libft.h"
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
 
 int	check_options(char *str)
 {

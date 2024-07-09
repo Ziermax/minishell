@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/03 12:53:12 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:21:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ int	minishell(char *line, t_data *data)
 	t_cmd	*commands;
 	char	**path_split;
 
-	tokens = tokeinator(line, data->env);
+	tokens = tokeinator(line, data->envp);
 	if (!tokens)
 		return (-1);
-	path_split = split_path_env(data->env);
+	path_split = split_path_env(data->envp);
 	if (!path_split)
 		return (-1);
-	commands = get_command(tokens, path_split);
+	commands = get_command(tokens, data, path_split);
 	if (!commands)
 		return (-1);
-	executor(commands);
+	executor(commands, data);
 	lst_clear(&commands, del_command);
 	free_split(path_split);
 	lst_clear(&tokens, del_token);

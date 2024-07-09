@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/09 12:34:38 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:34:39 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	manage_heredoc(t_data *data, char *line)
 	free(newline);
 }
 
-static int	read_shell(t_data *data)
+static void	read_shell(t_data *data)
 {
 	char	*line;
 
@@ -45,7 +45,7 @@ static int	read_shell(t_data *data)
 				add_history(line);
 		}
 		else
-			return (0);
+			return ;
 		free(line);
 	}
 }

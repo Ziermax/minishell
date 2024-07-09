@@ -15,23 +15,23 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-RL_LIBRARY_VERSION = 8.2
+RL_LIBRARY_VERSION = 8.1
 RL_LIBRARY_NAME = readline
 
 PACKAGE = readline
-VERSION = 8.2
+VERSION = 8.1
 
 PACKAGE_BUGREPORT = bug-readline@gnu.org
 PACKAGE_NAME = readline
-PACKAGE_STRING = readline 8.2
-PACKAGE_VERSION = 8.2
+PACKAGE_STRING = readline 8.1
+PACKAGE_VERSION = 8.1
 
 PACKAGE_TARNAME = readline
 
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = ${PWD}
+BUILD_DIR = /home/adrmarqu/42Barcelona/mini/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /usr/local
+prefix = /home/adrmarqu/42Barcelona/mini/readline/local
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -74,7 +74,7 @@ DESTDIR =
 ETAGS = etags
 CTAGS = ctags -w
 
-CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security -Wno-tautological-constant-out-of-range-compare
+CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
 LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"' -DBRACKETED_PASTE_DEFAULT=1
 CPPFLAGS = 
 
@@ -93,7 +93,7 @@ CCFLAGS = $(XCCFLAGS) $(LOCAL_CFLAGS) $(CFLAGS)
 GCC_LINT_FLAGS = -ansi -Wall -Wshadow -Wpointer-arith -Wcast-qual \
 		 -Wwrite-strings -Wstrict-prototypes \
 		 -Wmissing-prototypes -Wno-implicit -pedantic
-GCC_LINT_CFLAGS = $(XCCFLAGS) $(GCC_LINT_FLAGS) -g -O2 -Wno-parentheses -Wno-format-security -Wno-tautological-constant-out-of-range-compare 
+GCC_LINT_CFLAGS = $(XCCFLAGS) $(GCC_LINT_FLAGS) -g -O2 -Wno-parentheses -Wno-format-security 
 
 ASAN_XCFLAGS = -fsanitize=address -fno-omit-frame-pointer
 ASAN_XLDFLAGS = -fsanitize=address
@@ -149,7 +149,7 @@ DOCUMENTATION = $(DOCSOURCE) $(DOCOBJECT) $(DOCSUPPORT)
 
 CREATED_MAKEFILES = Makefile doc/Makefile examples/Makefile shlib/Makefile
 CREATED_CONFIGURE = config.status config.h config.cache config.log \
-		    stamp-config stamp-h readline.pc history.pc
+		    stamp-config stamp-h readline.pc
 CREATED_TAGS = TAGS tags
 
 INSTALLED_HEADERS = readline.h chardefs.h keymaps.h history.h tilde.h \
@@ -243,11 +243,10 @@ maybe-uninstall-headers: uninstall-headers
 
 install-pc: installdirs
 	-$(INSTALL_DATA) $(BUILD_DIR)/readline.pc $(DESTDIR)$(pkgconfigdir)/readline.pc
-	-$(INSTALL_DATA) $(BUILD_DIR)/history.pc $(DESTDIR)$(pkgconfigdir)/history.pc
 
 uninstall-pc:
 	-test -n "$(pkgconfigdir)" && cd $(DESTDIR)$(pkgconfigdir) && \
-		${RM} readline.pc history.pc
+		${RM} readline.pc
 
 maybe-uninstall-pc: uninstall-pc
 
@@ -323,9 +322,6 @@ distclean maintainer-clean: clean
 	$(RM) $(CREATED_TAGS)
 
 readline.pc:	config.status $(srcdir)/readline.pc.in
-	$(SHELL) config.status
-
-history.pc:	config.status $(srcdir)/history.pc.in
 	$(SHELL) config.status
 
 info dvi html pdf ps:

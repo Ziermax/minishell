@@ -3,7 +3,7 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-READLINE_LIBS = -Lreadline -lreadline -lhistory -lncurses
+READLINE_LIBS = -L./readline -lreadline -lhistory -lncurses
 
 #<---------------------------------|FILES|------------------------------------>#
 
@@ -40,7 +40,10 @@ BBLACK=\033[1;30m#		Bold Black
 
 #<---------------------------------|RULES|------------------------------------>#
 
-all: libftmake ${NAME}
+all: libftmake readline ${NAME}
+
+readline:
+	@make -C readline
 
 ${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT} ${READLINE_LIBS}
 	@${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}

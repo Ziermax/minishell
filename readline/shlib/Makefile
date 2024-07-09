@@ -17,14 +17,14 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 PACKAGE = readline
-VERSION = 8.2
+VERSION = 8.1
 
 PACKAGE_BUGREPORT = bug-readline@gnu.org
 PACKAGE_NAME = readline
-PACKAGE_STRING = readline 8.2
-PACKAGE_VERSION = 8.2
+PACKAGE_STRING = readline 8.1
+PACKAGE_VERSION = 8.1
 
-RL_LIBRARY_VERSION = 8.2
+RL_LIBRARY_VERSION = 8.1
 RL_LIBRARY_NAME = readline
 
 datarootdir = ${prefix}/share
@@ -52,7 +52,7 @@ SHELL = /bin/sh
 host_os = linux-gnu
 host_vendor = pc
 
-prefix = /usr/local
+prefix = /home/adrmarqu/42Barcelona/mini/readline/local
 exec_prefix = ${prefix}
 includedir = ${prefix}/include
 bindir = ${exec_prefix}/bin
@@ -63,10 +63,10 @@ localedir = ${datarootdir}/locale
 # Support an alternate destination root directory for package building
 DESTDIR =
 
-CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security -Wno-tautological-constant-out-of-range-compare
+CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
 LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"' -DBRACKETED_PASTE_DEFAULT=1
 CPPFLAGS = 
-LDFLAGS =   -g -O2 -Wno-parentheses -Wno-format-security -Wno-tautological-constant-out-of-range-compare
+LDFLAGS =   -g -O2 -Wno-parentheses -Wno-format-security
 
 DEFS = -DHAVE_CONFIG_H 
 LOCAL_DEFS = 
@@ -86,7 +86,7 @@ SHOBJ_XLDFLAGS =
 SHOBJ_LIBS = 
 
 SHLIB_XLDFLAGS =  -Wl,-rpath,$(libdir) -Wl,-soname,`basename $@ $(SHLIB_MINOR)`
-SHLIB_LIBS =  
+SHLIB_LIBS = 
 
 SHLIB_DOT = .
 SHLIB_LIBPREF = lib
@@ -102,7 +102,7 @@ TERMCAP_LIB = -ltermcap
 # shared library versioning
 SHLIB_MAJOR=		8
 # shared library systems like SVR4's do not use minor versions
-SHLIB_MINOR=		.2
+SHLIB_MINOR=		.1
 
 # For libraries which include headers from other libraries.
 INCLUDES = -I. -I.. -I$(topdir)

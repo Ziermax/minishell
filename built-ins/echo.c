@@ -6,10 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:37:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 18:08:37 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:27:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../Libft/includes/libft.h"
 #include "../includes/built.h"
 
 static int	print_echo(char **argv, int newline)
@@ -56,7 +57,7 @@ int	ft_echo(char **argv, t_data *data)
 	new = 1;
 	while (*argv)
 	{
-		tmp = check_newline(argv);
+		tmp = check_newline(*argv);
 		if (new)
 		{
 			newline = tmp;
@@ -65,5 +66,6 @@ int	ft_echo(char **argv, t_data *data)
 		if (!tmp)
 			argv++;
 	}
+	data->end = 0;
 	return (print_echo(argv, newline));
 }

@@ -72,7 +72,7 @@ static const char * const pathname_alphabetic_chars = "/-_=~.#$";
 int
 rl_alphabetic (int c)
 {
-  if (_rl_alphabetic_p (c))
+  if (ALPHABETIC (c))
     return (1);
 
   return (_rl_allow_pathname_alphabetic_chars &&
@@ -81,7 +81,7 @@ rl_alphabetic (int c)
 
 #if defined (HANDLE_MULTIBYTE)
 int
-_rl_walphabetic (WCHAR_T wc)
+_rl_walphabetic (wchar_t wc)
 {
   int c;
 
@@ -98,8 +98,7 @@ _rl_walphabetic (WCHAR_T wc)
 int
 _rl_abort_internal (void)
 {
-  if (RL_ISSTATE (RL_STATE_TIMEOUT) == 0)
-    rl_ding ();			/* Don't ring the bell on a timeout */
+  rl_ding ();
   rl_clear_message ();
   _rl_reset_argument ();
   rl_clear_pending_input ();

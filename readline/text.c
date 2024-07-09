@@ -1,6 +1,6 @@
 /* text.c -- text handling commands for readline. */
 
-/* Copyright (C) 1987-2021 Free Software Foundation, Inc.
+/* Copyright (C) 1987-2020 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
    for reading lines of text with interactive input and history editing.      
@@ -59,12 +59,12 @@
 #include "xmalloc.h"
 
 /* Forward declarations. */
-static int rl_change_case (int, int);
-static int _rl_char_search (int, int, int);
+static int rl_change_case PARAMS((int, int));
+static int _rl_char_search PARAMS((int, int, int));
 
 #if defined (READLINE_CALLBACKS)
-static int _rl_insert_next_callback (_rl_callback_generic_arg *);
-static int _rl_char_search_callback (_rl_callback_generic_arg *);
+static int _rl_insert_next_callback PARAMS((_rl_callback_generic_arg *));
+static int _rl_char_search_callback PARAMS((_rl_callback_generic_arg *));
 #endif
 
 /* The largest chunk of text that can be inserted in one call to
@@ -96,7 +96,6 @@ rl_insert_text (const char *string)
 
   for (i = rl_end; i >= rl_point; i--)
     rl_line_buffer[i + l] = rl_line_buffer[i];
-
   strncpy (rl_line_buffer + rl_point, string, l);
 
   /* Remember how to undo this if we aren't undoing something. */
@@ -736,7 +735,7 @@ _rl_insert_char (int count, int c)
     }
   else
     {
-      WCHAR_T wc;
+      wchar_t wc;
       size_t ret;
 
       if (stored_count <= 0)
@@ -746,7 +745,7 @@ _rl_insert_char (int count, int c)
 
       ps_back = ps;
       pending_bytes[pending_bytes_length++] = c;
-      ret = MBRTOWC (&wc, pending_bytes, pending_bytes_length, &ps);
+      ret = mbrtowc (&wc, pending_bytes, pending_bytes_length, &ps);
 
       if (ret == (size_t)-2)
 	{
@@ -920,11 +919,8 @@ _rl_overwrite_char (int count, int c)
   int k;
 
   /* Read an entire multibyte character sequence to insert COUNT times. */
-  k = 1;
   if (count > 0 && MB_CUR_MAX > 1 && rl_byte_oriented == 0)
     k = _rl_read_mbstring (c, mbkey, MB_LEN_MAX);
-  if (k < 0)
-    return 1;
 #endif
 
   rl_begin_undo_group ();
@@ -1136,7 +1132,7 @@ rl_newline (int count, int key)
 int
 rl_do_lowercase_version (int ignore1, int ignore2)
 {
-  return 99999;		/* prevent from being combined with _rl_null_function */
+  return 0;
 }
 
 /* This is different from what vi does, so the code's not shared.  Emacs
@@ -1405,9 +1401,9 @@ rl_change_case (int count, int op)
 {
   int start, next, end;
   int inword, nc, nop;
-  WCHAR_T c;
+  wchar_t c;
 #if defined (HANDLE_MULTIBYTE)
-  WCHAR_T wc, nwc;
+  wchar_t wc, nwc;
   char mb[MB_LEN_MAX+1];
   int mlen;
   size_t m;
@@ -1466,9 +1462,9 @@ rl_change_case (int count, int op)
 #if defined (HANDLE_MULTIBYTE)
       else
 	{
-	  m = MBRTOWC (&wc, rl_line_buffer + start, end - start, &mps);
+	  m = mbrtowc (&wc, rl_line_buffer + start, end - start, &mps);
 	  if (MB_INVALIDCH (m))
-	    wc = (WCHAR_T)rl_line_buffer[start];
+	    wc = (wchar_t)rl_line_buffer[start];
 	  else if (MB_NULLWCH (m))
 	    wc = L'\0';
 	  nwc = (nop == UpCase) ? _rl_to_wupper (wc) : _rl_to_wlower (wc);
@@ -1478,12 +1474,12 @@ rl_change_case (int count, int op)
 	      mbstate_t ts;
 
 	      memset (&ts, 0, sizeof (mbstate_t));
-	      mlen = WCRTOMB (mb, nwc, &ts);
+	      mlen = wcrtomb (mb, nwc, &ts);
 	      if (mlen < 0)
 		{
 		  nwc = wc;
 		  memset (&ts, 0, sizeof (mbstate_t));
-		  mlen = WCRTOMB (mb, nwc, &ts);
+		  mlen = wcrtomb (mb, nwc, &ts);
 		  if (mlen < 0)		/* should not happen */
 		    strncpy (mb, rl_line_buffer + start, mlen = m);
 		}
@@ -1540,10 +1536,7 @@ rl_transpose_words (int count, int key)
 {
   char *word1, *word2;
   int w1_beg, w1_end, w2_beg, w2_end;
-  int orig_point, orig_end;
-
-  orig_point = rl_point;
-  orig_end = rl_end;
+  int orig_point = rl_point;
 
   if (!count)
     return 0;
@@ -1587,7 +1580,6 @@ rl_transpose_words (int count, int key)
   /* This is exactly correct since the text before this point has not
      changed in length. */
   rl_point = w2_end;
-  rl_end = orig_end;		/* just make sure */
 
   /* I think that does it. */
   rl_end_undo_group ();
@@ -1764,7 +1756,8 @@ _rl_char_search (int count, int fdir, int bdir)
 
 #if defined (READLINE_CALLBACKS)
 static int
-_rl_char_search_callback (_rl_callback_generic_arg *data)
+_rl_char_search_callback (data)
+     _rl_callback_generic_arg *data;
 {
   _rl_callback_func = 0;
   _rl_want_redisplay = 1;

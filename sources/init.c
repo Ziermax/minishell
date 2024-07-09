@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 12:14:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:37:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/built.h"
+#include <limits.h>
 
 static void	sort(char **s)
 {
@@ -25,7 +26,7 @@ static void	sort(char **s)
 		j = 0;
 		while (s[j] && s[j + 1])
 		{
-			if (strcmp(s[j], s[j + 1]) > 0)
+			if (ft_strncmp(s[j], s[j + 1], INT_MAX) > 0)
 			{
 				tmp = s[j];
 				s[j] = s[j + 1];
