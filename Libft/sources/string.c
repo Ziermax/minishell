@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:32 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/08 18:52:43 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:05:36 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,8 @@ void	ft_bzero(void *dir, size_t bytes)
 	ft_memset(dir, 0, bytes);
 }
 
-void	print_split(char **split)
+void	swap_strings(char **str_p, char *str)
 {
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		fd_printf(1, "%s\n", split[i]);
-		i++;
-	}
+	free(*str_p);
+	*str_p = str;
 }

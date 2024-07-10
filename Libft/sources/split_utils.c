@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 10:54:11 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/22 10:55:06 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:46:25 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,32 @@ char	*next_string(char *str)
 	if (quote && (*str == '\'' || *str == '\"'))
 		str++;
 	return (str);
+}
+
+char	*next_word(char *str)
+{
+	if (!str)
+		return (NULL);
+	while (*str && !ft_isspace(*str))
+	{
+		if (*str != '\'' && *str != '\"')
+			str++;
+		else
+			str = next_string(str);
+	}
+	return (str);
+}
+
+void	print_split(char **split)
+{
+	int	i;
+
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		fd_printf(1, "%s\n", split[i]);
+		i++;
+	}
 }
