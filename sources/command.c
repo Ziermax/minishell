@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 03:52:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/08 22:24:17 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:01:42 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_cmd	*get_command(t_token *token, t_data *denv, char **path_split) {
 		else if (token->type == O_PAR)
 		{
 			data.parenthesis += 1;
-			aux->subcommand = token;
+			aux->subcommand = (t_cmd *)token;
 			token = token->next;
 			while (token && data.parenthesis != 0)
 			{

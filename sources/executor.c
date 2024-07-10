@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:10:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/08 22:31:52 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:43:19 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+int	executor(t_cmd *command, t_data *data);
+
 int	ft_pwd(void)
 {
 	return (print_pwd());
@@ -25,22 +27,6 @@ int	ft_pwd(void)
 int	ft_echo(char **argv)
 {
 	return (print_echo(argv));
-}
-
-t_pipe	*circular_pipes(void)
-{
-	t_pipe	*pip1;
-	t_pipe	*pip2;
-
-	pip1 = ft_calloc(sizeof(t_pipe), 1);
-	if (!pip1)
-		return (NULL);
-	pip2 = ft_calloc(sizeof(t_pipe), 1);
-	if (pip2)
-		return (free(pip1), NULL);
-	pip1->next = pip2;
-	pip2->next = pip1;
-	return (pip1);
 }
 
 int	heredoc_case(char *content)
@@ -77,8 +63,6 @@ int	heredoc_case(char *content)
 	close(pipe_doc[1]);
 	return (pipe_doc[0]);*/
 
-	//printf("opening: \"%s\" in %d ass: %s\n",
-		//file, fd, get_type_str(open_mode));
 int	open_file(char *file, t_type open_mode, int last_fd)
 {
 	int	o_flag;
@@ -95,6 +79,8 @@ int	open_file(char *file, t_type open_mode, int last_fd)
 		fd = open(file, o_flag, 420);
 	else
 		fd = heredoc_case(file);
+	fd_printf(2, "opening: \"%s\" in %d ass: %s\n",
+		file, fd, get_type_str(open_mode));
 	if (fd == -1)
 		return (-1);
 	return (fd);
@@ -213,6 +199,8 @@ void	execute_command(t_cmd *command, t_data *data)
 	close(command->fd_read);
 	close(command->fd_write);
 	close(command->fd_aux);
+	if (command->subcommand)
+		exit(executor(command->subcommand, data));
 	if (!command->cmd_split)
 		exit(0);
 	if (ft_isbuilting(command->cmd_split[0]))

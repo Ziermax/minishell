@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/08 17:50:07 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:00:52 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,6 @@ typedef struct s_data
 	int		exit;
 }	t_data;
 
-typedef struct s_anal
-{
-	t_type	last_type;
-	int		parenthesis;
-	bool	is_cmd_assign;
-	bool	is_cmd_syntax;
-	bool	content;
-}	t_anal;
-
 typedef struct s_token	t_token;
 
 struct s_token
@@ -89,26 +80,29 @@ struct s_cmd
 	char	*path;
 	char	**envp;
 	t_file	*files;
-	t_token	*subcommand;
+	t_cmd	*subcommand;
 	int		fd_read;
 	int		fd_write;
 	int		fd_aux;
 };
 
-typedef struct s_pipe	t_pipe;
-
-struct s_pipe
+typedef struct s_anal
 {
-	t_pipe	*next;
-	int		end[2];
-};
+	t_type	last_type;
+	int		parenthesis;
+	bool	is_cmd_assign;
+	bool	is_cmd_syntax;
+	bool	content;
+	char	**path_split;
+	t_cmd	*aux;
+
+}	t_anal;
 
 typedef struct s_executor
 {
 	int		pid;
 	int		num_of_cmd;
 	int		exit_status;
-	t_pipe	*pipes;
 	int		error;
 	int		*pids;
 }	t_executor;

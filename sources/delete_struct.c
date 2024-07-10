@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 03:23:48 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:15:37 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:21:32 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	del_command(void *command)
 	free_split(aux->cmd_split);
 	free(aux->path);
 	lst_clear(&aux->files, del_file);
+	lst_clear(&aux->subcommand, del_command);
 }
 
 void	del_token(void *token)
