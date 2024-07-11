@@ -56,8 +56,6 @@ libftmake:
 	@make -C Libft --no-print-directory
 	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}libft.a${DF} ${BCYAN}made ---${DF}\n"
 
-#@make -C readline static
-
 ${OBJ_D}%.o: ${SRC_D}%.c Makefile
 	@${CC} ${CFLAGS} -MMD -c $< -o $@
 	@mv ${@:.o=.d} ${DEP_D}
@@ -80,14 +78,14 @@ ${DEP_D}:
 	@mkdir ${DEP_D}
 	@echo "${BCYAN}mkdir${DF} ${BCYAN}${DEP_D}${DF}"
 
-${READLINE_LIBS}: readline/Makefile
+${READLINE_LIBS}: #readline/Makefile
 	@echo "${BCYAN}### READLINE ###${DF}${BIRED}"
 	@make -C readline static
 	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}READLINE${DF} ${BCYAN}made ---${DF}\n"
 
-readline/Makefile:
-	echo "READLINE WILL BE CONFIGURED";
-	cd readline && ./configure;
+#readline/Makefile:
+#	echo "READLINE WILL BE CONFIGURED";
+#	cd readline && ./configure;
 
 #<---------------------------------|PHONY|------------------------------------>#
 
