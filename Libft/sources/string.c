@@ -6,27 +6,22 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:32 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/09 11:05:36 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:23:26 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_strlcat(char	*dst, char *src, int dstsize)
+int	ft_strncmp(char *str1, char *str2, int bytes)
 {
-	int	i;
-
-	if (!dst || !src || !dstsize)
-		return (dstsize);
-	i = 0;
-	while (dst[i] && i < dstsize)
-		i++;
-	if (dst[i] || i == dstsize)
-		return (ft_strlen(src) + dstsize);
-	while (*src && i < dstsize)
-		dst[i++] = *(src++);
-	dst[i] = '\0';
-	return (ft_strlen(src) + i);
+	if (!str1 || !str2 || bytes <= 0)
+		return (0);
+	while (*str1 && *str1 == *str2 && bytes-- > 1)
+	{
+		str2++;
+		str1++;
+	}
+	return ((unsigned char)*str1 - (unsigned char)*str2);
 }
 
 int	ft_strfcat(char	*dst, char *src, int dstsize, int from)

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/10 19:55:01 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:26:44 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 
 # define STR_START 1
-# define STR_ANY 2
+# define STR_MIDDLE 2
 # define STR_END 4
 
 /*	string functions	*/

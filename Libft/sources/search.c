@@ -6,23 +6,11 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 14:55:30 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:17:54 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:35:38 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
-
-int	ft_strncmp(char *str1, char *str2, int bytes)
-{
-	if (!str1 || !str2 || bytes <= 0)
-		return (0);
-	while (*str1 && *str1 == *str2 && bytes-- > 1)
-	{
-		str2++;
-		str1++;
-	}
-	return ((unsigned char)*str1 - (unsigned char)*str2);
-}
 
 char	*ft_strchr(char *str, int c)
 {
@@ -69,6 +57,24 @@ char	*search_word_in_split(char *word, char **split, int bytes)
 	return (NULL);
 }
 
+static char	*search_word_in_middle(char *word, char *str, int bytes)
+{
+	int	len;
+	int	i;
+
+	if (!str || !str[0] || !str[1])
+		return (NULL);
+	i = 1;
+	len = ft_strlen(str);
+	while (i + bytes < len && str[i + 1])
+	{
+		if (ft_strncmp(word, &str[i], bytes) == 0)
+			return (&str[i]);
+		i++;
+	}
+	return (NULL);
+}
+
 char	*search_word_relative(char *word, char *str, int flag, int bytes)
 {
 	int	i;
@@ -77,11 +83,13 @@ char	*search_word_relative(char *word, char *str, int flag, int bytes)
 	if (!word || !str || bytes <= 0)
 		return (NULL);
 	if (flag == STR_START)
+	{
 		if (ft_strncmp(word, str, bytes) == 0)
 			return (str);
-	if (flag == STR_ANY)
-		return (search_word_in_str(word, str));
-	if (flag == STR_END)
+	}
+	else if (flag == STR_MIDDLE)
+		return (search_word_in_middle(word, str, bytes));
+	else if (flag == STR_END)
 	{
 		i = ft_strlen(str);
 		j = ft_strlen(word);
@@ -93,43 +101,23 @@ char	*search_word_relative(char *word, char *str, int flag, int bytes)
 	}
 	return (NULL);
 }
-	/*int	i;
-	int	start;
-
-	if (!word || !str)
-		return (NULL);
-	if (flag == STR_START && word[0] != str[0])
-		return (NULL);
-	start = 0;
-	while (str[start])
-	{
-		i = 0;
-		while (word[i] && str[start + i] == word[i])
-			i++;
-		if (flag == STR_START && word[i] == '\0' && start == 0)
-			return (str);
-		if (flag == STR_END && word[i] == '\0' && str[start + i] == '\0')
-			return (&str[start]);
-		if (flag == STR_ANY && word[i] == '\0'
-			&& start != 0 && str[start + i] != '\0')
-			return (&str[start]);
-		start++;
-	}
-	return (NULL);*/
 /*
 #include <stdio.h>
->>>>>>> parser-input
-
-int	search_char(const char c, const char *set)
+int	main(int argc, char **argv)
 {
-	int	i;
-
-	i = 0;
-	while (set[i])
-	{
-		if (c == set[i])
-			return (0);
-		i++;
-	}
-	return (1);
+	char	*start;
+	char	*middle;
+	char	*end;
+	
+	if (argc != 3)
+		return (0);
+	start = search_word_relative(
+		argv[1], argv[2], STR_START, ft_strlen(argv[1]));
+	middle = search_word_relative(
+		argv[1], argv[2], STR_MIDDLE, ft_strlen(argv[1]));
+	end = search_word_relative(
+		argv[1], argv[2], STR_END, ft_strlen(argv[1]));
+	printf("Found Word start in %p: %s\n", start, start);
+	printf("Found Word middl in %p: %s\n", middle, middle);
+	printf("Found Word  end  in %p: %s\n", end, end);
 }*/
