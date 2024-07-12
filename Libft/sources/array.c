@@ -6,11 +6,13 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:59:09 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/10 19:54:54 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:53:55 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "../includes/libft.h"
+#include "../includes/macros.h"
 
 void	*add_dir(void *array, void *dir)
 {
@@ -38,36 +40,11 @@ void	*add_dir(void *array, void *dir)
 	return (new_array);
 }
 
-static void	fill_array(void **new_array, void **array1,
-	void **array2, void *position)
-{
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	while (array1[j])
-	{
-		new_array[i++] = array1[j];
-		if (array1[j] == position)
-		{
-			while (array2[k])
-			{
-				new_array[i++] = array2[k];
-				k++;
-			}
-		}
-		j++;
-	}
-	new_array[i] = NULL;
-}
-
 void	*add_array_to_array(void *array, void *to_add, void *position)
 {
 	void	**new_array;
 	int		len[2];
+	int		idx[3];
 
 	if (!to_add)
 		return (array);
@@ -76,7 +53,18 @@ void	*add_array_to_array(void *array, void *to_add, void *position)
 	new_array = malloc(sizeof(void *) * (len[0] + len[1] + 1));
 	if (!new_array)
 		return (free_split(array), NULL);
-	fill_array(new_array, array, to_add, position);
+	ft_bzero(idx, sizeof(int) * 3);
+	while (J[idx] < len[0])
+	{
+		new_array[I[idx]++] = ((void **)array)[J[idx]];
+		if (((void **)array)[J[idx]++] == position && to_add != (void *)1)
+		{
+			while (K[idx] < len[1])
+				new_array[I[idx]++] = ((void **)to_add)[K[idx]++];
+			to_add = (void *)1;
+		}
+	}
+	new_array[I[idx]] = NULL;
 	return (free(array), new_array);
 }
 
@@ -101,38 +89,56 @@ int	*add_integer(int *array, int len, int to_add)
 	return (free(array), new_array);
 }
 
-void	*remove_dir(void *array, void *to_remove)
+static int	count_dir_remove(void *array, void *to_remove)
 {
 	void	**aux;
 	int		seen;
 	int		len;
 	int		i;
 
+	i = -1;
+	len = 0;
+	seen = 0;
+	aux = array;
+	while (aux[++i])
+	{
+		if (aux[i] != to_remove)
+			len++;
+		else
+			seen = 1;
+	}
+	if (!seen)
+		return (NOT_SEEN);
+	return (len);
+}
+
+void	*remove_dir(void *array, void *to_remove)
+{
+	void	**new_array;
+	void	**aux;
+	int		len;
+	int		i;
+
 	if (!to_remove || !array)
 		return (array);
-	aux = array;
-	seen = 0;
-	len = -1;
-	while (aux[++len])
-		if (!seen && aux[len] == to_remove)
-			len = seen -= 1;
-	if (!seen)
+	len = count_dir_remove(array, to_remove);
+	if (len == NOT_SEEN)
 		return (array);
-	aux = malloc(sizeof(void *) * (len + 1));
-	if (!aux)
+	new_array = malloc(sizeof(void *) * (len + 1));
+	if (!new_array)
 		return (free_split(array), NULL);
 	i = -1;
+	aux = array;
 	while (++i < len)
 	{
-		if (((void **)array)[i] == to_remove)
-			array += sizeof(array);
-		aux[i] = ((void **)array)[i];
+		while (aux[i] == to_remove)
+			aux++;
+		new_array[i] = aux[i];
 	}
-	return (free(array - sizeof(void *)), aux);
+	new_array[i] = NULL;
+	return (free(array), new_array);
 }
-/*
-#include <stdio.h>
-int	main(void)
+/*int	main(void)
 {
 	char	**array;
 	char	**tmp;
