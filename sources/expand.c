@@ -6,11 +6,15 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:29:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/10 18:52:47 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:40:10 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 static int	ft_isvarchar(int c)
 {
@@ -135,7 +139,132 @@ int	ft_isexpansible(char *str)
 	return (asterisk);
 }
 
-#include <unistd.h>
+char	*next_asterisk(char *str)
+{
+	if (!str)
+		return (NULL);
+	if (*str == '*')
+		while (*str == '*')
+			str++;
+	else
+		while (*str && *str != '*')
+			str++;
+	return (str);
+}
+
+char	**get_file_in_dir(char *dir_name)
+{
+	struct dirent	*entity;
+	DIR				*directory;
+	char			**dir_files;
+	char			*tmp;
+
+	directory = opendir(dir_name);
+	if (!directory)
+		return (ft_calloc(sizeof(char *), 1));
+	entity = readdir(directory);
+	dir_files = NULL;
+	while (entity)
+	{
+		tmp = ft_strdup(entity->d_name);
+		if (!tmp)
+			return (free_split(dir_files), closedir(directory), NULL);
+		dir_files = add_dir(dir_files, tmp);
+		if (!dir_files)
+			return (free(tmp), closedir(directory), NULL);
+		entity = readdir(directory);
+	}
+	return (closedir(directory), dir_files);
+}
+
+int	ft_ismatch(char *file, char **rules)
+{
+	char	*curnt;
+	char	*prev;
+	int		i;
+
+	if (ft_strchr(rules[0], '*') && !rules[1] && file[0] != '.')
+		return (1);
+	i = -1;
+	prev = NULL;
+	while (rules[++i])
+	{
+		if (rules[i][0] == '*')
+			continue ;
+		printf("Searching this: %s in this file: %s\n", rules[i], file);
+		if (i == 0 && !prev)
+			curnt = search_word_relative(rules[i], file,
+				STR_START, ft_strlen(rules[i]));
+		else if (!rules[i + 1] || !rules[i + 2])
+			curnt = search_word_relative(rules[i], file,
+				STR_END, ft_strlen(rules[i]) + 1);
+		else
+			curnt = search_word_relative(rules[i], file,
+				STR_MIDDLE, ft_strlen(rules[i]));
+		//printf("Match: %s < %s\n%p - %p = %ld\n\n\n",
+			//prev, curnt, prev, curnt, prev - curnt);
+		if (!curnt || prev - curnt > 0)
+		{
+			//printf("Bad match: %s < %s\n%p - %p = %ld\n",
+				//prev, curnt, prev, curnt, prev - curnt);
+			return (0);
+		}
+		prev = curnt;
+	}
+	return (1);
+}
+
+char	**find_matched_files(char **name_matches, char **files)
+{
+	char	**match;
+	char	*tmp;
+	int		i;
+
+	i = -1;
+	match = NULL;
+	while (files[++i])
+	{
+		if (ft_ismatch(files[i], name_matches))
+		{
+			tmp = ft_strdup(files[i]);
+			if (!tmp)
+				return (free_split(match), NULL);
+			match = add_dir(match, tmp);
+			if (!match)
+				return (free(tmp), NULL);
+		}
+	}
+	printf("\n###########\nMATCHESSS: %p\n\n", match);
+	print_split(match);
+	free_split(match);
+	return (NULL);
+	if (!match)
+		return (ft_calloc(sizeof(char *), 1));
+	return (match);
+}
+
+char	**expand_asterisk(char *string)
+{
+	char	**expansion;
+	char	**files;
+	char	**matched_files;
+
+	expansion = ultra_split(string, no_skip, next_asterisk);
+	if (!expansion)
+		return (NULL);
+	files = get_file_in_dir(".");
+	if (!files)
+		return (free_split(expansion), NULL);
+	printf("\n###########\nFiles: %p\n\n", expansion);
+	print_split(files);
+	printf("\n###########\nExpand Asterisk: %p\n\n", expansion);
+	print_split(expansion);
+	matched_files = find_matched_files(expansion, files);
+	free_split(expansion);
+	free_split(files);
+	return (matched_files);
+}
+
 char	**expand_full(char *string)
 {
 	char	*expanded_vars;
@@ -145,14 +274,16 @@ char	**expand_full(char *string)
 
 	expansion = ultra_split(string, skip_spaces, next_word);
 	i = -1;
+	printf("\n###########\nExpandFull: %p\n\n", expansion);
+	print_split(expansion);
 	while (expansion[++i])
 	{
 		if (ft_isexpansible(expansion[i]))
 		{
+			printf("\nexpansible: %s\n", expansion[i]);
 			tmp = expand_asterisk(expansion[i]);
 			if (!tmp)
-				return (free(expansion), NULL);
-			printf("expansible: %s\n", expansion[i]);
+				return (free_split(expansion), NULL);
 		}
 	}
 	return (expansion);
@@ -165,14 +296,13 @@ int	main(int argc, char **argv, char **envp)
 	
 	if (argc != 2)
 		return (0);
-	fd_printf(1, "Recived: %s\n\n", argv[1]);
 	expanded = expand_token(argv[1], envp);
+	printf("\n###########\nExpand token: %s\n\n", expanded);
 	if (!expanded)
 		return (1);
-	fd_printf(1, "Expanded like this:\n%s\n\n", expanded);
 	expansion = expand_full(expanded);
-	printf("expansion: %p\n\n", expansion);
-	if (expansion)
+	printf("\n###########\nExpansion: %p\n\n", expansion);
 	print_split(expansion);
+	free_split(expansion);
 	free(expanded);
 }
