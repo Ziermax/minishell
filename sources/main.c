@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/09 18:34:39 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:58:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	read_shell(t_data *data)
 			minishell(line, data);
 			if (data->heredoc)
 				manage_heredoc(data, line);
-			else if (line)
+			else if (line && line[0])
 				add_history(line);
 		}
 		else
