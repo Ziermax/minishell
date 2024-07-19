@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:40:36 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 11:37:13 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:18:02 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_export(char **argv, t_data *data)
 	int	flag;
 
 	argv++;
-	if (!*argv || !argv[0][0])
+	if (!*argv)
 		return (print_export(data->exp));
 	if (argv[0][0] == '-')
 	{

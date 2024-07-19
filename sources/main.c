@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/15 13:53:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:36:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,7 @@ static void	read_shell(t_data *data)
 		{
 			if (check_line(line))
 				fd_printf(2, "Error: input not close\n");
-			//minishell(line, data);
-
-
-			char	*s[5];
-
-			s[0] = "a";
-			s[1] = line;
-			s[2] = NULL;
-
-			ft_export(s, data);
-			//ft_unset(s, data);	
-				
+			minishell(line, data);
 			if (data->heredoc)
 				manage_heredoc(data, line);
 			else if (line && line[0])
