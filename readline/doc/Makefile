@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /home/adrmarqu/42Barcelona/mini/readline/local
+prefix = /usr/local
 
 datarootdir = ${prefix}/share
 

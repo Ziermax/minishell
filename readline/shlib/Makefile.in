@@ -16,60 +16,60 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-PACKAGE = readline
-VERSION = 8.1
+PACKAGE = @PACKAGE_NAME@
+VERSION = @PACKAGE_VERSION@
 
-PACKAGE_BUGREPORT = bug-readline@gnu.org
-PACKAGE_NAME = readline
-PACKAGE_STRING = readline 8.1
-PACKAGE_VERSION = 8.1
+PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
+PACKAGE_NAME = @PACKAGE_NAME@
+PACKAGE_STRING = @PACKAGE_STRING@
+PACKAGE_VERSION = @PACKAGE_VERSION@
 
-RL_LIBRARY_VERSION = 8.1
+RL_LIBRARY_VERSION = @LIBVERSION@
 RL_LIBRARY_NAME = readline
 
-datarootdir = ${prefix}/share
+datarootdir = @datarootdir@
 
-srcdir = .
-VPATH = ..
-topdir = ..
-BUILD_DIR = /home/adrmarqu/42Barcelona/mini/readline
+srcdir = @srcdir@
+VPATH = @top_srcdir@
+topdir = @top_srcdir@
+BUILD_DIR = @BUILD_DIR@
 
-INSTALL = /usr/bin/install -c
-INSTALL_PROGRAM = ${INSTALL}
-INSTALL_DATA = ${INSTALL} -m 644
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
 
-CC = gcc
-RANLIB = ranlib
-AR = ar
-ARFLAGS = cr
+CC = @CC@
+RANLIB = @RANLIB@
+AR = @AR@
+ARFLAGS = @ARFLAGS@
 RM = rm -f
 CP = cp
 MV = mv
 LN = ln
 
-SHELL = /bin/sh
+SHELL = @MAKE_SHELL@
 
-host_os = linux-gnu
-host_vendor = pc
+host_os = @host_os@
+host_vendor = @host_vendor@
 
-prefix = /usr/local
-exec_prefix = ${prefix}
-includedir = ${prefix}/include
-bindir = ${exec_prefix}/bin
-libdir = ${exec_prefix}/lib
-datadir = ${datarootdir}
-localedir = ${datarootdir}/locale
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+includedir = @includedir@
+bindir = @bindir@
+libdir = @libdir@
+datadir = @datadir@
+localedir = @localedir@
 
 # Support an alternate destination root directory for package building
 DESTDIR =
 
-CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
-LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"' -DBRACKETED_PASTE_DEFAULT=1
-CPPFLAGS = 
-LDFLAGS =   -g -O2 -Wno-parentheses -Wno-format-security
+CFLAGS = @CFLAGS@
+LOCAL_CFLAGS = @LOCAL_CFLAGS@ -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"' @BRACKETED_PASTE@
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@ @LOCAL_LDFLAGS@ @CFLAGS@
 
-DEFS = -DHAVE_CONFIG_H 
-LOCAL_DEFS = 
+DEFS = @DEFS@ @CROSS_COMPILE@
+LOCAL_DEFS = @LOCAL_DEFS@
 
 #
 # These values are generated for configure by ${topdir}/support/shobj-conf.
@@ -77,32 +77,32 @@ LOCAL_DEFS =
 # dynamic loading of shared objects, please update the script and send the
 # changes to bash-maintainers@gnu.org.
 #
-SHOBJ_CC = gcc
-SHOBJ_CFLAGS = -fPIC
-SHOBJ_LD = ${CC}
+SHOBJ_CC = @SHOBJ_CC@
+SHOBJ_CFLAGS = @SHOBJ_CFLAGS@
+SHOBJ_LD = @SHOBJ_LD@
 
-SHOBJ_LDFLAGS = -shared -Wl,-soname,$@
-SHOBJ_XLDFLAGS = 
-SHOBJ_LIBS = 
+SHOBJ_LDFLAGS = @SHOBJ_LDFLAGS@
+SHOBJ_XLDFLAGS = @SHOBJ_XLDFLAGS@
+SHOBJ_LIBS = @SHOBJ_LIBS@
 
-SHLIB_XLDFLAGS =  -Wl,-rpath,$(libdir) -Wl,-soname,`basename $@ $(SHLIB_MINOR)`
-SHLIB_LIBS = 
+SHLIB_XLDFLAGS = @LDFLAGS@ @SHLIB_XLDFLAGS@
+SHLIB_LIBS = @SHLIB_LIBS@
 
-SHLIB_DOT = .
-SHLIB_LIBPREF = lib
-SHLIB_LIBSUFF = so
+SHLIB_DOT = @SHLIB_DOT@
+SHLIB_LIBPREF = @SHLIB_LIBPREF@
+SHLIB_LIBSUFF = @SHLIB_LIBSUFF@
 
-SHLIB_LIBVERSION = $(SHLIB_LIBSUFF).$(SHLIB_MAJOR)$(SHLIB_MINOR)
-SHLIB_DLLVERSION = $(SHLIB_MAJOR)
+SHLIB_LIBVERSION = @SHLIB_LIBVERSION@
+SHLIB_DLLVERSION = @SHLIB_DLLVERSION@
 
-SHLIB_STATUS = supported
+SHLIB_STATUS = @SHLIB_STATUS@
 
-TERMCAP_LIB = -ltermcap
+TERMCAP_LIB = @TERMCAP_LIB@
 
 # shared library versioning
-SHLIB_MAJOR=		8
+SHLIB_MAJOR=		@SHLIB_MAJOR@
 # shared library systems like SVR4's do not use minor versions
-SHLIB_MINOR=		.1
+SHLIB_MINOR=		.@SHLIB_MINOR@
 
 # For libraries which include headers from other libraries.
 INCLUDES = -I. -I.. -I$(topdir)

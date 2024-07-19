@@ -1,12 +1,12 @@
-prefix=/usr/local
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
 
 Name: Readline
 Description: Gnu Readline library for command line editing
 URL: http://tiswww.cwru.edu/php/chet/readline/rltop.html
-Version: 8.1
-Requires.private: termcap
+Version: @LIBVERSION@
+Requires.private: @TERMCAP_PKG_CONFIG_LIB@
 Libs: -L${libdir} -lreadline
 Cflags: -I${includedir}
