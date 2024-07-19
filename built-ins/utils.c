@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:38:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 12:03:10 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:45:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,22 +100,22 @@ int	get_index_var(char **var, char *to_find)
 	return (-1);
 }
 
-int	ft_split_message(char **split, const char *s1, const char *s2)
+char	*ft_itoa_brackets(int n)
 {
-	int	i;
+	int		len;
+	char	*num;
 
-	if (!split || !*split)
-		return (1);
-	i = 0;
-	while (split[i])
+	len = ft_intlen(n);
+	num = ft_calloc(len + 3, sizeof(char));
+	if (!num)
+		return (NULL);
+	num[0] = '[';
+	while (len > 0)
 	{
-		if (s1)
-			fd_printf(1, "%s", s1);
-		fd_printf(1, "%s", split[i]);
-		if (s2)
-			fd_printf(1, "%s", s2);
-		fd_printf(1, "\n");
-		i++;
+		num[len] = (n % 10) + '0';
+		n = n / 10;
+		len--;
 	}
-	return (0);
+	num[len + 2] = ']';
+	return (num);
 }

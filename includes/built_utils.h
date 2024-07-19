@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:39:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 12:54:06 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:45:29 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	*get_value(char *var);
 int		export_array(t_data *data, char *var);
 int		export_array_append(t_data *data, char *var);
 int		update_value(t_data *data, char *var, int idx);
+char	*ft_itoa_brackets(int n);
 
 #endif
-

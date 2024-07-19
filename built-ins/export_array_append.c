@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:14:10 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 13:10:46 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:00:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	update_var(t_data *data, char *var, int idx)
 	return (export_array(data, new_array));
 }
 
-char	*add_newvar(char *new, int *j, char *var)
+static char	*add_newvar(char *new, int *j, char *var)
 {
 	char	*x;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:48:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/15 20:16:48 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:40:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_mode(char **data, char *var)
 {
 	int		idx;
 	char	*name;
-	
+
 	name = get_var(var);
 	idx = get_index_var(data, name);
 	free(name);
@@ -53,7 +53,6 @@ static void	id_error(char *s)
 {
 	fd_printf(2, "minishell: export: `%s': not a valid identifier\n", s);
 }
-
 
 int	get_type(char *var)
 {
@@ -108,4 +107,3 @@ char	*get_value(char *var)
 		value[j++] = var[idx++];
 	return (value);
 }
-

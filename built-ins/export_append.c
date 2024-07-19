@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:45:33 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 12:52:57 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:41:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,3 @@ int	ft_append(t_data *data, char *var)
 	data->exp = new_exp;
 	return (0);
 }
-

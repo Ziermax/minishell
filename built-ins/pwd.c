@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:05:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/13 19:33:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:41:42 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_pwd(char **envp, char *path)
 	char	*cwd;
 	char	*var;
 	int		idx;
-	
+
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{

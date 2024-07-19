@@ -6,37 +6,17 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:47:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 11:46:10 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:00:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/built_utils.h"
 
-char	*ft_itoa_brackets(int n)
-{
-	int		len;
-	char	*num;
-
-	len = ft_intlen(n);
-	num = ft_calloc(len + 3, sizeof(char));
-	if (!num)
-		return (NULL);
-	num[0] = '[';
-	while (len > 0)
-	{
-		num[len] = (n % 10) + '0';
-		n = n / 10;
-		len--;
-	}
-	num[len + 2] = ']';
-	return (num);
-}
-
-char *make_array(char **content, int size)
+static char	*make_array(char **content, int size)
 {
 	char	*var;
-	char 	*val;
+	char	*val;
 	char	*value;
 	char	*index;
 	int		i;
@@ -62,7 +42,7 @@ char *make_array(char **content, int size)
 	return (var);
 }
 
-char *get_content(char *var, int *idx)
+static char	*get_content(char *var, int *idx)
 {
 	int		i;
 	int		size;
@@ -87,7 +67,7 @@ char *get_content(char *var, int *idx)
 	return (value);
 }
 
-char *get_array(char *input, int size)
+static char	*get_array(char *input, int size)
 {
 	char	**array;
 	char	*arr;
@@ -113,40 +93,56 @@ char *get_array(char *input, int size)
 	return (arr);
 }
 
-int	export_array(t_data *data, char *var)
+static char	*export_array2(char *var)
 {
 	char	*begin;
-	char	*array;
 	char	*tmp;
+	char	*arr;
 	int		size;
-	int		delete;
 
 	size = get_length_array(var);
 	tmp = get_var(var);
-	delete = 0;
-	delete = get_index_var(data->exp, tmp);
 	begin = ft_strjoin(tmp, "=(");
 	free(tmp);
 	if (!begin)
-		return (1);
+		return (NULL);
 	tmp = get_array(var, size);
 	if (!tmp)
 	{
 		free(begin);
-		return (1);
+		return (NULL);
 	}
-	array = ft_threejoin(begin, tmp, ")");
-	free(tmp);
+	arr = ft_threejoin(begin, tmp, ")");
 	free(begin);
+	free(tmp);
+	return (arr);
+}
+
+int	export_array(t_data *data, char *var)
+{
+	char	*array;
+	char	*tmp;
+	char	**new;
+	int		idx;
+
+	array = export_array2(var);
 	if (!array)
 		return (1);
-	if (delete != -1)
+	tmp = get_var(var);
+	idx = get_index_var(data->exp, tmp);
+	free(tmp);
+	if (idx != -1)
 	{
-		free(data->exp[delete]);
-		data->exp[delete] = array;
-		return (0);
+		free(data->exp[idx]);
+		data->exp[idx] = array;
 	}
-	data->exp = add_created_data(data->exp, array);
-	free(array);
+	else
+	{
+		new = add_created_data(data->exp, array);
+		free(array);
+		if (!new)
+			return (1);
+		data->exp = new;
+	}
 	return (0);
 }
