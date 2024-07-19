@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:37:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 18:27:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/13 14:01:51 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ static int	check_newline(char *str)
 int	ft_echo(char **argv, t_data *data)
 {
 	int	newline;
+	int	size;
 	int	tmp;
 	int	new;
 
 	argv++;
 	new = 1;
-	while (*argv)
+	size = ft_arraylen(argv);
+	while (size > 0)
 	{
 		tmp = check_newline(*argv);
 		if (new)
@@ -65,6 +67,7 @@ int	ft_echo(char **argv, t_data *data)
 		}
 		if (!tmp)
 			argv++;
+		size--;
 	}
 	data->end = 0;
 	return (print_echo(argv, newline));

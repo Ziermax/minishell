@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/09 11:58:49 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:35:38 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		ft_intlen(int nbr);
 int		ft_splitlen(char **split);
 int		ft_strlen(char *str);
 int		ft_arraylen(void *array);
+int		get_length_array(char *var);
 /*	mallocers functions	*/
 void	*ft_calloc(int count, int size);
 char	*ft_strdup(char *str);

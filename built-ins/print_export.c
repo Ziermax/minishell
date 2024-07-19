@@ -1,51 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   print_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/15 19:01:51 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/07/15 19:51:28 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/07/19 11:40:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/built_utils.h"
-#include <limits.h>
 
-void	sort(char **s)
+int	print_export(char **exp)
 {
 	int		i;
-	int		j;
-	char	*tmp;
+	char	*arr;
+	char	*quot;
 
+	sort(exp);
 	i = 0;
-	while (s[i])
+	while (exp[i])
 	{
-		j = 0;
-		while (s[j] && s[j + 1])
+		arr = get_value(exp[i]);
+		if (!arr)
+			return (1);
+		if (arr[0] == '(')
+			fd_printf(1, "declare -ax %s\n", exp[i]);
+		else
 		{
-			if (ft_strncmp(s[j], s[j + 1], INT_MAX) > 0)
-			{
-				tmp = s[j];
-				s[j] = s[j + 1];
-				s[j + 1] = tmp;
-			}
-			j++;
+			quot = put_quots(exp[i]);
+			fd_printf(1, "declare -x %s\n", quot);
+			free(quot);
 		}
+		free(arr);
 		i++;
 	}
-}
-
-int	init_data(t_data *data, char **envp)
-{
-	data->envp = ft_splitdup(envp);
-	data->exp = ft_splitdup(envp);
-	if (!data->envp || !data->exp)
-		return (1);
-	data->exit_status = 0;
-	data->end = 0;
-	data->heredoc = NULL;
 	return (0);
 }

@@ -12,7 +12,8 @@ LIBFT = ./Libft/libft.a
 SRC_F = minishell.c token_utils.c token.c analize_tokens.c clean_tokens.c \
         clean_tokens_utils.c arrange_tokens.c path.c print_struct.c \
         delete_struct.c command.c executor.c \
-        cd.c echo.c export.c pwd.c unset.c utils.c \
+        cd.c echo.c env.c exit.c export.c export_append.c export_array.c \
+		export_utils.c print_export.c pwd.c unset.c utils.c export_array_append.c \
         check.c main.c init.c
 SRC_D = ./sources/
 BLT_D = ./built-ins/

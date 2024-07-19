@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:38:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 18:33:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:03:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*put_quots(char *s)
 	int		j;
 	int		equal;
 
+	if (!s)
+		return (NULL);
 	new = ft_calloc(ft_strlen(s) + 3, sizeof(char));
 	if (!new)
 		return (NULL);
@@ -29,12 +31,11 @@ char	*put_quots(char *s)
 	while (s[i])
 	{
 		new[j++] = s[i];
-		if (s[i] == '=' && !equal)
+		if (s[i++] == '=' && !equal)
 		{
 			new[j++] = '\"';
 			equal = 1;
 		}
-		i++;
 	}
 	if (equal)
 		new[j] = '\"';
@@ -55,7 +56,7 @@ char	*get_var(char *s)
 	if (!var)
 		return (NULL);
 	i = 0;
-	while (s[i] != '=')
+	while (s[i] != '=' && s[i] != '+')
 	{
 		var[i] = s[i];
 		i++;
@@ -83,14 +84,16 @@ int	check_var(char **s, char *var)
 
 int	get_index_var(char **var, char *to_find)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		j;
 
-	len = ft_strlen(to_find);
 	i = 0;
 	while (var[i])
 	{
-		if (!ft_strncmp(to_find, var[i], len))
+		j = 0;
+		while (var[i][j] == to_find[j])
+			j++;
+		if (var[i][j] == '=' && !to_find[j])
 			return (i);
 		i++;
 	}

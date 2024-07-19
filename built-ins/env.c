@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:28:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 16:47:23 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:45:24 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,16 @@ int	ft_env(char **argv, t_data *data)
 	if (*argv)
 	{
 		if (*argv[0] == '-')
-			fd_printf(2, "env: options are not avaliable");
-		else
-			fd_printf(2, "env: arguments are not avaliable");
-		data->end = 0;
-		return (1);
+		{
+			if (argv[0][1] == '-')
+				fd_printf(2, "env: unrecognized option '%s'\n", *argv);
+			else
+				fd_printf(2, "env: invalid option -- '%c'\n", argv[0][1]);
+			fd_printf(2, "minishell: env is not accepting options today\n");
+			return (125);
+		}
+		fd_printf(2, "env: ‘%s’: No such file or directory\n", *argv);
+		return (127);
 	}
 	print_split(data->envp);
 	return (0);

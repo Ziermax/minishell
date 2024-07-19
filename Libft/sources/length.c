@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:09:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:09:57 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:24:07 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,28 @@ int	ft_arraylen(void *array)
 	while (((void **)array)[len])
 		len++;
 	return (len);
+}
+
+int	get_length_array(char *var)
+{
+	int	i;
+	int	length;
+
+	i = 0;
+	while (var[i] != '(')
+		i++;
+	i++;
+	length = 0;
+	while (var[i] != ')')
+	{
+		if (var[i] != ' ' && var[i] != '\t')
+		{
+			while (var[i] != ' ' && var[i] != '\r' && var[i] != ')')
+				i++;
+			length++;
+		}
+		while (var[i] == ' ' || var[i] == '\t')
+				i++;
+	}
+	return (length);
 }

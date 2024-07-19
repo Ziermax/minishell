@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:31:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/09 18:33:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:12:05 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_get_new(char **old, char **new, int index)
 	free(old[index]);
 }
 
-int	ft_delete_var(char **data, char *var)
+static int	ft_delete_var(char **data, char *var)
 {
 	int		idx_del;
 	char	**new;
