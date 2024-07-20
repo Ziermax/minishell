@@ -12,3 +12,4 @@ test*
 *.gch
 minishell
 config.log
+.rl_confi
