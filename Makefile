@@ -41,7 +41,7 @@ BBLACK=\033[1;30m#		Bold Black
 
 #<---------------------------------|RULES|------------------------------------>#
 
-all: libftmake readline ${NAME}
+all: .rl_confi libftmake readline ${NAME}
 
 readline:
 	@make -C readline
@@ -84,9 +84,10 @@ ${READLINE_LIBS}: #readline/Makefile
 	@make -C readline static
 	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}READLINE${DF} ${BCYAN}made ---${DF}\n"
 
-#readline/Makefile:
-#	echo "READLINE WILL BE CONFIGURED";
-#	cd readline && ./configure;
+.rl_confi:
+	echo "READLINE WILL BE CONFIGURED";
+	cd readline && ./configure;
+	@touch .rl_confi
 
 #<---------------------------------|PHONY|------------------------------------>#
 
@@ -100,6 +101,7 @@ clean:
 
 fclean: clean
 	@rm -rf ${NAME}
+	@rm -rf .rl_confi
 	@echo "${RED}rm -rf${DF} ${RED}PROGRAM: ${NAME}${DF}\n"
 
 re: fclean all
