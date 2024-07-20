@@ -11,3 +11,4 @@ a.out
 test*
 *.gch
 minishell
+config.log
