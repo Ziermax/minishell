@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/12 11:26:44 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:03:57 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	print_split(char **split);
 void	ft_memset(void *dir, int c, size_t bytes);
 void	ft_bzero(void *dir, size_t bytes);
 void	swap_strings(char **str_p, char *str);
+char	*ft_strchr(char *str, int c);
+char	*ft_itoa(int num);
+char	*ft_substr(char *str, int start, int bytes);
 /*	length	functions	*/
 int		ft_intlen(int nbr);
 int		ft_splitlen(char **split);
@@ -46,10 +49,11 @@ int		*add_integer(int *array, int len, int to_add);
 void	*add_array_to_array(void *array, void *to_add, void *position);
 void	*remove_dir(void *array, void *to_remove);
 /*	search functions	*/
-char	*ft_strchr(char *str, int c);
-char	*search_word_relative(char *word, char *str, int flag, int bytes);
-char	*search_word_in_str(char *word, char *str);
 char	*search_word_in_split(char *word, char **split, int bytes);
+char	*search_word_in_str(char *word, char *str, int bytes);
+char	*search_word_in_start(char *word, char *str, int bytes);
+char	*search_word_in_middle(char *word, char *str, int bytes);
+char	*search_word_in_end(char *word, char *str);
 /*	is_identifiers functions	*/
 int		ft_isdigit(int c);
 int		ft_isupper(int c);

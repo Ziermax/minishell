@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:59:09 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/12 10:53:55 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:44:05 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	*remove_dir(void *array, void *to_remove)
 		new_array[i] = aux[i];
 	}
 	new_array[i] = NULL;
-	return (free(array), new_array);
+	return (free(array), free(to_remove), new_array);
 }
 /*int	main(void)
 {
