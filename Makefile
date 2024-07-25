@@ -2,7 +2,7 @@
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror# -fsanitize=address
 READLINE_LIBS = -Lreadline -lreadline -lhistory -lncurses
 
 #<---------------------------------|FILES|------------------------------------>#

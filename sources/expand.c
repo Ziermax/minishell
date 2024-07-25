@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:29:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/13 21:40:10 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:12:15 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static char	*search_envvar(char *envvar, char **envp)
 	len = ft_strlen(envvar);
 	while (envp[i])
 	{
-		if (search_word_relative(envvar, envp[i], STR_START,
-				ft_strlen(envvar) - 1) && envp[i][len])
+		if (!ft_strncmp(envvar, envp[i], ft_strlen(envvar) - 1)
+			&& envp[i][len])
 			return (&envp[i][len + 1]);
 		i++;
 	}
@@ -147,8 +147,15 @@ char	*next_asterisk(char *str)
 		while (*str == '*')
 			str++;
 	else
+	{
 		while (*str && *str != '*')
-			str++;
+		{
+			if (*str == '\'' || *str == '\"')
+				str = next_string(str);
+			else
+				str++;
+		}
+	}
 	return (str);
 }
 
@@ -183,7 +190,7 @@ int	ft_ismatch(char *file, char **rules)
 	char	*prev;
 	int		i;
 
-	if (ft_strchr(rules[0], '*') && !rules[1] && file[0] != '.')
+	if (rules[0][0] == '*' && !rules[1] && file[0] != '.')
 		return (1);
 	i = -1;
 	prev = NULL;
@@ -191,8 +198,31 @@ int	ft_ismatch(char *file, char **rules)
 	{
 		if (rules[i][0] == '*')
 			continue ;
-		printf("Searching this: %s in this file: %s\n", rules[i], file);
-		if (i == 0 && !prev)
+		printf("\n#################\nSearching this: %s in this file: %s\n",
+			rules[i], file);
+		if (i == 0)
+		{
+			curnt = search_word_in_start(rules[i], file, ft_strlen(rules[i]));
+			printf("searching in START: %s\n", curnt);
+		}
+		else if (!rules[i + 1])
+		{
+			curnt = search_word_in_end(rules[i], file);
+			printf("searching in END: %s\n", curnt);
+		}
+		else
+		{
+			curnt = search_word_in_str(rules[i], file, ft_strlen(rules[i]));
+			printf("searching in ANY: %s\n", curnt);
+		}
+		if (!curnt)
+		{
+			printf("RETURNING 0\nprev: %p = %p curnt\n", prev, curnt);
+			return (0);
+		}
+		prev = curnt;
+		file = curnt + ft_strlen(rules[i]);
+		/*if (!prev)
 			curnt = search_word_relative(rules[i], file,
 				STR_START, ft_strlen(rules[i]));
 		else if (!rules[i + 1] || !rules[i + 2])
@@ -208,8 +238,7 @@ int	ft_ismatch(char *file, char **rules)
 			//printf("Bad match: %s < %s\n%p - %p = %ld\n",
 				//prev, curnt, prev, curnt, prev - curnt);
 			return (0);
-		}
-		prev = curnt;
+		}*/
 	}
 	return (1);
 }
