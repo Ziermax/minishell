@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:59:09 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/23 11:44:05 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 00:30:27 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	*add_integer(int *array, int len, int to_add)
 		new_array[i] = array[i];
 		i++;
 	}
-	free(array);
 	new_array[i] = to_add;
 	return (free(array), new_array);
 }
