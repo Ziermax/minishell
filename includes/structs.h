@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/09 11:46:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 03:24:55 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef enum e_built
 	PWD,
 	EXIT,
 }	t_built;
-
+/*CHANGE STRUCTURE*/
 typedef struct s_data
 {
 	char	**envp;
@@ -50,16 +50,8 @@ typedef struct s_data
 	char	*heredoc;
 	int		exit_status;
 	int		end;
+	int		exit;
 }	t_data;
-
-typedef struct s_anal
-{
-	t_type	last_type;
-	int		parenthesis;
-	bool	is_cmd_assign;
-	bool	is_cmd_syntax;
-	bool	content;
-}	t_anal;
 
 typedef struct s_token	t_token;
 
@@ -90,30 +82,36 @@ struct s_cmd
 	char	*path;
 	char	**envp;
 	t_file	*files;
-	t_token	*subcommand;
+	t_cmd	*subcommand;
 	int		fd_read;
 	int		fd_write;
 	int		fd_aux;
+	int		failed;
 };
 
-typedef struct s_pipe	t_pipe;
-
-struct s_pipe
+typedef struct s_anal
 {
-	t_pipe	*next;
-	int		end[2];
-};
+	t_type	last_type;
+	int		parenthesis;
+	bool	is_cmd_assign;
+	bool	is_cmd_syntax;
+	bool	content;
+	char	**path_split;
+	t_cmd	*aux;
+
+}	t_anal;
 
 typedef struct s_executor
 {
 	int		pid;
 	int		num_of_cmd;
 	int		exit_status;
-	t_pipe	*pipes;
 	int		error;
 	int		*pids;
+	int		pipe_end[2];
 }	t_executor;
 
+char	*get_type_str(t_type type);
 void	del_token(void *token);
 void	del_file(void *file);
 void	del_command(void *command);

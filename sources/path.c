@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 03:20:54 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 03:43:06 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:40:59 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*find_exec_path(char *command, char **path_split)
 
 	if (!command || !path_split)
 		return (NULL);
-	if (search_word_in_str("/", command))
+	if (ft_strchr(command, '/'))
 		return (ft_strdup(command));
 	i = 0;
 	while (path_split[i])

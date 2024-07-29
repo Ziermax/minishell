@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:09:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/06/23 03:35:51 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:55:26 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ static char	*search_envvar(char *envvar, char **envp)
 	len = ft_strlen(envvar);
 	while (envp[i])
 	{
-		if (search_word_relative(envvar, envp[i], STR_START,
-				ft_strlen(envvar) - 1) && envp[i][len])
+		if (!ft_strncmp(envvar, envp[i], ft_strlen(envvar) - 1) && envp[i][len])
 			return (&envp[i][len + 1]);
 		i++;
 	}
 	return ("");
 }
+		//if (search_word_in_start(envvar, envp[i], ft_strlen(envvar) - 1)
+		//	&& envp[i][len])
 
 static char	*expand_string(char *string, char **envp)
 {

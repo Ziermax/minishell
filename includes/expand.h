@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   expand.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 20:10:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 02:16:06 by mvelazqu         ###   ########.fr       */
+/*   Created: 2024/07/22 03:23:02 by mvelazqu          #+#    #+#             */
+/*   Updated: 2024/07/25 18:28:48 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef EXPAND_H
+# define EXPAND_H
 
-# include <stdbool.h>
 # include "structs.h"
 
-bool	analize_tokens(t_token *token);
-t_type	ft_istoken(char *str);
+int		ft_isexpansible(char *str);
+int		ft_isseparable(char *str);
 int		ft_isvarchar(int c);
-char	*next_var(char *str);
-char	*find_exec_path(char *command, char **path_split);
+char	*remove_quotes(char *string);
+char	*search_envvar(char *key, t_data *data);
+char	**expand_envvar_string(char *string, t_data *data);
+char	**expand_asterisk(char *string);
+char	**expand_and_replace(char **expansion, int *index,
+	char **(*creat_array)(char *, int *));
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:43:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/02 18:10:37 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:34:44 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,49 +48,4 @@ char	*ft_strdup(char *str)
 	}
 	dup[i] = '\0';
 	return (dup);
-}
-
-void	*add_dir(void *array, void *dir)
-{
-	void	**new_array;
-	void	**old_array;
-	int		len;
-	int		i;
-
-	old_array = array;
-	len = ft_arraylen(old_array);
-	new_array = malloc(sizeof(void *) * (len + 2));
-	if (!new_array)
-		return (free(old_array), NULL);
-	i = 0;
-	while (i < len)
-	{
-		new_array[i] = old_array[i];
-		i++;
-	}
-	new_array[i] = dir;
-	new_array[i + 1] = NULL;
-	free(old_array);
-	return (new_array);
-}
-
-int	*add_integer(int *array, int len, int to_add)
-{
-	int	*new_array;
-	int	i;
-
-	if (len <= 0)
-		return (free(array), NULL);
-	new_array = malloc(sizeof(int) * len);
-	if (!new_array)
-		return (free(array), NULL);
-	i = 0;
-	while (i < len - 1)
-	{
-		new_array[i] = array[i];
-		i++;
-	}
-	free(array);
-	new_array[i] = to_add;
-	return (new_array);
 }

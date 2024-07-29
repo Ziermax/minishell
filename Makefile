@@ -2,16 +2,17 @@
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-READLINE_LIBS = -L./readline -lreadline -lhistory -lncurses
+CFLAGS = -Wall -Wextra -Werror# -fsanitize=address
+READLINE_LIBS = -Lreadline -lreadline -lhistory -lncurses
 
 #<---------------------------------|FILES|------------------------------------>#
 
 LIBFT = ./Libft/libft.a
 
 SRC_F = minishell.c token_utils.c token.c analize_tokens.c clean_tokens.c \
-        clean_tokens_utils.c arrange_tokens.c path.c print_struct.c \
-        delete_struct.c command.c executor.c \
+        clean_tokens_utils.c path.c print_struct.c \
+        delete_struct.c command.c command_utils.c \
+		executor_utils.c executor_builts.c executor_files.c executor.c \
         cd.c echo.c env.c exit.c export.c export_append.c export_array.c \
 		export_utils.c print_export.c pwd.c unset.c utils.c export_array_append.c \
         check.c main.c init.c
@@ -47,10 +48,11 @@ readline:
 	@make -C readline
 
 ${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT} ${READLINE_LIBS}
-	@${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
+	@${CC} ${CFLAGS} -fsanitize=address ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
 	@echo "\n${RED}Compiling program:${DF}"
 	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS}${DF} ${BIGREEN}${OBJ_F}${DF} \
-	${BIPRPL}${LIBFT}${DF} ${BCYAN}${READLINE_LIBS}${DF} ${BCYAN}-o${DF} ${RED}${NAME}${DF}"
+	${BIPRPL}${LIBFT}${DF} ${BCYAN}${READLINE_LIBS}${DF} ${BCYAN}-o${DF} \
+	${RED}${NAME}${DF}"
 
 libftmake:
 	@echo "${BCYAN}### LIBFT ###${DF}${BIGREEN}"
