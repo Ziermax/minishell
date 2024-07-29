@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:18:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 04:38:10 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:26:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	execbuilt(char	**cmd_argv, t_data *data)
 	else if (cmd_flag == PWD)
 		ret = ft_pwd(cmd_argv, data);
 	else if (cmd_flag == EXIT)
-		ret = ft_export(cmd_argv, data);
+		ret = ft_exit(cmd_argv, data);
 	return (ret);
 }
