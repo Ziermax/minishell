@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:54:17 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 11:16:56 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:06:09 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	executor(t_cmd *command, t_data *data)
 			command->next->fd_read = exdt.pipe_end[RD];
 		}
 		manage_files(command);
-		if (command->connection_type == PIPE)
+		if (command->connection_type == PIPE || exdt.num_of_cmd != 1)
 		{
 			exdt.pid = fork();
 			if (exdt.pid == -1)
