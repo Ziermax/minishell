@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:18:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 03:58:17 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 04:38:10 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_isbuilting(char *str)
 	return (0);
 }
 
-void	execbuilt(char	**cmd_argv, t_data *data)
+int	execbuilt(char	**cmd_argv, t_data *data)
 {
 	int	cmd_flag;
 	int	ret;
@@ -53,6 +53,5 @@ void	execbuilt(char	**cmd_argv, t_data *data)
 		ret = ft_pwd(cmd_argv, data);
 	else if (cmd_flag == EXIT)
 		ret = ft_export(cmd_argv, data);
-	exit(ret);
-	return ;
+	return (ret);
 }

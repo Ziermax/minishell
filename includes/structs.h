@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 03:24:55 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:33:59 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef enum e_built
 	PWD,
 	EXIT,
 }	t_built;
-/*CHANGE STRUCTURE*/
+
 typedef struct s_data
 {
 	char	**envp;
@@ -50,7 +50,6 @@ typedef struct s_data
 	char	*heredoc;
 	int		exit_status;
 	int		end;
-	int		exit;
 }	t_data;
 
 typedef struct s_token	t_token;
