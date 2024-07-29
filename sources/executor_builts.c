@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:18:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 03:34:29 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 03:58:17 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,23 @@ int	ft_isbuilting(char *str)
 void	execbuilt(char	**cmd_argv, t_data *data)
 {
 	int	cmd_flag;
+	int	ret;
 
 	cmd_flag = ft_isbuilting(cmd_argv[0]);
-	printf("is Builting\n");
-//	if (cmd_flag == ECHO)
-//		ft_echo(cmd_argv, data);
-//	else if (cmd_flag == UNSET)
-//		ft_unset(cmd_argv, data);
-//	else if (cmd_flag == EXPORT)
-//		ft_export(cmd_argv, data);
-//	//else if (cmd_flag == ENV)
-//		//ft_env(cmd_argv, data);
-//	else if (cmd_flag == CD)
-//		ft_cd(cmd_argv, data);
-//	else if (cmd_flag == PWD)
-//		ft_pwd(cmd_argv, data);
-//	//else if (cmd_flag == EXIT)
-//		//ft_export(cmd_argv, data);
-	exit(0);
-	cmd_flag = cmd_flag + 1;
-	data = data + 1;
+	if (cmd_flag == ECHO)
+		ret = ft_echo(cmd_argv, data);
+	else if (cmd_flag == UNSET)
+		ret = ft_unset(cmd_argv, data);
+	else if (cmd_flag == EXPORT)
+		ret = ft_export(cmd_argv, data);
+	else if (cmd_flag == ENV)
+		ret = ft_env(cmd_argv, data);
+	else if (cmd_flag == CD)
+		ret = ft_cd(cmd_argv, data);
+	else if (cmd_flag == PWD)
+		ret = ft_pwd(cmd_argv, data);
+	else if (cmd_flag == EXIT)
+		ret = ft_export(cmd_argv, data);
+	exit(ret);
 	return ;
 }
