@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:09:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/28 23:12:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:33:57 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	get_exit_status(t_executor *executor_data)
 	i = 0;
 	while (i < executor_data->num_of_cmd)
 	{
-		waitpid(executor_data->pids[i], &executor_data->exit_status, WUNTRACED);
+		executor_data->exit_status = 0;
+		waitpid(executor_data->pids[i], &executor_data->exit_status, 0);
+		executor_data->exit_status = executor_data->exit_status >> 8;
 		i++;
 	}
 	free(executor_data->pids);

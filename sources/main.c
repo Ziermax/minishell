@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 12:26:48 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:35:15 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int	main(int argc, char **argv, char **envp)
 	read_shell(&data);
 	free_split(data.envp);
 	free_split(data.exp);
-	return (0);
+	return (data.exit_status);
 }
+//	printf("exit status: %d\n", data.exit_status);
