@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/20 19:03:42 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 00:50:23 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ struct s_cmd
 	int		fd_read;
 	int		fd_write;
 	int		fd_aux;
+	int		failed;
 };
 
 typedef struct s_anal
@@ -105,8 +106,10 @@ typedef struct s_executor
 	int		exit_status;
 	int		error;
 	int		*pids;
+	int		pipe_end[2];
 }	t_executor;
 
+char	*get_type_str(t_type type);
 void	del_token(void *token);
 void	del_file(void *file);
 void	del_command(void *command);

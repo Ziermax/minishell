@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:08:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/06 21:37:48 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:58:00 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ t_token	*tokeinator(char *line, char **envp)
 		return (NULL);
 	if (!analize_tokens(tokens))
 		return (lst_clear(&tokens, del_token), NULL);
-	clean_tokens(&tokens, envp);
+	//clean_tokens(&tokens, envp);
 	if (!tokens)
 		return (NULL);
+	envp = envp + 1;
 	return (tokens);
 }
 /*

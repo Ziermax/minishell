@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/09 08:54:02 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 02:14:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # include "structs.h"
 # include "built.h"
 
-void	minisheller(char *line);
-t_token	*tokener(char *line);
 int		init_data(t_data *data, char **envp);
 int		ft_free(char ***s);
 int		check_line(char *line);
@@ -35,12 +33,7 @@ int		check_line(char *line);
  *	Functions of Maxi
  */
 t_token	*tokeinator(char *line, char **envp);
-char	**get_cmd_split(t_token *token);
-t_file	*get_files(t_token *token);
-t_cmd	*get_command(t_token *token, t_data *data, char **path_split);
-t_cmd	*get_command2(t_token *token, t_data *data, char **path_split);
-char	**split_path_env(char **envp);
-int		executor(t_cmd *command, t_data	*data);
 int		minishell(char *line, t_data *data);
+t_cmd	*get_command(t_token *token, t_data *data);
 
 #endif

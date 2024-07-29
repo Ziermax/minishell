@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_full2.c                                     :+:      :+:    :+:   */
+/*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 18:16:29 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/25 18:18:56 by mvelazqu         ###   ########.fr       */
+/*   Created: 2024/07/26 21:12:27 by mvelazqu          #+#    #+#             */
+/*   Updated: 2024/07/28 23:52:55 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Libft/includes/libft.h"
-#include "../includes/expand.h"
-#include <unistd.h>
+#ifndef COMMAND_H
+# define COMMAND_H
 
-int	main(int argc, char **argv, char **envp)
-{
-	char	**expansion;
-	t_data	data;
+# include "structs.h"
 
-	if (argc != 2)
-		return (0);
-	data.exit = 2147483647;
-	data.envp = envp;
-	expansion = expand_full(argv[1], &data);
-	if (!expansion)
-		return (write(2, "Error\n", 6));
-	print_split(expansion);
-	free_split(expansion);
-}
+t_cmd	*add_command(t_cmd **cmd_lst);
+char	*heredoc_read(char *word);
+t_cmd	*get_command(t_token *token, t_data *data);
+
+#endif
