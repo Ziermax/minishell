@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:20:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:03:51 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 19:21:25 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ void	manage_files(t_cmd *command)
 		}
 		file = file->next;
 	}
-	if (file)
-		file = file->next;
-	while (file)
-	{
-		if (file->open_mode == HDOC)
-			close(heredoc_case(file->string));
-		file = file->next;
-	}
+//	if (file)
+//		file = file->next;
+//	while (file)
+//	{
+//		if (file->open_mode == HDOC)
+//			close(heredoc_case(file->string));
+//		file = file->next;
+//	}
 }

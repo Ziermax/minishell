@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:54:17 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:04:44 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 20:56:00 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void	execut_single_command(t_executor *exdt, t_cmd *command, t_data *data)
 			dup2(command->fd_write, STDOUT_FILENO);
 		if (command->fd_read != -1)
 			dup2(command->fd_read, STDIN_FILENO);
-		command->failed = execbuilt(command->cmd_split, data);
+		exdt->exit_status = execbuilt(command->cmd_split, data);
 		dup2(save_rd, STDIN_FILENO);
 		dup2(save_wr, STDOUT_FILENO);
 		close(save_wr);
 		close(save_rd);
+		exdt->num_of_cmd = 0;
+		return ;
 	}
 	exdt->pid = fork();
 	if (exdt->pid == 0)
