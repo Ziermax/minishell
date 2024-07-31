@@ -6,12 +6,15 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 10:33:59 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:04:42 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+# define RD 0
+# define WR 1
 
 # include <stdbool.h>
 

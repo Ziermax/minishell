@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:54:17 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 14:06:09 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:04:44 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 void	execute_command(t_cmd *command, t_data *data)
 {
-	if (command->failed || (command->connection_type != PIPE
-			&& command->cmd_split && ft_isbuilting(command->cmd_split[0])))
+	if (command->failed)
 		exit(command->failed);
 	if (command->fd_write != -1)
 		dup2(command->fd_write, STDOUT_FILENO);
@@ -32,9 +31,10 @@ void	execute_command(t_cmd *command, t_data *data)
 	if (ft_isbuilting(command->cmd_split[0]))
 		exit(execbuilt(command->cmd_split, data));
 	execve(command->path, command->cmd_split, command->envp);
-	error_command(command->cmd_split[0]);
-	exit(0);
+	exit(error_command(command->cmd_split[0]));
 }
+/* || (command->connection_type != PIPE
+			&& command->cmd_split && ft_isbuilting(command->cmd_split[0]))*/
 
 void	prepare_command(t_cmd *command, t_data *data)
 {
@@ -50,18 +50,15 @@ void	prepare_command(t_cmd *command, t_data *data)
 
 void	execut_single_command(t_executor *exdt, t_cmd *command, t_data *data)
 {
-	int	pid;
 	int	save_rd;
 	int	save_wr;
 
-	//printf("Execution Single Command\n");
 	if (command->cmd_split && ft_isbuilting(command->cmd_split[0]))
 	{
-		//printf("BUILT Single Command\n");
-		save_rd = open("/dev/stdin", O_RDONLY);
+		save_rd = dup(STDIN_FILENO);
 		if (save_rd == -1)
 			return ;
-		save_wr = open("/dev/stdout", O_WRONLY);
+		save_wr = dup(STDOUT_FILENO);
 		if (save_wr == -1)
 			return ;
 		if (command->fd_write != -1)
@@ -74,13 +71,12 @@ void	execut_single_command(t_executor *exdt, t_cmd *command, t_data *data)
 		close(save_wr);
 		close(save_rd);
 	}
-	pid = fork();
-	if (pid == 0)
+	exdt->pid = fork();
+	if (exdt->pid == 0)
 		execute_command(command, data);
 	exdt->pids = add_integer(exdt->pids, exdt->num_of_cmd, exdt->pid);
 	if (!exdt->pids)
 		return ;
-
 }
 
 int	executor(t_cmd *command, t_data *data)
@@ -120,13 +116,13 @@ int	executor(t_cmd *command, t_data *data)
 		{
 			get_exit_status(&exdt);
 			if (command->connection_type == AND && exdt.exit_status != 0)
-				break ;
+				command = command->next;
 			if (command->connection_type == OR && exdt.exit_status == 0)
-				break ;
+				command = command->next;
 		}
 		command = command->next;
 	}
 	data->exit_status = exdt.exit_status;
-	//printf("exit status: %d\n", data->exit_status);
 	return (exdt.exit_status);
 }
+	//printf("exit status: %d\n", data->exit_status);

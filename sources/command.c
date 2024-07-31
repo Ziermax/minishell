@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 19:04:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 00:27:07 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:05:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	set_file(t_cmd **cmd_lst, t_anal *info,
 	*tkn_p = (*tkn_p)->next;
 	if (file->open_mode != HDOC)
 		return ;
-	file = (void *)ft_strjoin(data->heredoc, file->string);
+	file = heredoc_string(data->heredoc, file->string, (*tkn_p)->string);
 	if (!file)
 		return (lst_clear(cmd_lst, del_command));
 	free(data->heredoc);
@@ -73,7 +73,7 @@ static void	set_file(t_cmd **cmd_lst, t_anal *info,
 static void	set_command(t_cmd **cmd_lst, t_anal *info, t_token *token)
 {
 	char	*tmp;
-	
+
 	if (!info->aux)
 		info->aux = add_command(cmd_lst);
 	if (!info->aux)

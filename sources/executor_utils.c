@@ -6,31 +6,37 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:09:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 12:33:57 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:56:07 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/executor.h"
 
-void	error_command(char *command)
+int	error_command(char *command)
 {
 	DIR	*aux;
 
-	aux = opendir(command);
 	if (!command)
+	{
 		fd_printf(2, "minichell: : permission denied\n");
-	else if (aux)
+		return (126);
+	}
+	aux = opendir(command);
+	if (aux)
 	{
 		closedir(aux);
 		fd_printf(2, "minichell: %s: Is a directory\n", command);
+		return (126);
 	}
 	else if (!ft_strchr(command, '/'))
-		fd_printf(2, "minichell: %s: command not found\n", command);
+		return (fd_printf(2, "minichell: %s: command not found\n", command),
+			127);
 	else if (access(command, F_OK) == 0)
-		fd_printf(2, "minichell: %s: Permission denied\n", command);
-	else
-		fd_printf(2, "minichell: %s: No such file or directory\n", command);
+		return (fd_printf(2, "minichell: %s: Permission denied\n", command),
+			126);
+	fd_printf(2, "minichell: %s: No such file or directory\n", command);
+	return (127);
 }
 
 void	get_exit_status(t_executor *executor_data)

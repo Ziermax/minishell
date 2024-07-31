@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:20:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 10:22:02 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:03:51 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	open_file(char *file, t_type open_mode, int last_fd)
 		fd = open(file, o_flag, 420);
 	else
 		fd = heredoc_case(file);
-//	fd_printf(2, "opening: \"%s\" in %d ass: %s\n",
-//		file, fd, get_type_str(open_mode));
 	if (fd == -1)
 		return (-1);
 	return (fd);
 }
+//	fd_printf(2, "opening: \"%s\" in %d ass: %s\n",
+//		file, fd, get_type_str(open_mode));
 
 void	manage_files(t_cmd *command)
 {
