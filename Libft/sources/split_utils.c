@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 10:54:11 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 03:42:21 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:18:14 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,28 +75,4 @@ void	print_split(char **split)
 		fd_printf(1, "%s\n", split[i]);
 		i++;
 	}
-}
-
-char	**ft_splitdup(char **split)
-{
-	char	**dup;
-	int		i;
-	int		size;
-
-	size = ft_arraylen(split);
-	dup = ft_calloc(size + 1, sizeof(char *));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		dup[i] = ft_strdup(split[i]);
-		if (!dup[i])
-		{
-			free_split(dup); return (NULL);
-		}
-		i++;
-	}
-	dup[i] = NULL;
-	return (dup);
 }

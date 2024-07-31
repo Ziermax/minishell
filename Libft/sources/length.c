@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:09:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/19 11:24:07 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:13:57 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	get_length_array(char *var)
 			length++;
 		}
 		while (var[i] == ' ' || var[i] == '\t')
-				i++;
+			i++;
 	}
 	return (length);
 }

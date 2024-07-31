@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:32 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 03:20:52 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:18:10 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,6 @@ void	ft_bzero(void *dir, size_t bytes)
 	ft_memset(dir, 0, bytes);
 }
 
-void	swap_strings(char **str_p, char *str)
-{
-	free(*str_p);
-	*str_p = str;
-}
-
 char	*ft_strchr(char *str, int c)
 {
 	if (!str)
@@ -62,56 +56,4 @@ char	*ft_strchr(char *str, int c)
 	if (*str == c)
 		return (str);
 	return (NULL);
-}
-
-char	*ft_itoa(int num)
-{
-	char	*nbr;
-	int		len;
-	int		i;
-
-	if (num == -2147483648)
-		return (ft_strdup("-2147483648"));
-	len = ft_intlen(num) + (num < 0);
-	nbr = malloc(sizeof(char) * (len + 1));
-	if (!nbr)
-		return (NULL);
-	nbr[len] = '\0';
-	i = 0;
-	if (num < 0)
-	{
-		nbr[i++] = '-';
-		num = -num;
-	}
-	while (i < len)
-	{
-		nbr[--len] = num % 10 + '0';
-		num = num / 10;
-	}
-	return (nbr);
-}
-
-char	*ft_substr(char *str, int start, int bytes)
-{
-	char	*substr;
-	int		len;
-	int		i;
-
-	if (!str || start < 0 || bytes <= 0)
-		return (NULL);
-	len = ft_strlen(str);
-	if (len - start <= 0)
-		return (ft_strdup(""));
-	if (len - start < bytes)
-		len = len - start;
-	else
-		len = bytes;
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (NULL);
-	i = 0;
-	while (i < len)
-		substr[i++] = *(str++ + start);
-	substr[i] = '\0';
-	return (substr);
 }
