@@ -9,9 +9,9 @@ READLINE_LIBS = -Lreadline -lreadline -lhistory -lncurses
 
 LIBFT = ./Libft/libft.a
 
-SRC_F = minishell.c token_utils.c token.c analize_tokens.c clean_tokens.c \
-        clean_tokens_utils.c path.c print_struct.c \
-        delete_struct.c command.c command_utils.c \
+SRC_F = minishell.c token_utils.c token.c token_analize.c token_clean.c \
+        token_clean_utils.c command_path.c struct_print.c \
+        struct_delete.c command.c command_utils.c \
 		executor_utils.c executor_builts.c executor_files.c executor.c \
         cd.c echo.c env.c exit.c export.c export_append.c export_array.c \
 		export_utils.c print_export.c pwd.c unset.c utils.c export_array_append.c \
