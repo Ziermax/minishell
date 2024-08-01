@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:38:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 13:45:00 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:41:41 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,20 @@ int	check_var(char **s, char *var)
 int	get_index_var(char **var, char *to_find)
 {
 	int		i;
-	int		j;
+	char	*name;
 
 	i = 0;
 	while (var[i])
 	{
-		j = 0;
-		while (var[i][j] == to_find[j])
-			j++;
-		if (var[i][j] == '=' && !to_find[j])
+		name = get_var();
+		if (!name)
+			return (-1);
+		if (!ft_strncmp(name, to_find, ft_strlen(name)))
+		{
+			free(name);
 			return (i);
+		}
+		free(name);
 		i++;
 	}
 	return (-1);

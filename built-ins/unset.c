@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:31:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 13:34:57 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:39:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,5 @@ int	ft_unset(char **argv, t_data *data)
 		flag += make_unset(data, *argv);
 		argv++;
 	}
-	print_split(data->envp);
 	return (flag > 0);
 }
