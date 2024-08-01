@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 22:04:42 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:45:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_data
 	char	**envp;
 	char	**exp;
 	char	*heredoc;
+	char	*pwd;
+	char	*home;
 	int		exit_status;
 	int		end;
 }	t_data;
