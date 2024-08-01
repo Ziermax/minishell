@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:48:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 18:46:18 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:15:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,20 @@ int	check_mode(char **data, char *var)
 {
 	int		idx;
 	char	*name;
+	char	*value;
 
 	name = get_var(var);
 	idx = get_index_var(data, name);
+	if (idx == -1)
+	{
+		free(name);
+		return (-1);
+	}
 	free(name);
+	value = get_value(var);
+	if (!value)
+		return (-2);
+	free(value);
 	return (idx);
 }
 
@@ -84,26 +94,15 @@ char	*get_value(char *var)
 {
 	char	*value;
 	int		i;
-	int		idx;
-	int		j;
 
 	if (!var)
 		return (NULL);
 	i = 0;
 	while (var[i] && var[i] != '=')
 		i++;
-	j = 0;
-	idx = i + 1;
-	while (var[i])
-	{
-		i++;
-		j++;
-	}
-	value = ft_calloc(j + 1, sizeof(char));
-	if (!value)
+	if (!var[i])
 		return (NULL);
-	j = 0;
-	while (var[idx])
-		value[j++] = var[idx++];
+	i++;
+	value = ft_strdup(var + i);
 	return (value);
 }

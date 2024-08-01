@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:51:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 11:40:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:20:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	print_export(char **exp)
 	while (exp[i])
 	{
 		arr = get_value(exp[i]);
-		if (!arr)
-			return (1);
-		if (arr[0] == '(')
+		if (arr && arr[0] == '(')
 			fd_printf(1, "declare -ax %s\n", exp[i]);
 		else
 		{
 			quot = put_quots(exp[i]);
+			if (!quot)
+				return (1);
 			fd_printf(1, "declare -x %s\n", quot);
 			free(quot);
 		}

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:40:36 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 13:18:02 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:18:39 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ static char	**make_export(char **data, char *var)
 	int		idx;
 
 	idx = check_mode(data, var);
-	if (idx != -1)
+	if (idx == -2)
+		return (data);
+	else if (idx != -1)
 	{
 		free(data[idx]);
 		data[idx] = ft_strdup(var);
