@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/29 03:29:53 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:54:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,18 @@ void	sort(char **s)
 	}
 }
 
+static char	*get_init_data(char **envp, char *var)
+{
+	int		idx;
+	char	*data;
+
+	idx = get_index_var(envp, var);
+	if (idx == -1)
+		return (NULL);
+	data = get_value(envp[idx]);
+	return (data);
+}
+
 int	init_data(t_data *data, char **envp)
 {
 	data->envp = ft_splitdup(envp);
@@ -47,5 +59,7 @@ int	init_data(t_data *data, char **envp)
 	data->exit_status = 0;
 	data->end = 0;
 	data->heredoc = NULL;
+	data->pwd = get_init_data(data->envp, "PWD");
+	data->home = get_init_data(data->envp, "HOME");
 	return (0);
 }

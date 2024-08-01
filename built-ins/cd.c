@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 12:49:04 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/15 13:54:49 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/07/29 14:43:46 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/08/01 18:48:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,91 +14,102 @@
 #include "../includes/built.h"
 #include "../includes/built_utils.h"
 
-static int	update_new(char **data, char *var)
+int	update_oldpwd(char **data, int exp)
 {
-	int	idx;
+	int		idx_pwd;
+	int		idx_old;
+	char	*old;
+
+	idx_pwd = get_index_var(data, "PWD");
+	idx_old = get_index_var(data, "OLDPWD");
+	if (idx_old == -1)
+		return (1);
+	if (idx_pwd == -1 && !exp)
+		old = ft_strdup("OLDPWD=");
+	else if (idx_pwd == -1 && exp)
+		old = ft_strdup("OLDPWD");
+	else if (idx_pwd != -1)
+		old = ft_strjoin("OLD", data[idx_pwd]);
+	if (!old)
+		return (1);
+	free(data[idx_old]);
+	data[idx_old] = old;
+	return (0);
+}
+
+int	update_pwd(char **data, char *path)
+{
+	int		idx;
+	char	*pwd;
 
 	idx = get_index_var(data, "PWD");
 	if (idx == -1)
 		return (1);
+	pwd = ft_strjoin("PWD=", path);
+	if (!pwd)
+		return (1);
 	free(data[idx]);
-	data[idx] = var;
+	data[idx] = pwd;
 	return (0);
 }
 
-static int	update_old(char **data)
+int	ft_chdir(t_data *data, char *path)
 {
-	int		idx;
-	int		old_idx;
-	char	*new;
+	char	*pwd;
+	int		error;
 
-	idx = get_index_var(data, "PWD=");
-	old_idx = get_index_var(data, "OLDPWD=");
-	if (idx == -1)
-		return (1);
-	new = ft_strjoin("OLD", data[idx]);
-	if (!new)
-		return (1);
-	free(data[old_idx]);
-	data[old_idx] = new;
-	return (0);
-}
-
-int	update_pwd(t_data *data, char *path)
-{
-	char	*var;
-	char	*var_quots;
-
-	var = get_pwd(data->envp, path);
-	if (!var)
-		return (1);
-	update_old(data->envp);
-	update_new(data->envp, var);
-	var_quots = put_quots(var);
-	if (!var_quots)
-		return (1);
-	update_old(data->exp);
-	update_new(data->exp, var_quots);
-	return (0);
-}
-
-int	make_cd(t_data *data, char *path)
-{
-	if (!path || !*path)
-		return (0);
-	if (!ft_strncmp(path, ".", 2) && !getcwd(NULL, 0))
-	{
-		fd_printf(2, "cd: error retrieving current directory: getcwd: can");
-		fd_printf(2, "not access parent directories: %s\n", strerror(errno));
-		return (update_pwd(data, path));
-	}
 	if (chdir(path) == -1)
-	{
-		fd_printf(2, "cd: %s: %s\n", path, strerror(errno));
+		return (fd_printf(2, "cd: %s: %s\n", path, strerror(errno)), 1);
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 		return (1);
+	delete_last_slash(pwd);
+	free(data->pwd);
+	data->pwd = pwd;
+	error = 0;
+	error += update_oldpwd(data->envp, 0);
+	error += update_pwd(data->envp, pwd);
+	error += update_oldpwd(data->exp, 1);
+	error += update_pwd(data->exp, pwd);
+	return (error);
+}
+
+static int	cd_action(char *str)
+{
+	if (!str)
+		return (1);
+	if (str[0] == '-' && !str[1])
+		return (0);
+	else if (str[0] == '-' && str[1])
+	{
+		fd_printf(2, "minishell: cd: %s: invalid option\n");
+		fd_printf(2, "cd: options are not avaliable\n");
+		return (-1);
 	}
-	return (update_pwd(data, path));
+	else if (str[0] == '~')
+		return (1);
+	else if (str[0] == '.' && !str[1])
+		return (2);
+	return (3);
 }
 
 int	ft_cd(char **argv, t_data *data)
 {
-	unsigned int	size;
-	char			*dir;
+	int		action;
 
 	argv++;
-	size = ft_arraylen(argv);
-	if (!size)
-	{
-		dir = ft_strdup(getenv("HOME"));
-		if (!dir)
-			return (fd_printf(2, "cd: %s\n", strerror(errno)), 1);
-		size = make_cd(data, dir);
-		free(dir);
-		return ((int)size);
-	}
-	else if (size == 1)
-		return (make_cd(data, *argv));
-	else if (size > 1)
+	if (ft_arraylen(argv) > 1)
 		return (fd_printf(2, "minishell: cd: too many arguments\n"), 1);
-	return (0);
+	action = cd_action(*argv);
+	if (action == -1)
+		return (2);
+	if (action == 0)
+		return (cd_old(data));
+	else if (action == 1)
+		return (cd_home_append(data, *argv));
+	else if (action == 2)
+		return (cd_point(data));
+	else if (action == 3)
+		return (cd_path(data, *argv));
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:39:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 13:45:29 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:37:28 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*get_var(char *s);
 int		check_var(char **s, char *var);
 char	*put_quots(char *s);
 int		get_index_var(char **var, char *to_find);
-char	*get_pwd(char **envp, char *path);
 int		get_type(char *var);
 void	sort(char **s);
 int		ft_append(t_data *data, char *var);
@@ -38,5 +37,13 @@ int		export_array(t_data *data, char *var);
 int		export_array_append(t_data *data, char *var);
 int		update_value(t_data *data, char *var, int idx);
 char	*ft_itoa_brackets(int n);
+int		cd_old(t_data *data);
+int		cd_home_append(t_data *data, char *path);
+int		cd_point(t_data *data);
+int		cd_path(t_data *data, char *path);
+int		ft_chdir(t_data *data, char *path);
+void	delete_last_slash(char *str);
+int		update_pwd(char **data, char *path);
+int		update_oldpwd(char **data, int exp);
 
 #endif

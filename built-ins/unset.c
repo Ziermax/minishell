@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:31:29 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 14:39:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:45:53 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	make_unset(t_data *data, char *var)
 		else
 			error = 1;
 	}
-	idx = get_index_var(data->envp, var);
+	idx = get_index_var(data->exp, var);
 	if (idx != -1)
 	{
 		tmp = update_data(data->exp, idx);

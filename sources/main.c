@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/30 19:13:59 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:56:08 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ static void	read_shell(t_data *data)
 				else if (line && line[0])
 					add_history(line);
 			}
+			free(line);
 		}
 		else
-			return ;
-		free(line);
+			ft_exit(NULL, data);
 	}
 }
 
@@ -82,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 	read_shell(&data);
 	free_split(data.envp);
 	free_split(data.exp);
+	free(data.pwd);
+	free(data.home);
 	return (data.exit_status);
 }
-//	printf("exit status: %d\n", data.exit_status);
