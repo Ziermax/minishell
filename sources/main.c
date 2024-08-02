@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/01 16:56:08 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:34:58 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ static void	read_shell(t_data *data)
 		line = readline("minishell> ");
 		if (line)
 		{
-			if (check_line(line))
-				fd_printf(2, "Error: input not close\n");
-			else
+			if (!check_line(line))
 			{
 				if (!ft_strncmp(line, "echo $?", 7))
 					fd_printf(1, "%d\n", data->exit_status);

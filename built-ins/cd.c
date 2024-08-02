@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:43:46 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 18:48:06 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:24:55 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	update_oldpwd(char **data, int exp)
 	idx_old = get_index_var(data, "OLDPWD");
 	if (idx_old == -1)
 		return (1);
-	if (idx_pwd == -1 && !exp)
+	else if (idx_pwd == -1 && !exp)
 		old = ft_strdup("OLDPWD=");
 	else if (idx_pwd == -1 && exp)
 		old = ft_strdup("OLDPWD");
@@ -67,10 +67,10 @@ int	ft_chdir(t_data *data, char *path)
 	free(data->pwd);
 	data->pwd = pwd;
 	error = 0;
-	error += update_oldpwd(data->envp, 0);
-	error += update_pwd(data->envp, pwd);
 	error += update_oldpwd(data->exp, 1);
 	error += update_pwd(data->exp, pwd);
+	error += update_oldpwd(data->envp, 0);
+	error += update_pwd(data->envp, pwd);
 	return (error);
 }
 

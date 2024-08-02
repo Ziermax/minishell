@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:26:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 18:46:55 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:19:53 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,27 @@ int	cd_point(t_data *data)
 
 int	cd_path(t_data *data, char *path)
 {
-	if (data->pwd[0] == '/' && !data->pwd[1])
-		return (0);
+	int		idx_pwd;
+	int		idx_old;
+	char	**new_pwd;
+	char	**new_old;
+
+	idx_pwd = get_index_var(data->envp, "PWD");
+	if (idx_pwd == -1 && get_index_var(data->exp, "PWD") != -1)
+	{
+		new_pwd = add_created_data(data->envp, "PWD=");
+		if (!new_pwd)
+			return (1);
+		data->envp = new_pwd;
+	}
+	idx_old = get_index_var(data->envp, "OLDPWD");
+	if (idx_old == -1 && get_index_var(data->exp, "OLDPWD") != -1)
+	{
+		new_old = add_created_data(data->envp, "OLDPWD=");
+		if (!new_old)
+			return (1);
+		data->envp = new_old;
+	}
 	ft_chdir(data, path);
 	return (0);
 }

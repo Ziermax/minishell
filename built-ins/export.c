@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:40:36 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 13:30:25 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:45:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	select_export(t_data *data, char *var)
 	type = get_type(var);
 	if (type == -1)
 		return (1);
-	else if (type == 1)
+	else if (type == 1 || type == 0)
 		return (export_var(data, var, type));
 	else if (type == 2)
 	{

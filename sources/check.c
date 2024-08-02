@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 12:53:29 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:36:03 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ int	check_line(char *line)
 			flag += look_for(line, &i, line[i]);
 		i++;
 	}
+	if (flag)
+		fd_printf(2, "Error: input not close\n");
 	return (flag);
 }
