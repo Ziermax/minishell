@@ -11,5 +11,6 @@ a.out
 test*
 *.gch
 minishell
-config.log
 .rl_confi
+readline/config.log
+readline/config.status
