@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:48:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 12:53:19 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:31:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	get_type(char *var)
 {
 	int	i;
 
+	if (var[0] == '_' && var[1] == '=')
+		return (5);
 	if (!ft_isalpha(var[0]) && var[0] != '_')
 		return (id_error(var), -1);
 	i = 0;

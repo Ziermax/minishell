@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:40:36 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 12:42:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:30:25 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ static int	select_export(t_data *data, char *var)
 	type = get_type(var);
 	if (type == -1)
 		return (1);
-	if (type == 2)
+	else if (type == 1)
+		return (export_var(data, var, type));
+	else if (type == 2)
 	{
 		var = delete_plus(var);
 		type = ft_append(data, var);
@@ -99,8 +101,6 @@ static int	select_export(t_data *data, char *var)
 		return (export_array_append(data, var));
 	else if (type == 4)
 		return (export_array(data, var));
-	else
-		return (export_var(data, var, type));
 	return (0);
 }
 
