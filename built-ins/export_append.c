@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:45:33 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/19 13:41:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:51:54 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,31 @@ static char	*get_append(char **data, char *var, int idx)
 
 static char	**make_append(char **data, char *var)
 {
-	char	*var_append;
 	int		idx;
+	int		action;
+	char	*name;
+	char	*var_append;
 
-	idx = check_mode(data, var);
-	if (idx != -1)
+	name = get_var(var);
+	idx = get_index_var(data, name);
+	free(name);
+	if (idx == -1)
+		return (add_created_data(data, var));
+	action = check_mode(data[idx], var);
+	if (action == -1)
+		return (NULL);
+	else if (action == 1)
 	{
-		var_append = get_append(data, var, idx);
 		free(data[idx]);
-		data[idx] = var_append;
+		data[idx] = ft_strdup(var);
+		if (!data[idx])
+			return (NULL);
 		return (data);
 	}
-	return (add_created_data(data, var));
+	var_append = get_append(data, var, idx);
+	free(data[idx]);
+	data[idx] = var_append;
+	return (data);
 }
 
 int	isarray(t_data *data, char *var, int idx)

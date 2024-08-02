@@ -6,32 +6,28 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:48:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 19:15:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:53:19 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/built_utils.h"
 
-int	check_mode(char **data, char *var)
+int	check_mode(char *prev_var, char *var)
 {
-	int		idx;
-	char	*name;
-	char	*value;
+	int		action;
+	int		equal_var;
+	int		equal_prev;
 
-	name = get_var(var);
-	idx = get_index_var(data, name);
-	if (idx == -1)
-	{
-		free(name);
+	equal_var = check_equal(var);
+	equal_prev = check_equal(prev_var);
+	if (equal_var == -1 || equal_prev == -1)
 		return (-1);
-	}
-	free(name);
-	value = get_value(var);
-	if (!value)
-		return (-2);
-	free(value);
-	return (idx);
+	else if ((!equal_var && !equal_prev) || (!equal_var && equal_prev))
+		action = 0;
+	else if ((equal_var && !equal_prev) || (equal_var && equal_prev))
+		action = 1;
+	return (action);
 }
 
 char	*delete_plus(char *var)
@@ -101,8 +97,15 @@ char	*get_value(char *var)
 	while (var[i] && var[i] != '=')
 		i++;
 	if (!var[i])
-		return (NULL);
+	{
+		value = ft_strdup("");
+		if (!value)
+			return (NULL);
+		return (value);
+	}
 	i++;
 	value = ft_strdup(var + i);
+	if (!value)
+		return (NULL);
 	return (value);
 }

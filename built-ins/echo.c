@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:37:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 11:27:31 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:34:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	print_echo(char **argv, int newline, char *home)
 	int	i;
 
 	i = 0;
-	while (argv[i])
+	while (argv && argv[i])
 	{
 		if (argv[i][0] == '~' && (argv[i][1] == '/' || !argv[i][1]))
 			print_home(argv[i], home);
@@ -45,6 +45,8 @@ static int	check_newline(char *str)
 	int	i;
 
 	i = 1;
+	if (!str)
+		return (1);
 	if (str[0] == '-' && str[1] == 'n')
 	{
 		while (str[i] == 'n')

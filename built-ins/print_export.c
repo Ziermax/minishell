@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:51:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 19:20:46 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:52:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	print_export(char **exp)
 	char	*arr;
 	char	*quot;
 
+	print_split(exp);
 	sort(exp);
 	i = 0;
 	while (exp[i])

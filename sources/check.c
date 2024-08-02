@@ -6,11 +6,30 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/03 13:16:24 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:53:29 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/built_utils.h"
+
+int	check_equal(char *str)
+{
+	int	i;
+	int	equal;
+
+	if (!str)
+		return (-1);
+	i = 0;
+	equal = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			equal = 1;
+		i++;
+	}
+	return (equal);
+}
 
 static int	look_for(char *line, int *i, char c)
 {

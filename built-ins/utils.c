@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:38:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 18:53:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:41:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built_utils.h"
 #include "../Libft/includes/libft.h"
+#include <limits.h>
 
 char	*put_quots(char *s)
 {
@@ -85,19 +86,17 @@ int	check_var(char **s, char *var)
 int	get_index_var(char **var, char *to_find)
 {
 	int		i;
-	int		len;
 	char	*name;
 
 	if (!to_find || !to_find[0])
 		return (-1);
 	i = 0;
-	len = ft_strlen(to_find);
 	while (var[i])
 	{
 		name = get_var(var[i]);
 		if (!name)
 			return (-1);
-		if (!ft_strncmp(name, to_find, len))
+		if (!ft_strncmp(name, to_find, INT_MAX))
 		{
 			free(name);
 			return (i);

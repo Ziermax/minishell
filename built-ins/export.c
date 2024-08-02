@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:40:36 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 19:18:39 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:42:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,24 @@ char	**add_created_data(char **data, char *var)
 static char	**make_export(char **data, char *var)
 {
 	int		idx;
+	int		action;
+	char	*name;
 
-	idx = check_mode(data, var);
-	if (idx == -2)
+	name = get_var(var);
+	idx = get_index_var(data, name);
+	free(name);
+	if (idx == -1)
+		return (add_created_data(data, var));
+	action = check_mode(data[idx], var);
+	if (action == -1)
+		return (NULL);
+	else if (!action)
 		return (data);
-	else if (idx != -1)
-	{
-		free(data[idx]);
-		data[idx] = ft_strdup(var);
-		if (!data[idx])
-			return (NULL);
-		return (data);
-	}
-	return (add_created_data(data, var));
+	free(data[idx]);
+	data[idx] = ft_strdup(var);
+	if (!data[idx])
+		return (NULL);
+	return (data);
 }
 
 static int	export_var(t_data *data, char *var, int type)
@@ -86,7 +91,9 @@ static int	select_export(t_data *data, char *var)
 	if (type == 2)
 	{
 		var = delete_plus(var);
-		return (ft_append(data, var));
+		type = ft_append(data, var);
+		free(var);
+		return (type);
 	}
 	else if (type == 3)
 		return (export_array_append(data, var));
