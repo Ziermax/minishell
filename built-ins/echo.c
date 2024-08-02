@@ -6,28 +6,38 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:37:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/07/13 14:01:51 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:27:31 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/built.h"
 
-static int	print_echo(char **argv, int newline)
+static void	print_home(char *path, char *home)
+{
+	fd_printf(1, "%s", home);
+	path++;
+	if (*path)
+		fd_printf(1, "%s", path);
+}
+
+static void	print_echo(char **argv, int newline, char *home)
 {
 	int	i;
 
 	i = 0;
 	while (argv[i])
 	{
-		fd_printf(1, "%s", argv[i]);
+		if (argv[i][0] == '~' && (argv[i][1] == '/' || !argv[i][1]))
+			print_home(argv[i], home);
+		else
+			fd_printf(1, "%s", argv[i]);
 		i++;
 		if (argv[i])
 			fd_printf(1, " ");
 	}
 	if (newline)
 		fd_printf(1, "\n");
-	return (0);
 }
 
 static int	check_newline(char *str)
@@ -43,32 +53,21 @@ static int	check_newline(char *str)
 			return (1);
 		return (0);
 	}
-	else
-		return (1);
+	return (1);
 }
 
 int	ft_echo(char **argv, t_data *data)
 {
 	int	newline;
-	int	size;
-	int	tmp;
-	int	new;
+	int	nl;
 
 	argv++;
-	new = 1;
-	size = ft_arraylen(argv);
-	while (size > 0)
+	newline = check_newline(*argv);
+	nl = newline;
+	while (!nl)
 	{
-		tmp = check_newline(*argv);
-		if (new)
-		{
-			newline = tmp;
-			new = 0;
-		}
-		if (!tmp)
-			argv++;
-		size--;
+		argv++;
+		nl = check_newline(*argv);
 	}
-	data->end = 0;
-	return (print_echo(argv, newline));
+	return (print_echo(argv, newline, data->home), 0);
 }
