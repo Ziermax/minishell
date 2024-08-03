@@ -6,13 +6,13 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:58:10 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/02 13:47:03 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:29:47 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include <stdio.h>
-
+/*
 static int	unspecialized_len(char *str, char *set)
 {
 	int	len;
@@ -54,8 +54,9 @@ char	*unspecialize_set(char *str, char *set)
 	unspecialized[len] = '\0';
 	return (unspecialized);
 }
-
-static int	normalize_len(char *str)
+*/
+//static 
+int	normalize_len(char *str)
 {
 	int	len;
 
@@ -74,8 +75,43 @@ static int	normalize_len(char *str)
 	return (len);
 }
 
-char	*remove_unspecializer(char *str)
+static int	isset(char c, const char *set)
 {
+	int	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*remove_unspecializer(char *str, const char *set)
+{
+	char	*normalized;
+	int		i;
+	int		j;
+
+	if (!str)
+		return (NULL);
+	if (!set || !set[0] || !str[0])
+		return (str);
+	normalized = ft_calloc(ft_strlen(str) + 1, sizeof(char *));
+	if (!normalized)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\' && !isset(str[i + 1], set))
+			i++;
+		normalized[j++] = str[i++];
+	}
+	return (normalized);
+	/*
 	char	*normalized;
 	int		len;
 	int		i;
@@ -98,8 +134,25 @@ char	*remove_unspecializer(char *str)
 		i++;
 	}
 	normalized[i] = '\0';
-	return (normalized);
+	return (normalized);*/
 }
+
+int main(int argc, char **argv)
+{
+	char		*input;// = "\\\"H\\o\\la\\* *\\Mundo \\$USER\\\"\\\'\\Ad\\;\\\\\\ios\\\'";
+	const char	*set;// = "\\\"\'* $";
+	char		*norm;
+	
+	if (argc != 3)
+		return (0);
+	input = argv[1];
+	set = argv[2];
+	printf("Input: %s\nset: %s\n", input, set);
+	norm = remove_unspecializer(input, set);
+	printf("INP: %s\n", input);
+	printf("RES: %s\n", norm);
+}
+
 /*
 int	main(int argc, char **argv)
 {

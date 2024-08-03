@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:17:45 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/02 20:10:13 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:11:49 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ char	*expand_envvar(char *string, t_data *data)
 	char	**split_string;
 	char	*tmp;
 
+	string = 
 	tmp = expand_env_string(string, data);
 }
