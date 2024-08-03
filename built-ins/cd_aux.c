@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:26:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 18:41:00 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:22:48 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,8 @@ int	cd_home_append(t_data *data, char *path)
 	if (!home && !path)
 		return (fd_printf(2, "minishell: cd: HOME not set\n"), 1);
 	if (!path || (path[0] == '~' && !path[1]))
-	{
-		ft_chdir(data, home);
-		return (0);
-	}
-	path++;
-	cd = ft_strjoin(data->home, path);
+		return (ft_chdir(data, data->home));
+	cd = ft_strjoin(data->home, path + 1);
 	if (!cd)
 		return (1);
 	ft_chdir(data, cd);
