@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 19:01:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:22:12 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,38 @@ void	sort(char **s)
 	}
 }
 
-static char	*get_init_data(char **envp, char *var)
+static char	*get_home(char **envp, char *var)
 {
 	int		idx;
 	char	*data;
+	char	*home;
 
-	idx = get_index_var(envp, var);
-	if (idx == -1)
-		return (NULL);
-	data = get_value(envp[idx]);
-	return (data);
+	if (envp && envp[0])
+	{
+		idx = get_index_var(envp, var);
+		if (idx == -1)
+			return (NULL);
+		data = ft_strdup(envp[idx]);
+		if (!data)
+			return (NULL);
+		home = get_value(data);
+		free(data);
+		return(home);
+	}
+	return (ft_strdup("/home/adrmarqu"));
 }
 
 int	init_data(t_data *data, char **envp)
 {
-	data->pwd = get_init_data(data->envp, "PWD");
-	if (!envp)
-		void_env(data);
-	else
+	data->pwd = getcwd(NULL, 0);
+	data->home = get_home(envp, "HOME");
+	if (envp && envp[0])
 	{
 		data->envp = ft_splitdup(envp);
 		data->exp = ft_splitdup(envp);
-		data->home = get_init_data(data->envp, "HOME");
 	}
+	else
+		void_env(data);
 	data->exit_status = 0;
 	data->end = 0;
 	data->heredoc = NULL;
