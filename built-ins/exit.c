@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:58:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/01 16:56:31 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:43:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_exit(char **argv, t_data *data)
 
 	if (argv)
 		argv++;
-	fd_printf(2, "exit\n");
+	fd_printf(1, "exit\n");
 	data->end = 1;
 	if (argv && *argv)
 	{

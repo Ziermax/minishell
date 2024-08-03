@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:26:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 18:19:53 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:41:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	cd_old(t_data *data)
 	if (!path)
 		return (1);
 	ft_chdir(data, path);
+	fd_printf(1, "%s\n", data->pwd);
 	free(path);
 	return (0);
 }
