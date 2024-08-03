@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:42:58 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/03 17:48:43 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:51:44 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*add_slash(char *str, char *keep)
 			slashed[i++] = *(str++);
 		}
 		else
-		{	
+		{
 			if (ft_strchr(keep, *str))
 				slashed[i++] = '\\';
 			slashed[i++] = *(str++);
@@ -113,17 +113,3 @@ char	*add_slash(char *str, char *keep)
 	slashed[i] = '\0';
 	return (slashed);
 }
-/*
-int main(int ac, char **av)
-{
-	char	*result;
-
-	printf("input\t: _%s_\n", av[1]);
-	printf("keep\t: _%s_\n", av[2]);
-	result = remove_slash(av[1], av[2]);
-	if (!result)
-		return (1);
-	printf("remove\t: _%s_\n", result);
-	printf("keep2\t: _%s_\n", av[3]);
-	printf("add\t: _%s_\n", add_slash(result, av[3]));
-}*/
