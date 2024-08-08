@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:43:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:18:02 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/08 22:03:10 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_substr(char *str, int start, int bytes)
 	int		len;
 	int		i;
 
-	if (!str || start < 0 || bytes <= 0)
+	if (!str || start < 0 || bytes < 0)
 		return (NULL);
 	len = ft_strlen(str);
 	if (len - start <= 0)
