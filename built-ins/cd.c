@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:43:46 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 18:24:55 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:20:02 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_chdir(t_data *data, char *path)
 	int		error;
 
 	if (chdir(path) == -1)
-		return (fd_printf(2, "cd: %s: %s\n", path, strerror(errno)), 1);
+		return (fd_printf(2, "minishell: cd: %s: %s\n", path, strerror(errno)), 1);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (1);
