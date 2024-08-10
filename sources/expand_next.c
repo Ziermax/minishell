@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:53:13 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/08 21:55:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 22:05:17 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,26 @@ static char	*xp_next_char(char *str, int c)
 			str++;
 		if (str)
 			str++;
+	}
+	return (str);
+}
+
+char	*xp_next_word(char *str)
+{
+	int 	quote;
+	
+	if (!str)
+		return (NULL);
+	while (*str && !ft_isspace(*str))
+	{
+		if (*str == '\\' && str[1])
+			str += 2;
+		if (!*str)
+			break ;
+		if (*str != '\'' && *str != '\"')
+			str++;
+		else
+			str = next_string(str);
 	}
 	return (str);
 }
@@ -85,17 +105,19 @@ char	*next_asterisk(char *str)
 	if (!str)
 		return (NULL);
 	if (*str == '*')
+	{
 		while (*str == '*')
 			str++;
-	else
+		return (str);
+	}
+	while (*str && *str != '*')
 	{
-		while (*str && *str != '*')
-		{
-			if (*str == '\\' && str[1])
-				str += 2;
-			else
-				str++;
-		}
+		if (*str == '\\' && str[1])
+			str += 2;
+		if (*str == '\"' || *str == '\'')
+			str = xp_next_string(str);
+		if (*str)
+			str++;
 	}
 	return (str);
 }

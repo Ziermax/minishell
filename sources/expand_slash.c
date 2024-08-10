@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:42:58 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/10 19:11:03 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:19:13 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ char	*remove_slash(char *str, char *keep)
 			str++;
 		if (!*str)
 			break ;
-		if (ft_strchr(keep, *str))
-			normalize[i++] = '\\';
 		if (i < len)
 			normalize[i++] = *(str++);
 	}
