@@ -15,7 +15,7 @@ SRC_F = minishell.c token_utils.c token.c token_analize.c token_clean.c \
 		executor_utils.c executor_builts.c executor_files.c executor.c \
         cd.c echo.c env.c exit.c export.c export_append.c export_array.c \
 		export_utils.c print_export.c pwd.c unset.c utils.c export_array_append.c \
-        check.c main.c init.c cd_aux.c void_envp.c
+        check.c main.c init.c cd_aux.c void_envp.c signals.c
 SRC_D = ./sources/
 BLT_D = ./built-ins/
 

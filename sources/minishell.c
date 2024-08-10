@@ -6,13 +6,14 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 03:31:31 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:54:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/token.h"
 #include "../includes/executor.h"
+#include "../includes/signals.h"
 
 /*	line: ">hola cat|ls -l>out&&$USER'<NOTOKEN$NOUSERninada'"
  *	sep: "> hola cat | ls -l > out && $USER '<NOTOKEN$NOUSERninada' "	*/
@@ -29,8 +30,10 @@ int	minishell(char *line, t_data *data)
 	lst_clear(&tokens, del_token);
 	if (!commands)
 		return (-1);
+	signal(SIGINT, cmd_sig);
 	executor(commands, data);
 	lst_clear(&commands, del_command);
+	signal(SIGINT, normal_sig);
 	return (0);
 }
 	//return (executor(commands));

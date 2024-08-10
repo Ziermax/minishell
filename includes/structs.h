@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/01 14:45:52 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:43:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define WR 1
 
 # include <stdbool.h>
+
+extern int					g_exit_status;
 
 typedef enum e_type
 {

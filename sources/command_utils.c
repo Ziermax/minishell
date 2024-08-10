@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:02:47 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:06:17 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 19:49:27 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "../includes/signals.h"
+#include <signal.h>
 
 t_cmd	*add_command(t_cmd **cmd_lst)
 {
@@ -35,6 +37,7 @@ void	write_heredoc(char *limiter, int fd)
 	char	*line;
 	int		len;
 
+	signal(SIGINT, SIG_DFL);
 	len = ft_strlen(limiter);
 	while (1)
 	{
@@ -83,6 +86,7 @@ char	*heredoc_read(char *word)
 	if (!limiter)
 		return (NULL);
 	pipe(fd_pipe);
+	signal(SIGINT, doc_sig);
 	pid = fork();
 	if (pid == 0)
 	{
