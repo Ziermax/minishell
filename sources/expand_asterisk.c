@@ -6,12 +6,14 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:38:46 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/03 17:50:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:09:15 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/expand.h"
+#include <sys/types.h>
+#include <dirent.h>
 
 static int	ft_ismatch(char *file, char **rules)
 {
@@ -102,11 +104,11 @@ static char	**clean_rules(char **rules)
 	i = -1;
 	while (rules[++i])
 	{
-		tmp = remove_slash(tmp, "");
-		if (!tmp);
-			return (free_split(rules), NULL);
-		free(rules[i]);
-		rules[i] = tmp;
+		//tmp = remove_slash(tmp, "");
+		//if (!tmp)
+		//	return (free_split(rules), NULL);
+		//free(rules[i]);
+		//rules[i] = tmp;
 	}
 	return (rules);
 }
@@ -124,8 +126,28 @@ char	**expand_asterisk(char *string)
 	if (!rules)
 		return (free_split(files), NULL);
 	rules = clean_rules(rules);
-	if (!rule)
+	if (!rules)
 		return (free_split(files), NULL);
-	matched_files = find_matched_files(expan_rules, files);
-	return (free_split(files), free_split(expan_rules), matched_files);
+	matched_files = find_matched_files(rules, files);
+	return (free_split(files), free_split(rules), matched_files);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	**expansion;
+	char	*str;
+
+	if (argc > 2)
+		return (1);
+	if (argc == 1)
+		str = "*.c";
+	else
+		str = argv[1];
+	printf("Expanding this:\n%s\n", str);
+	expansion = expand_asterisk(str);
+	if (!expansion)
+		return (2);
+	printf("Result:\n");
+	print_split(expansion);
+	free_split(expansion);
 }

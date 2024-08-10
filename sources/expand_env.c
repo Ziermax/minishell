@@ -6,17 +6,12 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:17:45 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/03 17:49:04 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:21:53 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/expand.h"
-
-int	ft_isvarchar(int c)
-{
-	return (ft_isalnum(c) || c == '_');
-}
 
 static char	*search_envvar(char *key, t_data *data)
 {
@@ -96,4 +91,27 @@ char	**expand_envvar(char *string, t_data *data)
 	split_string = ultra_split(string, skip_spaces, xp_next_string);
 	free(string);
 	return (split_string);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	**expansion;
+	char	*str;
+	t_data	data;
+
+	if (argc > 2)
+		return (1);
+	if (argc == 1)
+		str = "'$USER'\\\"$USER.HOla Mundo\"\\$USER\\\"";
+	else
+		str = argv[1];
+	data.exit_status = 123;
+	data.envp = envp;
+	printf("Expanding this:\n%s\n", str);
+	expansion = expand_envvar(str, &data);
+	if (!expansion)
+		return (2);
+	printf("Result:\n");
+	print_split(expansion);
+	free_split(expansion);
 }

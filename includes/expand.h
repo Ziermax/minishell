@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 03:23:02 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/03 17:51:42 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:08:45 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ char	**expand_and_replace(char **expansion, int *index,
 			char **(*creat_array)(char *, int *));
 char	*unspecialize_set(char *str, char *set);
 char	*remove_unspecializer(char *str);*/
+char	*next_var(char *str);
+char	*next_asterisk(char *str);
+char	*xp_next_string(char *str);
 char	**expand_envvar(char *string, t_data *data);
-char	*expand_asterisk(char *string);
+char	**expand_asterisk(char *string);
 int		ft_isvarchar(int c);
 char	*remove_quotes(char *string);
 

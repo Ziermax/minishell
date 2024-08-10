@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:53:13 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/03 17:36:03 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:55:00 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*xp_next_string(char *str)
 	if (*str == '\"' || *str == '\'')
 		quote = *str++;
 	if (quote == '\"')
-		str = xp_next_char('\"');
+		str = xp_next_char(str, '\"');
 	else if (quote == '\'')
-		str = xp_next_char('\'');
+		str = xp_next_char(str, '\'');
 	else
 	{
 		while (*str && *str != '\'' && *str != '\"')

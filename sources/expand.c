@@ -6,12 +6,18 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/03 17:52:34 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:10:42 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "../Libft/includes/libft.h"
 #include "../includes/expand.h"
+
+int	ft_isvarchar(int c)
+{
+	return (ft_isalnum(c) || c == '_');
+}
 
 static char	*remove_quotes_string(char *string)
 {
@@ -24,12 +30,13 @@ static char	*remove_quotes_string(char *string)
 	if (quote != '\'' && quote != '\"')
 		return (ft_strdup(string));
 	len = ft_strlen(string);
-	if (!len)
+	if (len < 2)
 		return (ft_calloc(sizeof(char), 1));
 	if (string[len - 1] == '\'' || string[len - 1] == '\"')
 		len -= 2;
 	else
 		len -= 1;
+	printf("len: %d\n", len);
 	string = ft_substr(string, 1, len);
 	if (!string)
 		return (NULL);
@@ -51,6 +58,7 @@ char	*remove_quotes(char *string)
 	i = -1;
 	while (split_string[++i])
 	{
+		printf("remove[%d]: %s\n", i, split_string[i]);
 		if (split_string[i][0] != '\'' && split_string[i][0] != '\"')
 			continue ;
 		string = remove_quotes_string(split_string[i]);
@@ -66,7 +74,8 @@ char	*remove_quotes(char *string)
 
 char	**expand_full(char **split_string)
 {
-	int	i;
+	int		i;
+	char	**expand;
 
-
+	return (split_string);
 }
