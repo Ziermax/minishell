@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:42:58 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/11 22:32:52 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:36:27 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*add_slash(char *str, void *keep)
 
 	if (!str || !keep)
 		return (NULL);
-	if (!keep[0] || !str[0])
+	if (!((char *)keep)[0] || !str[0])
 		return (ft_strdup(str));
 	slashed = malloc((slash_add_len(str, keep) + 1) * sizeof(char));
 	i = 0;
