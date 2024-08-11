@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:54:17 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 20:56:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:10:57 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,14 @@ void	prepare_command(t_cmd *command, t_data *data)
 	command->envp = data->envp;
 	if (!command->cmd_split)
 		return ;
+	command->cmd_split = expand_split(command->cmd_split, data);
+	if (!command->cmd_split)
+		return ;
 	path_split = split_path_env(data->envp);
 	command->path = find_exec_path(command->cmd_split[0], path_split);
 	free_split(path_split);
+	if (!command->path)
+		return ;
 }
 
 void	execut_single_command(t_executor *exdt, t_cmd *command, t_data *data)
@@ -97,7 +102,7 @@ int	executor(t_cmd *command, t_data *data)
 			command->fd_aux = exdt.pipe_end[RD];
 			command->next->fd_read = exdt.pipe_end[RD];
 		}
-		manage_files(command);
+		manage_files(command, data);
 		if (command->connection_type == PIPE || exdt.num_of_cmd != 1)
 		{
 			exdt.pid = fork();

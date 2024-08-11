@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:11:35 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 17:48:50 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:10:42 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ int		error_command(char *command);
 void	get_exit_status(t_executor *executor_data);
 int		ft_isbuilting(char *str);
 int		execbuilt(char	**cmd_argv, t_data *data);
-void	manage_files(t_cmd *command);
+void	manage_files(t_cmd *command, t_data *data);
 int		executor(t_cmd *command, t_data *data);
 char	**split_path_env(char **envp);
 char	*find_exec_path(char *command, char **path_split);
+char	**expand_string(char *string, void *data);
+char	**expand_split(char **split_string, t_data *data);
 
 #endif

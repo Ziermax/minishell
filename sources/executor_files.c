@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:20:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 19:21:25 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:25:25 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,39 @@ int	open_file(char *file, t_type open_mode, int last_fd)
 //	fd_printf(2, "opening: \"%s\" in %d ass: %s\n",
 //		file, fd, get_type_str(open_mode));
 
-void	manage_files(t_cmd *command)
+void	prepare_file(t_file *file, t_cmd *command, t_data *data)
+{
+	char	**aux;
+
+	aux = expand_string(file->string, data);
+	if (!aux)
+	{
+		command->failed = 1;
+		return ;
+	}
+	if (!*aux || aux[1])
+	{
+		free_split(aux);
+		fd_printf(2, "minichell: %s: ambiguous redirect\n", file->string);
+		file->open_mode = NO_TYPE;
+		command->failed = 1;
+		return ;
+	}
+	free(file->string);
+	file->string = aux[0];
+	free(aux);
+}
+
+void	manage_files(t_cmd *command, t_data *data)
 {
 	t_file	*file;
 
 	file = command->files;
 	while (file)
 	{
+		prepare_file(file, command, data);
+		if (file->open_mode == NO_TYPE)
+			break ;
 		if (file->open_mode == R_OUT || file->open_mode == APP)
 			command->fd_write = open_file(file->string, file->open_mode,
 					command->fd_write);
@@ -70,6 +96,7 @@ void	manage_files(t_cmd *command)
 		}
 		file = file->next;
 	}
+}
 //	if (file)
 //		file = file->next;
 //	while (file)
@@ -78,4 +105,3 @@ void	manage_files(t_cmd *command)
 //			close(heredoc_case(file->string));
 //		file = file->next;
 //	}
-}

@@ -13,6 +13,7 @@ SRC_F = minishell.c token_utils.c token.c token_analize.c token_clean.c \
         token_clean_utils.c command_path.c struct_print.c \
         struct_delete.c command.c command_utils.c \
 		executor_utils.c executor_builts.c executor_files.c executor.c \
+		expand_asterisk.c expand.c expand_env.c expand_next.c expand_slash.c expand_utils.c \
         cd.c echo.c env.c exit.c export.c export_append.c export_array.c \
 		export_utils.c print_export.c pwd.c unset.c utils.c export_array_append.c \
         check.c main.c init.c cd_aux.c void_envp.c
