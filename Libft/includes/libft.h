@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 16:07:22 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:59:57 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ int		ft_isprint(int c);
 int		ft_isacsii(int c);
 /*	split functions	*/
 void	print_split(char **split);
-char	**split_for_each(char **split, void *aux, char *(*fun)(char *, void *));
+char	**split_for_each(char **split, char *(*fun)(char *));
+char	**split_for_each_aux(char **split, void *aux,
+			char *(*fun)(char *, void *));
+char	**ultra_split_for_each_aux(char **split, void *aux,
+			char **(*fun)(char *, void *));
 void	free_split(char **split);
 void	free_split_save(char **split, char *save);
 char	*no_skip(char *str);

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:59:09 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 00:30:27 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:28:01 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	*add_array_to_array(void *array, void *to_add, void *position)
 	while (J[idx] < len[0])
 	{
 		new_array[I[idx]++] = ((void **)array)[J[idx]];
-		if (((void **)array)[J[idx]++] == position && to_add != (void *)1)
-		{
-			while (K[idx] < len[1])
-				new_array[I[idx]++] = ((void **)to_add)[K[idx]++];
-			to_add = (void *)1;
-		}
+		if (((void **)array)[J[idx]++] == position)
+			break ;
 	}
+	while (K[idx] < len[1])
+		new_array[I[idx]++] = ((void **)to_add)[K[idx]++];
+	while (J[idx] < len[0])
+		new_array[I[idx]++] = ((void **)array)[J[idx]++];
 	new_array[I[idx]] = NULL;
 	return (free(array), new_array);
 }
@@ -137,7 +137,8 @@ void	*remove_dir(void *array, void *to_remove)
 	new_array[i] = NULL;
 	return (free(array), free(to_remove), new_array);
 }
-/*int	main(void)
+/*
+int	main(void)
 {
 	char	**array;
 	char	**tmp;
@@ -148,10 +149,11 @@ void	*remove_dir(void *array, void *to_remove)
 	print_split(array);
 	printf("\ntmp:\n");
 	print_split(tmp);
-	array = add_array_to_array(array, tmp, array[1]);
+	free_split(array);
+	array = add_array_to_array(NULL, tmp, NULL);
 	printf("\nadded_array:\n");
 	print_split(array);
-	free(array[5]);
+	//free(array[5]);
 	array = remove_dir(array, array[5]);
 	printf("\nremoved_array:\n");
 	print_split(array);
