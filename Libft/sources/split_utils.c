@@ -5,63 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 10:54:11 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:18:14 by mvelazqu         ###   ########.fr       */
+/*   Created: 2024/08/11 15:27:03 by mvelazqu          #+#    #+#             */
+/*   Updated: 2024/08/11 15:37:16 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
-
-char	*skip_spaces(char *str)
-{
-	if (!str)
-		return (NULL);
-	while (ft_isspace(*str))
-		str++;
-	return (str);
-}
-
-char	*no_skip(char *str)
-{
-	return (str);
-}
-
-char	*next_string(char *str)
-{
-	int	quote;
-
-	if (!str)
-		return (NULL);
-	quote = 0;
-	if (*str == '\"' || *str == '\'')
-		quote = *str++;
-	if (quote == '\"')
-		while (*str && *str != '\"')
-			str++;
-	else if (quote == '\'')
-		while (*str && *str != '\'')
-			str++;
-	else
-		while (*str && *str != '\'' && *str != '\"')
-			str++;
-	if (quote && (*str == '\'' || *str == '\"'))
-		str++;
-	return (str);
-}
-
-char	*next_word(char *str)
-{
-	if (!str)
-		return (NULL);
-	while (*str && !ft_isspace(*str))
-	{
-		if (*str != '\'' && *str != '\"')
-			str++;
-		else
-			str = next_string(str);
-	}
-	return (str);
-}
 
 void	print_split(char **split)
 {
@@ -75,4 +24,26 @@ void	print_split(char **split)
 		fd_printf(1, "%s\n", split[i]);
 		i++;
 	}
+}
+
+char	**split_for_each(char **split, char *(*func)(char *))
+{
+	char	**new_split;
+	int		len;
+	int		i;
+
+	len = ft_arraylen(split);
+	new_split = malloc(sizeof(char *) * (len + 1));
+	if (!new_split)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		new_split[i] = func(split[i]);
+		if (!new_split[i])
+			return (free_split(new_split), NULL);
+		i++;
+	}
+	new_split[i] = NULL;
+	return (new_split);
 }
