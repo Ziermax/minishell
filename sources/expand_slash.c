@@ -6,14 +6,14 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:42:58 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/10 20:19:13 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:32:52 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/expand.h"
 
-static int	slash_remove_len(char *str, char *keep)
+int	slash_remove_len(char *str, char *keep)
 {
 	int	i;
 	int	len;
@@ -34,7 +34,7 @@ static int	slash_remove_len(char *str, char *keep)
 	return (len);
 }
 
-static int	slash_add_len(char *str, char *keep)
+int	slash_add_len(char *str, char *keep)
 {
 	int	len;
 	int	i;
@@ -57,7 +57,7 @@ static int	slash_add_len(char *str, char *keep)
 	return (len);
 }
 
-char	*remove_slash(char *str, char *keep)
+char	*remove_slash(char *str, void *keep)
 {
 	char	*normalize;
 	int		i;
@@ -85,7 +85,7 @@ char	*remove_slash(char *str, char *keep)
 	return (normalize);
 }
 
-char	*add_slash(char *str, char *keep)
+char	*add_slash(char *str, void *keep)
 {
 	char	*slashed;
 	int		i;

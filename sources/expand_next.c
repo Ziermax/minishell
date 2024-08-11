@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:53:13 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/10 22:05:17 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:15:00 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,26 @@ static char	*xp_next_char(char *str, int c)
 
 char	*xp_next_word(char *str)
 {
-	int 	quote;
-	
 	if (!str)
 		return (NULL);
 	while (*str && !ft_isspace(*str))
 	{
 		if (*str == '\\' && str[1])
 			str += 2;
-		if (!*str)
+		if (!*str || ft_isspace(*str))
 			break ;
 		if (*str != '\'' && *str != '\"')
 			str++;
 		else
-			str = next_string(str);
+			str = xp_next_string(str);
 	}
 	return (str);
 }
 
 char	*xp_next_string(char *str)
 {
-	int 	quote;
-	
+	int	quote;
+
 	if (!str)
 		return (NULL);
 	quote = 0;
@@ -75,15 +73,15 @@ char	*xp_next_string(char *str)
 	return (str);
 }
 
-char	*next_var(char *str)
+char	*xp_next_var(char *str)
 {
 	if (*str == '$'
-		&& ((ft_isvarchar(str[1]) && !ft_isdigit(str[1])) || str[1] == '?'))
+		&& ((xp_ft_isvarchar(str[1]) && !ft_isdigit(str[1])) || str[1] == '?'))
 	{
 		str++;
 		if (*str == '?')
 			return (str + 1);
-		while (ft_isvarchar(*str))
+		while (xp_ft_isvarchar(*str))
 			str++;
 		return (str);
 	}
@@ -91,7 +89,7 @@ char	*next_var(char *str)
 	{
 		if (*str == '\\' && str[1])
 			str += 2;
-		if (*str == '$' && ((ft_isvarchar(str[1]) && !ft_isdigit(str[1]))
+		if (*str == '$' && ((xp_ft_isvarchar(str[1]) && !ft_isdigit(str[1]))
 				|| str[1] == '?'))
 			break ;
 		if (*str)
@@ -116,7 +114,7 @@ char	*next_asterisk(char *str)
 			str += 2;
 		if (*str == '\"' || *str == '\'')
 			str = xp_next_string(str);
-		if (*str)
+		if (*str && *str != '*')
 			str++;
 	}
 	return (str);
