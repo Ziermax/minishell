@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:27:03 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 15:37:16 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/11 16:08:55 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ void	print_split(char **split)
 	}
 }
 
-char	**split_for_each(char **split, char *(*func)(char *))
+char	**split_for_each(char **split, void *aux, char *(*fun)(char *, void *))
 {
 	char	**new_split;
 	int		len;
 	int		i;
 
+	if (!split || !fun)
+		return (NULL);
 	len = ft_arraylen(split);
 	new_split = malloc(sizeof(char *) * (len + 1));
 	if (!new_split)
@@ -39,7 +41,7 @@ char	**split_for_each(char **split, char *(*func)(char *))
 	i = 0;
 	while (i < len)
 	{
-		new_split[i] = func(split[i]);
+		new_split[i] = fun(split[i], aux);
 		if (!new_split[i])
 			return (free_split(new_split), NULL);
 		i++;
