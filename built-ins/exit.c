@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:58:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/12 17:29:06 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:37:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,15 @@ static char	*delete_space(char *str)
 		return (NULL);
 	while (ft_isspace(*str))
 		str++;
+	if (!*str)
+		return (free(s), NULL);
 	i = 0;
 	while (*str && !ft_isspace(*str))
 		s[i++] = *(str++);
 	while (ft_isspace(*str))
 		str++;
 	if (*str)
-	{
-		free(s);
-		return (NULL);
-	}
+		return (free(s), NULL);
 	s[i] = '\0';
 	ret = ft_strdup(s);
 	free(s);
