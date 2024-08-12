@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:38:46 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 21:55:06 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:17:53 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ static char	**clean_rules(char **rules)
 		if (ft_isonly_asterisk(rules[i]))
 		{
 			tmp = ft_calloc(sizeof(char), 4);
+			if (!tmp)
+				return (free_split(rules), NULL);
 			tmp[0] = -1;
 			tmp[1] = -69;
 			tmp[2] = -42;
