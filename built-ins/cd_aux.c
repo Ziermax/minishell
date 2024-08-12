@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:26:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/03 12:22:48 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:04:27 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ int	cd_old(t_data *data)
 	path = get_value(data->envp[idx]);
 	if (!path)
 		return (1);
-	ft_chdir(data, path);
+	idx = ft_chdir(data, path);
 	fd_printf(1, "%s\n", data->pwd);
 	free(path);
-	return (0);
+	return (idx);
 }
 
 int	cd_home_append(t_data *data, char *path)
 {
 	char	*cd;
 	char	*home;
+	int		flag;
 
 	home = getenv("HOME");
 	if (!home && !path)
@@ -57,9 +58,9 @@ int	cd_home_append(t_data *data, char *path)
 	cd = ft_strjoin(data->home, path + 1);
 	if (!cd)
 		return (1);
-	ft_chdir(data, cd);
+	flag = ft_chdir(data, cd);
 	free(cd);
-	return (0);
+	return (flag);
 }
 
 int	cd_point(t_data *data)
@@ -83,9 +84,8 @@ int	cd_point(t_data *data)
 		update_pwd(data->exp, cd);
 		return (0);
 	}
-	ft_chdir(data, data->pwd);
 	free(cwd);
-	return (0);
+	return (ft_chdir(data, data->pwd));
 }
 
 int	cd_path(t_data *data, char *path)
@@ -111,6 +111,5 @@ int	cd_path(t_data *data, char *path)
 			return (1);
 		data->envp = new_old;
 	}
-	ft_chdir(data, path);
-	return (0);
+	return (ft_chdir(data, path));
 }
