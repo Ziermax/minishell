@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/10 20:06:29 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:30:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,7 @@ static void	read_shell(t_data *data)
 		{
 			if (!check_line(line))
 			{
-				if (!ft_strncmp(line, "echo $?", 7))
-				{
-					fd_printf(1, "%d\n", data->exit_status);
-					data->exit_status = 0;
-				}
-				else
-					minishell(line, data);
+				minishell(line, data);
 				if (data->heredoc)
 					manage_heredoc(data, line);
 				else if (line && line[0])

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:20:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 22:25:25 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:27:36 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	prepare_file(t_file *file, t_cmd *command, t_data *data)
 {
 	char	**aux;
 
+	if (file->open_mode == HDOC)
+		return ;
 	aux = expand_string(file->string, data);
 	if (!aux)
 	{
