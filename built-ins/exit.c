@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:58:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/12 17:37:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:05:28 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,31 +70,36 @@ static int	check_type(char *str)
 	return (free(s), (unsigned char)(sign * num));
 }
 
-int	ft_exit(char **argv, t_data *data)
+static int	ft_exit_aux(char **argv, t_data *data)
 {
 	int	num;
 
+	num = check_type(*argv);
+	if (num == -1)
+	{
+		fd_printf(2, "minishell: exit: %s: numeric "
+			"argument required\n", *argv);
+		return (2);
+	}
+	argv++;
+	if (*argv)
+	{
+		data->end = 0;
+		fd_printf(2, "minishell: exit: too many arguments\n");
+		return (1);
+	}
+	return (num);
+}
+
+int	ft_exit(char **argv, t_data *data)
+{
 	if (argv)
 		argv++;
 	fd_printf(1, "exit\n");
 	data->end = 1;
+	if (!argv)
+		return (data->exit_status);
 	if (*argv)
-	{
-		num = check_type(*argv);
-		if (num == -1)
-		{
-			fd_printf(2, "minishell: exit: %s: numeric "
-				"argument required\n", *argv);
-			return (2);
-		}
-		argv++;
-		if (*argv)
-		{
-			data->end = 0;
-			fd_printf(2, "minishell: exit: too many arguments\n");
-			return (1);
-		}
-		return (num);
-	}
+		return (ft_exit_aux(argv, data));
 	return (data->exit_status);
 }
