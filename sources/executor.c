@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:54:17 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 22:10:57 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:35:23 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ void	prepare_command(t_cmd *command, t_data *data)
 	if (!command->cmd_split)
 		return ;
 	command->cmd_split = expand_split(command->cmd_split, data);
-	if (!command->cmd_split)
+	if (!command->cmd_split || !command->cmd_split[0])
+	{
+		free_split(command->cmd_split);
+		command->cmd_split = NULL;
 		return ;
+	}
 	path_split = split_path_env(data->envp);
 	command->path = find_exec_path(command->cmd_split[0], path_split);
 	free_split(path_split);

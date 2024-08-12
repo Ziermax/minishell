@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:18:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/29 12:26:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:35:29 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 int	ft_isbuilting(char *str)
 {
+	if (!str)
+		return (0);
 	if (!ft_strncmp(str, "echo", 5))
 		return (ECHO);
 	if (!ft_strncmp(str, "unset", 6))
