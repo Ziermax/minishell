@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:58:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/12 17:05:38 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:29:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*delete_space(char *str)
 	char	*ret;
 	int		i;
 
-	if (!str)
+	if (!str || !*str)
 		return (NULL);
 	s = malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (!s)
@@ -61,13 +61,13 @@ static int	check_type(char *str)
 	num = 0;
 	while (ft_isdigit(s[i]))
 	{
-		num	= num * 10 + s[i++] - '0';
+		num = num * 10 + s[i++] - '0';
 		if ((num > LONG_MAX && sign == 1)
 			|| (num > (unsigned long)LONG_MAX + 1 && sign == -1))
 			return (free(s), -1);
 	}
 	if (s[i])
-			return (free(s), -1);
+		return (free(s), -1);
 	return (free(s), (unsigned char)(sign * num));
 }
 
@@ -79,7 +79,7 @@ int	ft_exit(char **argv, t_data *data)
 		argv++;
 	fd_printf(1, "exit\n");
 	data->end = 1;
-	if (argv && *argv)
+	if (*argv)
 	{
 		num = check_type(*argv);
 		if (num == -1)
