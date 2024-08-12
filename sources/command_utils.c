@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:02:47 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/10 19:49:27 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:13:44 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,37 @@ t_cmd	*add_command(t_cmd **cmd_lst)
 	return (command);
 }
 
-void	write_heredoc(char *limiter, int fd)
+static void	write_heredoc(char *lim, int fd)
 {
+	char	*limiter;
 	char	*line;
 	int		len;
 
+	limiter = ft_strjoin(lim, "\n");
+	if (!limiter)
+		return ;
 	signal(SIGINT, SIG_DFL);
 	len = ft_strlen(limiter);
 	while (1)
 	{
 		write(1, "> ", 2);
 		line = get_next_line(0);
-		if (!line || !ft_strncmp(line, limiter, len + 1))
+		if (!line)
+		{
+			fd_printf(2, "\nbash: warning: here-document at last line"
+				" by end-of-file (wanted '%s')\n", lim);
+			break ;
+		}
+		if (!ft_strncmp(line, limiter, len + 1))
 			break ;
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	free(limiter);
 	free(line);
 }
 
-char	*read_heredoc(int fd)
+static char	*read_heredoc(int fd)
 {
 	char	*line;
 	char	*text;
@@ -75,22 +86,18 @@ char	*read_heredoc(int fd)
 	return (text);
 }
 
-char	*heredoc_read(char *word)
+char	*heredoc(char *word)
 {
 	char	*heretext;
-	char	*limiter;
 	int		fd_pipe[2];
 	int		pid;
 
-	limiter = ft_strjoin(word, "\n");
-	if (!limiter)
-		return (NULL);
 	pipe(fd_pipe);
 	signal(SIGINT, doc_sig);
 	pid = fork();
 	if (pid == 0)
 	{
-		write_heredoc(limiter, fd_pipe[WR]);
+		write_heredoc(word, fd_pipe[WR]);
 		close(fd_pipe[WR]);
 		close(fd_pipe[RD]);
 		exit(0);
@@ -99,7 +106,6 @@ char	*heredoc_read(char *word)
 	wait(NULL);
 	heretext = read_heredoc(fd_pipe[RD]);
 	close(fd_pipe[RD]);
-	free(limiter);
 	return (heretext);
 }
 

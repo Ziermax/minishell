@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 19:04:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:05:54 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:57:17 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	set_file(t_cmd **cmd_lst, t_anal *info,
 	if (file->open_mode != HDOC)
 		file->string = ft_strdup((*tkn_p)->next->string);
 	else
-		file->string = heredoc_read((*tkn_p)->next->string);
+		file->string = heredoc((*tkn_p)->next->string);
 	if (!file->string)
 		return (lst_clear(cmd_lst, del_command));
 	*tkn_p = (*tkn_p)->next;
