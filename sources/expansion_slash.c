@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:42:58 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/12 12:30:07 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:23:09 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ char	*remove_slash(char *str, char *keep)
 	return (normalize);
 }*/
 
-#include <stdio.h>
-
 static char	*add_process(char *str, char *keep, char *slashed, int *i)
 {
 	if (*str == '\\' && !*(str + 1))
@@ -120,6 +118,8 @@ char	*add_slash(char *str, char *keep)
 	char	*m_slashed;
 	int		i;
 
+	if (!str || !keep)
+		return (NULL);
 	slashed = malloc(ft_strlen(str) * 2 * sizeof(char));
 	if (!slashed)
 		return (NULL);
@@ -131,23 +131,8 @@ char	*add_slash(char *str, char *keep)
 	free(slashed);
 	return (m_slashed);
 }
-/*
-char	*remove_slash2(char *str, char *keep)
-{
-	char	*normalize;
-	char	*m_normalize;
-	int		i;
-	
-	normalize = malloc((ft_strlen(str) + 1) * sizeof(char));
-	if (!normalize)
-		return (NULL);
-	while (*str)
-		str = remove_process(str, keep, normalize, &i);
-	normalize[i] = '\0';
-	m_normalize = ft_strdup(normalize);
-	free(normalize);
-	return (m_normalize);
-}*/
+
+/*#include <stdio.h>
 
 int	main(int ac, char **av)
 {
@@ -160,4 +145,4 @@ int	main(int ac, char **av)
 	printf("ADD: %s\n", str1);
 	free(str1);
 	return (0);
-}
+}*/
