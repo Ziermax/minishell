@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/10 17:46:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:29:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_home(char **envp, char *var)
 			return (NULL);
 		home = get_value(data);
 		free(data);
-		return(home);
+		return (home);
 	}
 	return (ft_strdup("/home/adrmarqu"));
 }

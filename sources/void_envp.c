@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:58:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/03 12:15:47 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:29:42 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static char	**make_envp(char *pwd, char *var1, char *var2)
 {
 	char	**env;
-	
+
 	if (!pwd)
 		return (NULL);
 	env = ft_calloc(4, sizeof(char *));
