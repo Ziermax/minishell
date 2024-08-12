@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:58:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 18:43:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:05:38 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,61 @@
 #include "../Libft/includes/libft.h"
 #include <limits.h>
 
-static char	*delete_space(char *s)
+static char	*delete_space(char *str)
 {
+	char	*s;
+	char	*ret;
 	int		i;
-	int		j;
-	char	*str;
 
-	if (!s || !*s)
-		return (NULL);
-	str = malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
+	s = malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!s)
+		return (NULL);
+	while (ft_isspace(*str))
+		str++;
 	i = 0;
-	j = 0;
-	while (s[i] == ' ' || s[i] == '\t')
-		i++;
-	while (s[i] && s[i] != ' ' && s[i] != '\t')
-		str[j++] = s[i++];
-	while (s[i] == ' ' || s[i] == '\t')
-		i++;
-	if (s[i])
+	while (*str && !ft_isspace(*str))
+		s[i++] = *(str++);
+	while (ft_isspace(*str))
+		str++;
+	if (*str)
 	{
-		free(str);
+		free(s);
 		return (NULL);
 	}
-	str[j] = '\0';
-	return (str);
+	s[i] = '\0';
+	ret = ft_strdup(s);
+	free(s);
+	return (ret);
 }
 
 static int	check_type(char *str)
 {
-	int				sign;
-	unsigned long	num;
 	char			*s;
+	int				sign;
+	int				i;
+	unsigned long	num;
 
 	s = delete_space(str);
 	if (!s)
 		return (-1);
 	sign = 1;
-	if (*s == '-' || *s == '+')
-	{
-		if (*s == '-')
+	i = 0;
+	if (s[i] == '-' || s[i] == '+')
+		if (s[i++] == '-')
 			sign = -1;
-		s++;
-	}
 	num = 0;
-	while (ft_isdigit(*s))
+	while (ft_isdigit(s[i]))
 	{
-		num = num * 10 + *(s++) - '0';
+		num	= num * 10 + s[i++] - '0';
 		if ((num > LONG_MAX && sign == 1)
 			|| (num > (unsigned long)LONG_MAX + 1 && sign == -1))
-			return (-1);
+			return (free(s), -1);
 	}
-	if (*s)
-		return (-1);
-	return ((unsigned char)(sign * num));
+	if (s[i])
+			return (free(s), -1);
+	return (free(s), (unsigned char)(sign * num));
 }
 
 int	ft_exit(char **argv, t_data *data)
