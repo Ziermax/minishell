@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:48:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 13:31:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:45:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,6 @@ int	get_type(char *var)
 	}
 	if (var[i] == '+' && var[i + 1] != '=')
 		return (id_error(var), -1);
-	if (var[i] == '=' && var[i + 1] == '(')
-		return (4);
-	if (var[i + 1] == '=' && var[i + 2] == '(')
-		return (3);
 	if (var[i] == '+')
 		return (2);
 	if (var[i] == '=')

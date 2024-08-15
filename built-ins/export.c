@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:40:36 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 10:51:20 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:45:15 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,6 @@ static int	select_export(t_data *data, char *var)
 		free(var);
 		return (type);
 	}
-	else if (type == 3)
-		return (export_array_append(data, var));
-	else if (type == 4)
-		return (export_array(data, var));
 	return (0);
 }
 
