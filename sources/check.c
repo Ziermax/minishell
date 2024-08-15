@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 13:36:03 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:20:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	check_line(char *line)
 	int	i;
 	int	flag;
 
-	if (!line)
-		return (0);
+	if (!*line)
+		return (1);
 	i = 0;
 	flag = 0;
 	while (line[i])
