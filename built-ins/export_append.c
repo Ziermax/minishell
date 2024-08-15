@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:45:33 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 12:51:54 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:09:20 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,26 @@ static char	*get_append(char **data, char *var, int idx)
 
 	val = get_value(var);
 	new_var = ft_strjoin(data[idx], val);
+	printf("VAR: %s\n", new_var);
 	free(val);
 	return (new_var);
+}
+
+static int	get_action(char *prev)
+{
+	int	i;
+
+	i = 0;
+	while (prev[i] && prev[i] != '=')
+		i++;
+	if (!prev[i])
+		return (1);
+	return (0);
 }
 
 static char	**make_append(char **data, char *var)
 {
 	int		idx;
-	int		action;
 	char	*name;
 	char	*var_append;
 
@@ -36,10 +48,7 @@ static char	**make_append(char **data, char *var)
 	free(name);
 	if (idx == -1)
 		return (add_created_data(data, var));
-	action = check_mode(data[idx], var);
-	if (action == -1)
-		return (NULL);
-	else if (action == 1)
+	if (get_action(data[idx]))
 	{
 		free(data[idx]);
 		data[idx] = ft_strdup(var);
@@ -48,6 +57,8 @@ static char	**make_append(char **data, char *var)
 		return (data);
 	}
 	var_append = get_append(data, var, idx);
+	if (!var_append)
+		return (NULL);
 	free(data[idx]);
 	data[idx] = var_append;
 	return (data);
@@ -85,6 +96,8 @@ int	ft_append(t_data *data, char *var)
 	int		idx;
 	int		isarr;
 
+	if (!var)
+		return (1);
 	name = get_var(var);
 	idx = get_index_var(data->exp, name);
 	free(name);
@@ -93,8 +106,6 @@ int	ft_append(t_data *data, char *var)
 		return (1);
 	if (isarr)
 		return (update_value(data, var, idx));
-	if (!var)
-		return (1);
 	new_env = make_append(data->envp, var);
 	if (!new_env)
 		return (1);
