@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 12:25:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:12:54 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ static char	*get_home(char **envp, char *var)
 int	init_data(t_data *data, char **envp)
 {
 	data->pwd = getcwd(NULL, 0);
+	if (!data->pwd)
+	{
+		fd_printf(2, "minishell: run minishell in a valid directory\n");
+		return (1);
+	}
 	data->home = get_home(envp, "HOME");
 	if (envp && envp[0])
 	{
@@ -71,10 +76,15 @@ int	init_data(t_data *data, char **envp)
 	}
 	else
 		void_env(data);
-	data->exit_status = 0;
 	data->end = 0;
 	data->heredoc = NULL;
-	if (!data->envp || !data->exp || !data->pwd || !data->home)
-		return (1);
+	if (!data->envp || !data->exp || !data->home)
+	{
+		free(data->home);
+		free(data->pwd);
+		free_split(data->envp);
+		free_split(data->exp);
+		return (fd_printf(2, "Failed to initiate minishell\n"), 1);
+	}
 	return (0);
 }
