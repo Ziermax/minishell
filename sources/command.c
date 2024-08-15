@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 19:04:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/12 17:57:17 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:06:31 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,3 @@ t_cmd	*get_command(t_token *token, t_data *data)
 	}
 	return (command);
 }
-//		if (token->type == PIPE)
-//			set_pipe(&command, &info, token);

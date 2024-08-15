@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:24:16 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 22:14:25 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:06:15 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ static char	*expand_var(char *string, void *data)
 	free(expanded);
 	return (slashed);
 }
-//	if (split_string[i][0] != '$' || (split_string[i][0] &&
-//			!ft_isvarchar(split_string[i][1]) && split_string[i][1] != '?'))
-//		continue ;
 
 static char	*expand_env_string(char *string, void *data)
 {
@@ -97,104 +94,3 @@ char	**expand_envvar(char *string, t_data *data)
 	free(string);
 	return (split_string);
 }
-/*
-int	main(int argc, char **argv, char **envp)
-{
-	char	**expansion;
-	char	*str;
-	char	*tmp;
-	t_data	data;
-	int		i;
-
-	if (argc > 2)
-		return (1);
-	if (argc == 1)
-		str = "'$USER'\\\"$USER.HOla Mundo\"\\$USER\\\"";
-	else
-		str = argv[1];
-	data.exit_status = 123;
-	data.envp = envp;
-	printf("Expanding this:\n%s\n", str);
-	expansion = expand_envvar(str, &data);
-	if (!expansion)
-		return (2);
-	printf("Preresult:\n");
-	print_split(expansion);
-	i = -1;
-	while (expansion[++i])
-	{
-		str = remove_quotes_string(expansion[i]);
-		if (!str)
-			return (free_split(expansion), 3);
-		//tmp = remove_slash(str, "");
-		//free(str);
-		//if (!tmp)
-		//	return (4);
-		free(expansion[i]);
-		expansion[i] = str;//Change str to tmp
-	}
-	printf("Result:\n");
-	print_split(expansion);
-	free_split(expansion);
-}*/
-/*
-static char	*expand_v(char *string, t_data *data)
-{
-	char	*expanded;
-	char	*slashed;
-
-	expanded = search_envvar(string, data);
-	if (!expanded)
-		return (NULL);
-	slashed = add_slash(expanded, "*\\\"\'");
-	free(expanded);
-	return (slashed);
-}
-
-static char	*expand_env(char *string, t_data *data)
-{
-	char	**split_string;
-	int		i;
-
-	split_string = ultra_split(string, no_skip, next_var);
-	if (!split_string)
-		return (NULL);
-	i = -1;
-	while (split_string[++i])
-	{
-		if (split_string[i][0] != '$' || (split_string[i][0] &&
-				!ft_isvarchar(split_string[i][1]) && split_string[i][1] != '?'))
-			continue ;
-		string = expand_v(&split_string[i][1], data);
-		if (!string)
-			return (free_split(split_string), NULL);
-		free(split_string[i]);
-		split_string[i] = string;
-	}
-	string = ft_splitjoin(split_string);
-	free_split(split_string);
-	return (string);
-}*/
-	/*int		i;
-
-	split_string = ultra_split(string, no_skip, xp_next_string);
-	if (!split_string)
-		return (NULL);
-	i = -1;
-	while (split_string[++i])
-	{
-		if (split_string[i][0] == '\'')
-			continue ;
-		string = expand_env(split_string[i], data);
-		if (!string)
-			return (free_split(split_string), NULL);
-		free(split_string[i]);
-		split_string[i] = string;
-	}
-	string = ft_splitjoin(split_string);
-	free_split(split_string);
-	if (!string)
-		return (NULL);
-	split_string = ultra_split(string, skip_spaces, xp_next_word);
-	free(string);
-	return (split_string);*/

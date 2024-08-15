@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:38:46 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/12 15:17:53 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:09:19 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,26 +141,3 @@ char	**expand_asterisk(char *string)
 	matched_files = find_matched_files(rules, files);
 	return (free_split(files), free_split(rules), matched_files);
 }
-/*
-	printf("expanding this: %s\n", string);
-	printf("Printing rules:\n");
-	print_split(rules);
-int	main(int argc, char **argv, char **envp)
-{
-	char	**expansion;
-	char	*str;
-
-	if (argc > 2)
-		return (1);
-	if (argc == 1)
-		str = "*.c";
-	else
-		str = argv[1];
-	printf("Expanding this:\n%s\n", str);
-	expansion = expand_asterisk(str);
-	if (!expansion)
-		return (2);
-	printf("Result:\n");
-	print_split(expansion);
-	free_split(expansion);
-}*/

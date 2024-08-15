@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:09:26 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:45:09 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:11:26 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static char	*search_envvar(char *envvar, char **envp)
 	}
 	return ("");
 }
-		//if (search_word_in_start(envvar, envp[i], ft_strlen(envvar) - 1)
-		//	&& envp[i][len])
 
 static char	*expand_string(char *string, char **envp)
 {

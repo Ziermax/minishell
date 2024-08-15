@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:20:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/13 20:53:07 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:08:49 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	open_file(char *file, t_type open_mode, int last_fd)
 		return (-1);
 	return (fd);
 }
-//	fd_printf(2, "opening: \"%s\" in %d ass: %s\n",
-//		file, fd, get_type_str(open_mode));
 
 void	prepare_file(t_file *file, t_cmd *command, t_data *data)
 {
@@ -99,11 +97,3 @@ void	manage_files(t_cmd *command, t_data *data)
 		file = file->next;
 	}
 }
-//	if (file)
-//		file = file->next;
-//	while (file)
-//	{
-//		if (file->open_mode == HDOC)
-//			close(heredoc_case(file->string));
-//		file = file->next;
-//	}

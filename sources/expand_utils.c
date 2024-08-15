@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:39:19 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 22:14:11 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:10:01 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,34 +90,3 @@ char	*remove_quotes_string(char *string)
 	free_split(split_string);
 	return (string);
 }
-/*
-char	*remove_quotes_split(char **split_string)
-{
-	char	*tmp;
-	int		i;
-
-	i = -1;
-	while (split_string[++i])
-	{
-		tmp = remove_quotes_string(split_string[i]);
-		if (!tmp)
-			return (free_split(split_string), NULL);
-		free(split_string[i]);
-	}
-}*/
-/*	int		i;
-
-	i = -1;
-	while (split_string[++i])
-	{
-		if (split_string[i][0] != '\'' && split_string[i][0] != '\"')
-			continue ;
-		string = remove_quotes(split_string[i]);
-		if (!string)
-			return (free_split(split_string), NULL);
-		free(split_string[i]);
-		split_string[i] = string;
-	}
-	string = ft_splitjoin(split_string);
-	free_split(split_string);
-	return (string);*/

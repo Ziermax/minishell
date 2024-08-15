@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:42:58 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/12 16:06:55 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:09:48 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,22 +95,3 @@ char	*add_slash(char *str, void *keep)
 	free(slashed);
 	return (ret_slashed);
 }
-/*
-#include <stdio.h>
-
-int	main(int ac, char **av)
-{
-	char *str1;
-	char *str2;
-
-	if (ac != 4)
-		return (1);
-	printf("BFR: %s\n", av[1]);
-	str1 = add_slash(av[1], av[2]);
-	printf("ADD: %s\n", str1);
-	str2 = remove_slash(str1, av[3]);
-	printf("RMV: %s\n", str2);
-	free(str1);
-	free(str2);
-	return (0);
-}*/

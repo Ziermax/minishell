@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:53:13 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 22:15:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:15:29 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,3 @@ char	*next_asterisk(char *str)
 	}
 	return (str);
 }
-//			else if (*str == '\'' || *str == '\"')
-//				str = xp_next_string(str);

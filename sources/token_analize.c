@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:14:45 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/13 20:53:55 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:16:01 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,3 @@ bool	analize_tokens(t_token *token)
 	}
 	return (true);
 }
-//	void	*head;
-//	head = token;
-//	lst_for_each(head, print_token);

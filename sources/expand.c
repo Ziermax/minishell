@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:19:13 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 22:02:13 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:09:05 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,62 +69,3 @@ char	**expand_split(char **split_string, t_data *data)
 		return (NULL);
 	return (expansion);
 }
-/*
-int	main(int argc, char **argv, char **envp)
-{
-	char	**expansion;
-	char	*str;
-	char	*tmp;
-	t_data	data;
-	int		i;
-
-	if (argc > 2)
-		return (1);
-	if (argc == 1)
-		str = "'$USER'\"$USER.HOla Mundo\"\\$USER\\\"";
-	else
-		str = argv[1];
-	data.exit_status = 123;
-	data.envp = envp;
-	printf("Expanding this:\n%s\n", str);
-	expansion = expand_string(str, &data);
-	if (!expansion)
-		return (2);
-	printf("Result:\n");
-	print_split(expansion);
-	free_split(expansion);
-}*/
-//	i = -1;
-//	aux = NULL;
-//	while (expansion[++i])
-//	{
-//		if (!ft_isonly_asterisk(expansion[i]))
-//		{
-//			tmp = remove_slash(expansion[i], "");
-//			if (!tmp)
-//				return (free_split(expansion), NULL);
-//			aux = add_dir(aux, tmp);
-//			if (!aux)
-//				return (free(tmp), free_split(expansion), NULL);
-//			continue ;
-//		}
-//		tmp = expand_asterisk(expansion[i]);
-//		if (!tmp)
-//			return (free_split(expansion), NULL);
-//		if (!*tmp)
-//		{
-//			free(tmp);
-//			tmp = remove_slash(expansion[i], "");
-//			if (!tmp)
-//				return (free_split(expansion), NULL);
-//			aux = add_dir(aux, tmp);
-//			if (!aux)
-//				return (free(tmp), free_split(expansion), NULL);
-//			continue ;
-//		}
-//		aux = add_array_to_array(aux, tmp, NULL);
-//		if (!aux)
-//			return (free_split(tmp), free_split(expansion), NULL);
-//		free(tmp);
-//	}
-//	return (expansion);

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/14 20:44:10 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:10:52 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 /*	line: ">hola cat|ls -l>out&&$USER'<NOTOKEN$NOUSERninada'"
  *	sep: "> hola cat | ls -l > out && $USER '<NOTOKEN$NOUSERninada' "	*/
-//	t_file	*files;
 int	minishell(char *line, t_data *data)
 {
 	t_token	*tokens;

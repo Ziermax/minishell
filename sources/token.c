@@ -6,16 +6,13 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:08:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:06:56 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:11:14 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/token.h"
 
-//	static int	i;
-//	printf("analizing %d: \"%s\"\n", i++, str);
-//	printf("| type: %d\n", type);
 static char	*next_token(char *str)
 {
 	t_type	type;
@@ -92,24 +89,3 @@ t_token	*tokeinator(char *line, char **envp)
 	envp = envp + 1;
 	return (tokens);
 }
-//	clean_tokens(&tokens, envp);
-/*
-int	main(void)
-{
-	char	**token_split;
-	int		i;
-	char	*str;
-
-	str = "()()l$USER>>i$USERnfile<&'out'f\"ile ca<
-	>|&t \"e|g\"rep $USER\" hola|>outfile \"Holla mundo\"";
-//	str = "(cat)&&$$$(echo ls -l)";
-	printf("str:\n%s\n\n", str);
-	token_split = ultra_split(str, skip_spaces, next_token);
-	i = 0;
-	while (token_split[i])
-	{
-		printf("token_split[%d]: %s\n", i, token_split[i]);
-		i++;
-	}
-	free_split(token_split);
-}*/
