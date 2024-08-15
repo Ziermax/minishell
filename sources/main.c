@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/12 16:30:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:50:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,20 @@ static void	read_shell(t_data *data)
 	}
 }
 
+static void	free_data(t_data *data)
+{
+	if (data->envp)
+		free_split(data->envp);
+	if (data->exp)
+		free_split(data->exp);
+	if (data->pwd)
+		free(data->pwd);
+	if (data->home)
+		free(data->home);
+	if (data->heredoc)
+		free(data->heredoc);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
@@ -79,10 +93,6 @@ int	main(int argc, char **argv, char **envp)
 	if (init_data(&data, envp) == -1)
 		return (1);
 	read_shell(&data);
-	free_split(data.envp);
-	free_split(data.exp);
-	free(data.pwd);
-	free(data.home);
-	free(data.heredoc);
+	free_data(&data);
 	return (data.exit_status);
 }
