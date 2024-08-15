@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:26:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/10 20:04:27 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:58:53 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	cd_old(t_data *data)
 
 	idx = get_index_var(data->envp, "OLDPWD");
 	if (idx == -1)
+	{
+		fd_printf(1, "minishell: cd: OLDPWD not set\n");
 		return (1);
+	}
 	path = get_value(data->envp[idx]);
 	if (!path)
 		return (1);

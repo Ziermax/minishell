@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/02 19:01:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:25:27 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 int		init_data(t_data *data, char **envp);
 int		check_line(char *line);
 void	void_env(t_data *data);
+char	*search_for_my_home(void);
 /*	*
  *	Functions of Maxi
  */

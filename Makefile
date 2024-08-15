@@ -11,7 +11,7 @@ LIBFT = ./Libft/libft.a
 
 SRC_F = minishell.c token_utils.c token.c token_analize.c token_clean.c \
         token_clean_utils.c command_path.c struct_print.c \
-        struct_delete.c command.c command_utils.c \
+        struct_delete.c command.c command_utils.c home.c \
 		executor_utils.c executor_builts.c executor_files.c executor.c \
 		expand_asterisk.c expand.c expand_env.c expand_next.c expand_slash.c expand_utils.c \
         cd.c echo.c env.c exit.c export.c export_append.c \

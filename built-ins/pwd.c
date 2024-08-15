@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:35:11 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/02 18:09:45 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:07:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 #include "../includes/built_utils.h"
 #include "../Libft/includes/libft.h"
 #include <unistd.h>
+
+int	check_oldpwd(t_data *data)
+{
+	int		idx;
+	char	**new;
+
+	if (get_index_var(data->envp, "OLDPWD") == -1)
+	{
+		idx = get_index_var(data->exp, "OLDPWD");
+		if (idx == -1)
+			return (0);
+		new = add_created_data(data->envp, data->exp[idx]);
+		if (!new)
+			return (1);
+		data->envp = new;
+	}
+	return (0);
+}
 
 static int	check_options(char *str)
 {
