@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:18:51 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/12 17:35:29 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:45:44 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,27 @@ int	execbuilt(char	**cmd_argv, t_data *data)
 	else if (cmd_flag == EXIT)
 		ret = ft_exit(cmd_argv, data);
 	return (ret);
+}
+
+void	execut_single_built(t_executor *exdt, t_cmd *command, t_data *data)
+{
+	int	save_rd;
+	int	save_wr;
+
+	save_rd = dup(STDIN_FILENO);
+	if (save_rd == -1)
+		return ;
+	save_wr = dup(STDOUT_FILENO);
+	if (save_wr == -1)
+		return ;
+	if (command->fd_write != -1)
+		dup2(command->fd_write, STDOUT_FILENO);
+	if (command->fd_read != -1)
+		dup2(command->fd_read, STDIN_FILENO);
+	exdt->exit_status = execbuilt(command->cmd_split, data);
+	dup2(save_rd, STDIN_FILENO);
+	dup2(save_wr, STDOUT_FILENO);
+	close(save_wr);
+	close(save_rd);
+	exdt->num_of_cmd = 0;
 }

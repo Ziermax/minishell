@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:01:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/11 19:59:57 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:02:30 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 int		ft_strncmp(char *str1, char *str2, int bytes);
 int		ft_strlcat(char *dst, char *src, int dstsize);
 int		ft_strfcat(char *dst, char *src, int dstsize, int from);
-void	ft_memset(void *dir, int c, size_t bytes);
+//void	ft_memset(void *dir, int c, size_t bytes);
 void	ft_bzero(void *dir, size_t bytes);
 char	*ft_strchr(char *str, int c);
+char	*ft_strrchr(char *str, int c);
 char	*ft_itoa(int num);
 char	*ft_substr(char *str, int start, int bytes);
 /*	length	functions	*/
@@ -42,6 +43,7 @@ char	*ft_strdup(char *str);
 char	*ft_strjoin(char *str1, char *str2);
 char	*ft_threejoin(char *str1, char *str2, char *str3);
 char	*ft_splitjoin(char **split);
+char	*ft_multiplejoin(int num, ...);
 /*	array functions		*/
 void	*add_dir(void *array, void *dir);
 int		*add_integer(int *array, int len, int to_add);

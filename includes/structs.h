@@ -6,19 +6,22 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/10 17:43:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:31:21 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# include <stdbool.h>
+# include "color.h"
+
 # define RD 0
 # define WR 1
+# define PROMTP "\033[1;92m➜ \033[1;36mminishell\033[1;33m > \033[0;39m"
+# define PRMTERR "\033[1;36mminichell\033[0;39m: "
 
-# include <stdbool.h>
-
-extern int					g_exit_status;
+extern int				g_exit_status;
 
 typedef enum e_type
 {
@@ -57,6 +60,8 @@ typedef struct s_data
 	char	*home;
 	int		exit_status;
 	int		end;
+	char	*arrow_color;
+	char	*prompt;
 }	t_data;
 
 typedef struct s_token	t_token;
@@ -114,7 +119,6 @@ typedef struct s_executor
 	int		exit_status;
 	int		error;
 	int		*pids;
-	int		pipe_end[2];
 }	t_executor;
 
 char	*get_type_str(t_type type);

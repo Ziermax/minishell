@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:58:59 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/12 18:05:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:16:26 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	ft_exit_aux(char **argv, t_data *data)
 	num = check_type(*argv);
 	if (num == -1)
 	{
-		fd_printf(2, "minishell: exit: %s: numeric "
+		fd_printf(2, PRMTERR"exit: %s: numeric "
 			"argument required\n", *argv);
 		return (2);
 	}
@@ -85,7 +85,7 @@ static int	ft_exit_aux(char **argv, t_data *data)
 	if (*argv)
 	{
 		data->end = 0;
-		fd_printf(2, "minishell: exit: too many arguments\n");
+		fd_printf(2, PRMTERR"exit: too many arguments\n");
 		return (1);
 	}
 	return (num);

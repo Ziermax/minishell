@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:32 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:18:10 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:09:56 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ int	ft_strfcat(char	*dst, char *src, int dstsize, int from)
 	return (ft_strlen(src) + from);
 }
 
-void	ft_memset(void *dir, int c, size_t bytes)
-{
-	while (bytes--)
-		*(char *)dir++ = c;
-}
-
+//void	ft_memset(void *dir, int c, size_t bytes)
+//{
+//	while (bytes--)
+//		*(char *)dir++ = c;
+//}
+//
+//	ft_memset(dir, 0, bytes);
 void	ft_bzero(void *dir, size_t bytes)
 {
-	ft_memset(dir, 0, bytes);
+	while (bytes--)
+		*(char *)dir++ = '\0';
 }
 
 char	*ft_strchr(char *str, int c)
@@ -56,4 +58,22 @@ char	*ft_strchr(char *str, int c)
 	if (*str == c)
 		return (str);
 	return (NULL);
+}
+
+char	*ft_strrchr(char *str, int c)
+{
+	char	*tmp;
+
+	if (!str)
+		return (NULL);
+	tmp = NULL;
+	while (*str)
+	{
+		if (*str == c)
+			tmp = str;
+		str++;
+	}
+	if (*str == c)
+		return (str);
+	return (tmp);
 }

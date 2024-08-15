@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:14:45 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:45:00 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:53:55 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ bool	analize_tokens(t_token *token)
 			&& anal_data.last_type != C_PAR))
 	{
 		if (token)
-			fd_printf(2, "minichel: syntax error near unexpected token '%s'\n",
+			fd_printf(2, PRMTERR"syntax error near unexpected token '%s'\n",
 				token->string);
 		else
 			fd_printf(2,
-				"minichel: syntax error near unexpected token 'new line'\n");
+				PRMTERR"syntax error near unexpected token 'new line'\n");
 		return (false);
 	}
 	return (true);

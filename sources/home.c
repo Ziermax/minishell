@@ -6,11 +6,12 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 12:23:34 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 13:11:45 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:39:05 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/wait.h>
+#include "../Libft/includes/libft.h"
 #include "../includes/minishell.h"
 
 static void	ft_error(const char *error)

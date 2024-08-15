@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:02:47 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/12 18:13:44 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:48:57 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ static void	write_heredoc(char *lim, int fd)
 		write(1, "> ", 2);
 		line = get_next_line(0);
 		if (!line)
-		{
 			fd_printf(2, "\nbash: warning: here-document at last line"
 				" by end-of-file (wanted '%s')\n", lim);
+		if (!line)
 			break ;
-		}
 		if (!ft_strncmp(line, limiter, len + 1))
 			break ;
 		write(fd, line, ft_strlen(line));

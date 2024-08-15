@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:09:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 17:56:07 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:48:35 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,30 @@ int	error_command(char *command)
 
 	if (!command)
 	{
-		fd_printf(2, "minichell: : permission denied\n");
+		fd_printf(2, PRMTERR": permission denied\n");
 		return (126);
 	}
 	aux = opendir(command);
 	if (aux)
 	{
 		closedir(aux);
-		fd_printf(2, "minichell: %s: Is a directory\n", command);
+		fd_printf(2, PRMTERR"%s: Is a directory\n", command);
 		return (126);
 	}
 	else if (!ft_strchr(command, '/'))
-		return (fd_printf(2, "minichell: %s: command not found\n", command),
+		return (fd_printf(2, PRMTERR"%s: command not found\n", command),
 			127);
 	else if (access(command, F_OK) == 0)
-		return (fd_printf(2, "minichell: %s: Permission denied\n", command),
+		return (fd_printf(2, PRMTERR"%s: Permission denied\n", command),
 			126);
-	fd_printf(2, "minichell: %s: No such file or directory\n", command);
+	fd_printf(2, PRMTERR"%s: No such file or directory\n", command);
 	return (127);
 }
 
-void	get_exit_status(t_executor *executor_data)
+void	get_exit_status(t_executor *executor_data, t_cmd **cmd)
 {
-	int	i;
+	t_cmd	*command;
+	int		i;
 
 	i = 0;
 	while (i < executor_data->num_of_cmd)
@@ -54,4 +55,35 @@ void	get_exit_status(t_executor *executor_data)
 	free(executor_data->pids);
 	executor_data->pids = NULL;
 	executor_data->num_of_cmd = 0;
+	command = *cmd;
+	if (command->connection_type == AND && executor_data->exit_status != 0)
+		*cmd = command->next;
+	if (command->connection_type == OR && executor_data->exit_status == 0)
+		*cmd = command->next;
+}
+
+void	pipetion(t_cmd *command)
+{
+	int	pipe_end[2];
+
+	if (pipe(pipe_end) == -1)
+		return ;
+	command->fd_write = pipe_end[WR];
+	command->fd_aux = pipe_end[RD];
+	command->next->fd_read = pipe_end[RD];
+}
+
+void	execut_piped_command(t_cmd *command, t_data *data, t_executor *exdt)
+{
+	exdt->pid = fork();
+	if (exdt->pid == -1)
+	{
+		data->end = 1;
+		return ;
+	}
+	if (!exdt->pid)
+		execute_command(command, data);
+	exdt->pids = add_integer(exdt->pids, exdt->num_of_cmd, exdt->pid);
+	if (!exdt->pids)
+		data->end = 1;
 }

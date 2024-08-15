@@ -6,20 +6,27 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 14:13:12 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:58:46 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/built.h"
 #include "../includes/signals.h"
+#include "../Libft/includes/libft.h"
 
 int	g_exit_status = 0;
 
-static void	manage_heredoc(t_data *data, char *line)
+static void	manage_history(t_data *data, char *line)
 {
 	char	*newline;
 
+	if (!data->heredoc)
+	{
+		if (line && line[0])
+			add_history(line);
+		return ;
+	}
 	if (g_exit_status == 130)
 	{
 		add_history(line);
@@ -39,32 +46,50 @@ static void	manage_heredoc(t_data *data, char *line)
 	data->heredoc = NULL;
 }
 
+static char	*get_prompt(t_data *data)
+{
+	char	*prompt;
+
+	prompt = ft_strrchr(data->pwd, '/');
+	if (!prompt)
+		return (ft_strdup(PROMTP));
+	if (!data->exit_status)
+		data->arrow_color = BIGREEN;
+	else
+		data->arrow_color = BIRED;
+	if (data->pwd == prompt)
+		prompt = ft_multiplejoin(4, data->arrow_color, "➜  \033[1;36m",
+				data->pwd, "\033[1;33m > \033[0;39m");
+	else
+		prompt = ft_multiplejoin(4, data->arrow_color, "➜  \033[1;36m",
+				prompt + 1, "\033[1;33m > \033[0;39m");
+	return (prompt);
+}
+
 static void	read_shell(t_data *data)
 {
 	char	*line;
 
 	while (!data->end)
 	{
-		line = readline("minishell> ");
+		data->prompt = get_prompt(data);
+		if (!data->prompt)
+			break ;
+		line = readline(data->prompt);
+		free(data->prompt);
 		if (g_exit_status == 130)
 		{
 			data->exit_status = g_exit_status;
 			g_exit_status = 0;
 		}
-		if (line)
-		{
-			if (!check_line(line))
-			{
-				minishell(line, data);
-				if (data->heredoc)
-					manage_heredoc(data, line);
-				else if (line && line[0])
-					add_history(line);
-			}
-			free(line);
-		}
-		else
+		if (!line)
 			ft_exit(NULL, data);
+		else if (!check_line(line))
+		{
+			minishell(line, data);
+			manage_history(data, line);
+		}
+		free(line);
 	}
 }
 

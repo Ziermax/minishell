@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 13:20:46 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:54:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/built_utils.h"
+#include "../Libft/includes/libft.h"
 
 int	check_equal(char *str)
 {

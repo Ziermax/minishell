@@ -6,10 +6,11 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/12 17:41:18 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:44:10 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../Libft/includes/libft.h"
 #include "../includes/minishell.h"
 #include "../includes/token.h"
 #include "../includes/executor.h"

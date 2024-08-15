@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:20:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/12 16:27:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:53:07 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	prepare_file(t_file *file, t_cmd *command, t_data *data)
 	if (!*aux || aux[1])
 	{
 		free_split(aux);
-		fd_printf(2, "minichell: %s: ambiguous redirect\n", file->string);
+		fd_printf(2, PRMTERR"%s: ambiguous redirect\n", file->string);
 		file->open_mode = NO_TYPE;
 		command->failed = 1;
 		return ;
@@ -92,7 +92,7 @@ void	manage_files(t_cmd *command, t_data *data)
 				&& command->fd_read == -1) || ((file->open_mode == R_OUT
 					|| file->open_mode == APP) && command->fd_write == -1))
 		{
-			fd_printf(2, "minichell: %s: %s\n", file->string, strerror(errno));
+			fd_printf(2, PRMTERR"%s: %s\n", file->string, strerror(errno));
 			command->failed = 1;
 			break ;
 		}
