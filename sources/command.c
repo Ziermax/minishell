@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 19:04:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/16 11:03:31 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:59:10 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	set_file(t_cmd **cmd_lst, t_anal *info,
 {
 	t_file	*file;
 
+	(void)data;
 	if (!info->aux)
 		info->aux = add_command(cmd_lst);
 	if (!info->aux)
@@ -63,14 +64,14 @@ static void	set_file(t_cmd **cmd_lst, t_anal *info,
 	if (!file->string)
 		return (lst_clear(cmd_lst, del_command));
 	*tkn_p = (*tkn_p)->next;
-	if (file->open_mode != HDOC)
-		return ;
-	file = heredoc_string(data->heredoc, file->string, (*tkn_p)->string);
-	if (!file)
-		return (lst_clear(cmd_lst, del_command));
-	free(data->heredoc);
-	data->heredoc = (char *)file;
 }
+//	if (file->open_mode != HDOC)
+//		return ;
+//	file = heredoc_string(data->heredoc, file->string, (*tkn_p)->string);
+//	if (!file)
+//		return (lst_clear(cmd_lst, del_command));
+//	free(data->heredoc);
+//	data->heredoc = (char *)file;
 
 static void	set_command(t_cmd **cmd_lst, t_anal *info, t_token *token)
 {
