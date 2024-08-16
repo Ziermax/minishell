@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 18:58:46 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:07:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,6 @@
 #include "../Libft/includes/libft.h"
 
 int	g_exit_status = 0;
-
-static void	manage_history(t_data *data, char *line)
-{
-	char	*newline;
-
-	if (!data->heredoc)
-	{
-		if (line && line[0])
-			add_history(line);
-		return ;
-	}
-	if (g_exit_status == 130)
-	{
-		add_history(line);
-		free(data->heredoc);
-		data->heredoc = NULL;
-		return ;
-	}
-	newline = ft_threejoin(line, "\n", data->heredoc);
-	free(data->heredoc);
-	if (!newline)
-	{
-		data->end = 1;
-		return ;
-	}
-	add_history(newline);
-	free(newline);
-	data->heredoc = NULL;
-}
 
 static char	*get_prompt(t_data *data)
 {
@@ -85,10 +56,9 @@ static void	read_shell(t_data *data)
 		if (!line)
 			ft_exit(NULL, data);
 		else if (!check_line(line))
-		{
 			minishell(line, data);
-			manage_history(data, line);
-		}
+		if (line && line[0])
+			add_history(line);
 		free(line);
 	}
 }

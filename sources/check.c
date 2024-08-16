@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 14:54:54 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:09:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,24 @@ static int	look_for(char *line, int *i, char c)
 	return (1);
 }
 
+static int	isjustspaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i])
+		return (0);
+	return (1);
+}
+
 int	check_line(char *line)
 {
 	int	i;
 	int	flag;
 
-	if (!*line)
+	if (!*line || isjustspaces(line))
 		return (1);
 	i = 0;
 	flag = 0;
