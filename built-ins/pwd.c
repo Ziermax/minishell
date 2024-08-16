@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:35:11 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/16 10:52:43 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:11:54 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	ft_pwd(char **argv, t_data *data)
 	{
 		if (!data->pwd)
 			return (fd_printf(1, "pwd: error retrieving current directory: "
-						"getcwd: cannot access parent directories: No such "
-						"file or directory\n"), 0);
+					"getcwd: cannot access parent directories: No such "
+					"file or directory\n"), 0);
 		return (fd_printf(1, "%s\n", data->pwd), 0);
 	}
 	fd_printf(1, "%s\n", cwd);
