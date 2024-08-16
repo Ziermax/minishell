@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/16 12:07:52 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:38:15 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	argc = argc;
+	if (argc != 1)
+		return (fd_printf(2, PRMTERR"No arguments required\n"), 0);
 	argv = argv;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, normal_sig);
