@@ -6,12 +6,14 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 19:04:12 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 20:06:31 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:03:31 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/command.h"
+
+//int	g_exit_status;
 
 static void	set_subcommand(t_cmd **cmd_lst, t_anal *info,
 	t_token **tkn_p, t_data *data)
@@ -114,6 +116,8 @@ t_cmd	*get_command(t_token *token, t_data *data)
 			token = token->next;
 		if (!command || (token && token->type == C_PAR))
 			break ;
+		if (g_exit_status == 130)
+			return (lst_clear(&command, del_command), NULL);
 	}
 	return (command);
 }
