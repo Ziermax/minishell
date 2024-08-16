@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:43:46 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 13:10:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:14:45 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_chdir(t_data *data, char *path)
 	error += check_oldpwd(data);
 	error += update_oldpwd(data->envp, 0);
 	error += update_pwd(data->envp, pwd);
-	return (error > 1);
+	return (error > 0);
 }
 
 static int	cd_action(char *str)

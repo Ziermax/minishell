@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:26:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 12:58:53 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:15:09 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	cd_old(t_data *data)
 	if (!path)
 		return (1);
 	idx = ft_chdir(data, path);
-	fd_printf(1, "%s\n", data->pwd);
+	if (!idx)
+		fd_printf(1, "%s\n", data->pwd);
 	free(path);
 	return (idx);
 }
@@ -76,7 +77,10 @@ int	cd_point(t_data *data)
 	{
 		fd_printf(1, "cd: error retrieving current directory: getcwd: cannot");
 		fd_printf(1, "access parent directories: No such file or directory\n");
-		cd = ft_strjoin(data->pwd, "/.");
+		if (data->pwd)
+			cd = ft_strjoin(data->pwd, "/.");
+		else
+			cd = ft_strdup(".");
 		if (!cd)
 			return (1);
 		free(data->pwd);
