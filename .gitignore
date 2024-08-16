@@ -14,3 +14,9 @@ minishell
 .rl_confi
 readline/config.log
 readline/config.status
+readline/Makefile
+readline/config.log
+readline/config.status
+readline/doc/Makefile
+readline/examples/Makefile
+readline/shlib/Makefile
