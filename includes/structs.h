@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/14 20:31:21 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:54:30 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define RD 0
 # define WR 1
 # define PROMTP "\033[1;92m➜ \033[1;36mminishell\033[1;33m > \033[0;39m"
-# define PRMTERR "\033[1;36mminichell\033[0;39m: "
+# define PRMTERR "\033[1;91mminichell: \033[0;39m"
 
 extern int				g_exit_status;
 

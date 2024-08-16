@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:52:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 20:10:28 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:49:30 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,8 @@ int	init_data(t_data *data, char **envp)
 {
 	data->pwd = getcwd(NULL, 0);
 	if (!data->pwd)
-	{
-		fd_printf(2, PRMTERR"run minishell in a valid directory, bitch\n");
-		return (1);
-	}
-	data->home = get_home(envp, "HOME");
+		fd_printf(2, "shell-init: error retrieving current directory: getcwd:"
+			"cannot access parent directories: No such file or directory\n");
 	if (envp && envp[0])
 	{
 		data->envp = ft_splitdup(envp);
@@ -78,6 +75,7 @@ int	init_data(t_data *data, char **envp)
 		void_env(data);
 	data->end = 0;
 	data->heredoc = NULL;
+	data->home = get_home(envp, "HOME");
 	if (!data->envp || !data->exp || !data->home)
 	{
 		free(data->home);
