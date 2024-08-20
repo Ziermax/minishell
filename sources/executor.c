@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:54:17 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 16:19:32 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:50:58 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,9 @@ int	executor(t_cmd *command, t_data *data)
 		if (command->connection_type == AND || command->connection_type == OR
 			|| command->connection_type == NO_TYPE)
 			get_exit_status(&exdt, &command);
-		command = command->next;
+		data->exit_status = exdt.exit_status;
+		if (command)
+			command = command->next;
 	}
-	data->exit_status = exdt.exit_status;
 	return (exdt.exit_status);
 }

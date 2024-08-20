@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:09:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/14 20:48:35 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:53:42 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ void	get_exit_status(t_executor *executor_data, t_cmd **cmd)
 	executor_data->pids = NULL;
 	executor_data->num_of_cmd = 0;
 	command = *cmd;
-	if (command->connection_type == AND && executor_data->exit_status != 0)
-		*cmd = command->next;
-	if (command->connection_type == OR && executor_data->exit_status == 0)
-		*cmd = command->next;
+	i = executor_data->exit_status;
+	while (command && ((command->connection_type == PIPE)
+			|| (command->connection_type == OR && i == 0)
+			|| (command->connection_type == AND && i != 0)))
+		command = command->next;
+	*cmd = command;
 }
 
 void	pipetion(t_cmd *command)
