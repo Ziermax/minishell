@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:43:46 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/16 11:14:45 by adrmarqu         ###   ########.fr       */
+/*   Created: 2024/08/17 17:25:32 by adrmarqu          #+#    #+#             */
+/*   Updated: 2024/08/21 13:25:12 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,12 @@
 #include "../includes/built.h"
 #include "../includes/built_utils.h"
 
-int	update_oldpwd(char **data, int exp)
-{
-	int		idx_pwd;
-	int		idx_old;
-	char	*old;
-
-	idx_pwd = get_index_var(data, "PWD");
-	idx_old = get_index_var(data, "OLDPWD");
-	if (idx_old == -1)
-		return (1);
-	else if (idx_pwd == -1 && !exp)
-		old = ft_strdup("OLDPWD=");
-	else if (idx_pwd == -1 && exp)
-		old = ft_strdup("OLDPWD");
-	else if (idx_pwd != -1)
-		old = ft_strjoin("OLD", data[idx_pwd]);
-	if (!old)
-		return (1);
-	free(data[idx_old]);
-	data[idx_old] = old;
-	return (0);
-}
-
-int	update_pwd(char **data, char *path)
-{
-	int		idx;
-	char	*pwd;
-
-	idx = get_index_var(data, "PWD");
-	if (idx == -1)
-		return (1);
-	pwd = ft_strjoin("PWD=", path);
-	if (!pwd)
-		return (1);
-	free(data[idx]);
-	data[idx] = pwd;
-	return (0);
-}
-
 int	ft_chdir(t_data *data, char *path)
 {
 	char	*pwd;
-	int		error;
+	int		ret;
 
+	ret = 0;
 	if (chdir(path) == -1)
 	{
 		fd_printf(2, "minishell: cd: %s: %s\n", path, strerror(errno));
@@ -65,54 +27,34 @@ int	ft_chdir(t_data *data, char *path)
 	}
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		return (1);
+		return (fd_printf(2, "minishell: Failed to update pwd\n"), 1);
 	delete_last_slash(pwd);
+	if (update_environment(data, pwd) > 0)
+		ret = 1;
 	free(data->pwd);
 	data->pwd = pwd;
-	error = update_oldpwd(data->exp, 1);
-	error += update_pwd(data->exp, pwd);
-	error += check_oldpwd(data);
-	error += update_oldpwd(data->envp, 0);
-	error += update_pwd(data->envp, pwd);
-	return (error > 0);
-}
-
-static int	cd_action(char *str)
-{
-	if (!str)
-		return (1);
-	if (str[0] == '-' && !str[1])
-		return (0);
-	else if (str[0] == '-' && str[1])
-	{
-		fd_printf(2, "minishell: cd: %s: invalid option\n");
-		fd_printf(2, "cd: options are not avaliable\n");
-		return (-1);
-	}
-	else if (str[0] == '~')
-		return (1);
-	else if (str[0] == '.' && !str[1])
-		return (2);
-	return (3);
+	return (ret);
 }
 
 int	ft_cd(char **argv, t_data *data)
 {
-	int		action;
+	int	cd_type;
 
 	argv++;
 	if (ft_arraylen(argv) > 1)
 		return (fd_printf(2, "minishell: cd: too many arguments\n"), 1);
-	action = cd_action(*argv);
-	if (action == -1)
+	if (put_pwd_env(data, "OLDPWD") || put_pwd_env(data, "PWD"))
+		return (1);
+	cd_type = getcdtype(*argv);
+	if (cd_type == -1)
 		return (2);
-	if (action == 0)
+	else if (cd_type == 0)
 		return (cd_old(data));
-	else if (action == 1)
+	else if (cd_type == 1)
 		return (cd_home_append(data, *argv));
-	else if (action == 2)
+	else if (cd_type == 2)
 		return (cd_point(data));
-	else if (action == 3)
-		return (cd_path(data, *argv));
+	else if (cd_type == 3)
+		return (ft_chdir(data, *argv));
 	return (1);
 }

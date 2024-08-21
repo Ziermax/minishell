@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:39:52 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/15 13:08:06 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:14:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ int		update_oldpwd(char **data, int exp);
 int		check_equal(char *str);
 int		cd_pwd(t_data *data, char *path);
 int		check_oldpwd(t_data *data);
+int		update_environment(t_data *data, char *path);
+int		put_pwd_env(t_data *data, char *var);
+int		getcdtype(char *str);
 
 #endif
