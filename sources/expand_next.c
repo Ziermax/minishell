@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:53:13 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 20:15:29 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:23:42 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ char	*next_asterisk(char *str)
 	{
 		if (*str == '\\' && str[1])
 			str += 2;
-		if (*str == '\"' || *str == '\'')
+		else if (*str == '\"' || *str == '\'')
 			str = xp_next_string(str);
-		if (*str && *str != '*')
+		else if (*str && *str != '*')
 			str++;
 	}
 	return (str);

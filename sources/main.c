@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/16 12:38:15 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:37:04 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ static char	*get_prompt(t_data *data)
 {
 	char	*prompt;
 
-	prompt = ft_strrchr(data->pwd, '/');
-	if (!prompt)
-		return (ft_strdup(PROMTP));
 	if (!data->exit_status)
 		data->arrow_color = BIGREEN;
 	else
 		data->arrow_color = BIRED;
+	prompt = ft_strrchr(data->pwd, '/');
+	if (!prompt)
+		return (ft_strjoin(data->arrow_color,
+				"➜  \033[1;36m???\033[1;33m > \033[0;39m"));
 	if (data->pwd == prompt)
 		prompt = ft_multiplejoin(4, data->arrow_color, "➜  \033[1;36m",
 				data->pwd, "\033[1;33m > \033[0;39m");
