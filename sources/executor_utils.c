@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:09:14 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/20 16:53:42 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:35:54 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	get_exit_status(t_executor *executor_data, t_cmd **cmd)
 	{
 		executor_data->exit_status = 0;
 		waitpid(executor_data->pids[i], &executor_data->exit_status, 0);
-		executor_data->exit_status = executor_data->exit_status >> 8;
+		if (WTERMSIG(executor_data->exit_status))
+			executor_data->exit_status = 128 + WTERMSIG(executor_data->exit_status);
+		else
+			executor_data->exit_status = WEXITSTATUS(executor_data->exit_status);
 		i++;
 	}
 	free(executor_data->pids);
