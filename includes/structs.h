@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:17:23 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/16 10:54:30 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:01:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char	*get_type_str(t_type type);
 void	del_token(void *token);
 void	del_file(void *file);
 void	del_command(void *command);
+void	del_data(t_data *data);
 void	print_token(void *token);
 void	print_file(void *file);
 void	print_command(void *command);

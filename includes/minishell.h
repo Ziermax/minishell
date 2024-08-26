@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 16:38:47 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:06:04 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "structs.h"
 
 int		init_data(t_data *data, char **envp);
-int		check_line(char *line);
+int		check_line(char *line, t_data *data);
 void	void_env(t_data *data);
 char	*search_for_my_home(void);
 t_token	*tokeinator(char *line, char **envp);

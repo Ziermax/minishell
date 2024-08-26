@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/26 18:54:31 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:07:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	isjustspaces(char *str)
 	return (1);
 }
 
-int	check_line(char *line)
+int	check_line(char *line, t_data *data)
 {
 	int	i;
 	int	flag;
@@ -95,6 +95,9 @@ int	check_line(char *line)
 		i++;
 	}
 	if (flag)
-		fd_printf(2, "minishell: input not close\n");
-	return (flag);
+	{
+		data->exit_status = 1;
+		return (fd_printf(2, "minishell: input not close\n"), 1);
+	}
+	return (0);
 }

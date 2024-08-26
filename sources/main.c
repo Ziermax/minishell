@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/26 18:40:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:05:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,12 @@ static void	read_shell(t_data *data)
 		}
 		if (!line)
 			ft_exit(NULL, data);
-		else
-		{	
-			if (!check_line(line))
-				minishell(line, data);
-			else
-				data->exit_status = 1;
-		}
+		else if (!check_line(line, data))
+			minishell(line, data);
 		if (line && line[0])
 			add_history(line);
 		free(line);
 	}
-}
-
-static void	free_data(t_data *data)
-{
-	if (data->envp)
-		free_split(data->envp);
-	if (data->exp)
-		free_split(data->exp);
-	if (data->pwd)
-		free(data->pwd);
-	if (data->home)
-		free(data->home);
-	if (data->heredoc)
-		free(data->heredoc);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -96,6 +77,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	data.exit_status = 0;
 	read_shell(&data);
-	free_data(&data);
+	del_data(&data);
 	return (data.exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 03:23:48 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/07/31 18:44:42 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:01:24 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ void	del_token(void *token)
 	aux = token;
 	free(aux->string);
 	free(aux->expanded);
+}
+
+void	del_data(t_data *data)
+{
+	if (data->envp)
+		free_split(data->envp);
+	if (data->exp)
+		free_split(data->exp);
+	if (data->pwd)
+		free(data->pwd);
+	if (data->home)
+		free(data->home);
+	if (data->heredoc)
+		free(data->heredoc);
 }
