@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:57:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/16 12:09:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:54:31 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,16 @@ int	check_line(char *line)
 	while (line[i])
 	{
 		if (line[i] == '(' || line[i] == '\'' || line[i] == '\"')
-			flag += look_for(line, &i, line[i]);
+		{
+			if (look_for(line, &i, line[i]))
+			{
+				flag = 1;
+				break ;
+			}
+		}
 		i++;
 	}
 	if (flag)
-		fd_printf(2, "Error: input not close\n");
+		fd_printf(2, "minishell: input not close\n");
 	return (flag);
 }

@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:02:47 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 20:06:51 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:06:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	write_heredoc(char *lim, int fd)
 	limiter = ft_strjoin(lim, "\n");
 	if (!limiter)
 		return ;
-	signal(SIGINT, SIG_DFL);
 	len = ft_strlen(limiter);
 	while (1)
 	{
@@ -92,7 +91,6 @@ char	*heredoc(char *word)
 	int		pid;
 
 	pipe(fd_pipe);
-	signal(SIGINT, doc_sig);
 	pid = fork();
 	if (pid == 0)
 	{

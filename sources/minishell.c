@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/15 20:10:52 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:06:12 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ int	minishell(char *line, t_data *data)
 	lst_clear(&tokens, del_token);
 	if (!commands)
 		return (-1);
-	signal(SIGINT, cmd_sig);
 	executor(commands, data);
 	lst_clear(&commands, del_command);
-	signal(SIGINT, normal_sig);
 	return (0);
 }

@@ -2,7 +2,7 @@
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror# -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 READLINE_LIBS = -Lreadline -lreadline -lhistory -lncurses
 
 #<---------------------------------|FILES|------------------------------------>#
@@ -49,7 +49,7 @@ readline:
 	@make -C readline
 
 ${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT} ${READLINE_LIBS}
-	@${CC} ${CFLAGS} -fsanitize=address ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
+	@${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
 	@echo "\n${RED}Compiling program:${DF}"
 	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS}${DF} ${BIGREEN}${OBJ_F}${DF} \
 	${BIPRPL}${LIBFT}${DF} ${BCYAN}${READLINE_LIBS}${DF} ${BCYAN}-o${DF} \
