@@ -6,7 +6,7 @@
 /*   By: mvelazqu <mvelazqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:52:40 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/26 18:06:12 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:51:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../includes/minishell.h"
 #include "../includes/token.h"
 #include "../includes/executor.h"
-#include "../includes/signals.h"
 
 /*	line: ">hola cat|ls -l>out&&$USER'<NOTOKEN$NOUSERninada'"
  *	sep: "> hola cat | ls -l > out && $USER '<NOTOKEN$NOUSERninada' "	*/

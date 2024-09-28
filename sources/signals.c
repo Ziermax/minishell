@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:59:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/08/10 19:49:58 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:02:05 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,16 @@ void	doc_sig(int sig)
 	{
 		fd_printf(1, "\n");
 		g_exit_status = 130;
+	}
+}
+
+void	quit_sig(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		fd_printf(2, "Quit (core dumped)\n");
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_exit_status = 131;
 	}
 }

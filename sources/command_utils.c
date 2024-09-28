@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:02:47 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/26 18:06:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:52:36 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ char	*heredoc(char *word)
 	int		fd_pipe[2];
 	int		pid;
 
+	signal(SIGINT, doc_sig);
 	pipe(fd_pipe);
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		write_heredoc(word, fd_pipe[WR]);
 		close(fd_pipe[WR]);
 		close(fd_pipe[RD]);

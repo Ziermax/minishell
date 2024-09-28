@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 17:06:33 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/26 19:05:35 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:59:40 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	read_shell(t_data *data)
 
 	while (!data->end)
 	{
+		signal(SIGINT, normal_sig);
+		signal(SIGQUIT, SIG_IGN);
 		data->prompt = get_prompt(data);
 		if (!data->prompt)
 			break ;
@@ -70,6 +72,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	if (argc != 1)
 		return (fd_printf(2, PRMTERR"No arguments required\n"), 0);
 	argv = argv;
@@ -78,5 +82,7 @@ int	main(int argc, char **argv, char **envp)
 	data.exit_status = 0;
 	read_shell(&data);
 	del_data(&data);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	return (data.exit_status);
 }

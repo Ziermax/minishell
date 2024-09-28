@@ -6,15 +6,18 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:54:17 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/08/20 16:50:58 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:00:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/includes/libft.h"
 #include "../includes/executor.h"
+#include "../includes/signals.h"
 
 void	execute_command(t_cmd *command, t_data *data)
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (command->failed)
 		exit(command->failed);
 	if (command->fd_write != -1)
@@ -59,6 +62,8 @@ void	prepare_command(t_cmd *command, t_data *data)
 
 void	execut_single_command(t_executor *exdt, t_cmd *command, t_data *data)
 {
+	signal(SIGINT, cmd_sig);
+	signal(SIGQUIT, quit_sig);
 	if (command->failed)
 	{
 		exdt->exit_status = command->failed;
