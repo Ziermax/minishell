@@ -30,87 +30,60 @@ DEP = ${addprefix ${DEP_D}, ${DEP_F}}
 
 #<---------------------------------|COLORS|----------------------------------->#
 
-DF = \033[0;39m#		Default
-RED= \033[0;31m#		Red
-BRED= \033[1;31m#		Bold Red
-BBLUE= \033[1;34m#		Bold Blue
-BYELLOW= \033[1;33m#	Bold Yellow
-BIPRPL = \033[1;95m#	Purple
-BCYAN= \033[1;36m#		Bold Cyan
-BIRED= \033[1;91m#		Bold Intense Red
-BIGREEN= \033[1;92m#	Bold Intense Green
-BBLACK= \033[1;30m#		Bold Black
+DF = \033[0;39m#\t\tDefault
+RED= \033[0;31m#\t\tRed
+BRED= \033[1;31m#\t\tBold Red
+BBLUE= \033[1;34m#\t\tBold Blue
+BYELLOW= \033[1;33m#\tBold Yellow
+BIPRPL = \033[1;95m#\tPurple
+BCYAN= \033[1;36m#\t\tBold Cyan
+BIRED= \033[1;91m#\t\tBold Intense Red
+BIGREEN= \033[1;92m#\tBold Intense Green
+BBLACK= \033[1;30m#\t\tBold Black
 
 #<---------------------------------|RULES|------------------------------------>#
 
-all: .rl_confi libftmake readline ${NAME}
+all: ${NAME}
 
-readline:
-	@make -C readline
+${NAME}: ${OBJ} ${LIBFT}
+	${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
 
-${NAME}: ${OBJ_D} ${DEP_D} ${OBJ} ${LIBFT} ${READLINE_LIBS}
-	@${CC} ${CFLAGS} ${OBJ} ${READLINE_LIBS} ${LIBFT} -o ${NAME}
-	@echo "\n${RED}Compiling program:${DF}"
-	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS}${DF} ${BIGREEN}${OBJ_F}${DF} \
-	${BIPRPL}${LIBFT}${DF} ${BCYAN}${READLINE_LIBS}${DF} ${BCYAN}-o${DF} \
-	${RED}${NAME}${DF}"
+${OBJ_D}%.o: ${SRC_D}%.c | ${OBJ_D} ${DEP_D}
+	${CC} ${CFLAGS} -MMD -c $< -o $@
 
-libftmake:
-	@echo "${BCYAN}### LIBFT ###${DF}${BIGREEN}"
-	@make -C Libft --no-print-directory
-	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}libft.a${DF} ${BCYAN}made ---${DF}\n"
+${OBJ_D}%.o: ${BLT_D}%.c | ${OBJ_D} ${DEP_D}
+	${CC} ${CFLAGS} -MMD -c $< -o $@
 
-${OBJ_D}%.o: ${SRC_D}%.c Makefile
-	@${CC} ${CFLAGS} -MMD -c $< -o $@
-	@mv ${@:.o=.d} ${DEP_D}
-	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS} -MMD${DF} ${BCYAN}-c${DF} \
-	${BIRED}$<${DF} ${BCYAN}-o${DF} ${BIGREEN}$@${DF}"
-	@echo "${BCYAN}mv${DF} ${BYELLOW}${@:.o=.d}${DF} ${BCYAN}${DEP_D}${DF}"
-
-${OBJ_D}%.o: ${BLT_D}%.c Makefile
-	@${CC} ${CFLAGS} -MMD -c $< -o $@
-	@mv ${@:.o=.d} ${DEP_D}
-	@echo "${BCYAN}${CC}${DF} ${BBLUE}${CFLAGS} -MMD${DF} ${BCYAN}-c${DF} \
-	${BIRED}$<${DF} ${BCYAN}-o${DF} ${BIGREEN}$@${DF}"
-	@echo "${BCYAN}mv${DF} ${BYELLOW}${@:.o=.d}${DF} ${BCYAN}${DEP_D}${DF}"
+${LIBFT}:
+	make -C Libft --no-print-directory
 
 ${OBJ_D}:
-	@mkdir ${OBJ_D}
-	@echo "${BCYAN}mkdir${DF} ${BCYAN}${OBJ_D}${DF}"
+	mkdir -p ${OBJ_D}
 
 ${DEP_D}:
-	@mkdir ${DEP_D}
-	@echo "${BCYAN}mkdir${DF} ${BCYAN}${DEP_D}${DF}"
+	mkdir -p ${DEP_D}
 
-${READLINE_LIBS}: #readline/Makefile
-	@echo "${BCYAN}### READLINE ###${DF}${BIRED}"
-	@make -C readline static
-	@echo "${DF}${BCYAN}###${DF} ${BIPRPL}READLINE${DF} ${BCYAN}made ---${DF}\n"
+readline:
+	make -C readline
 
 .rl_confi:
 	echo "READLINE WILL BE CONFIGURED";
 	cd readline && ./configure;
-	@touch .rl_confi
-
-#<---------------------------------|PHONY|------------------------------------>#
-
-clean:
-	@echo "${BCYAN}### LIBFT fclean ###${DF}"
-	@make fclean -C Libft --no-print-directory
-	@echo "${BCYAN}### LIBFT cleaned ---${DF}\n"
-	@rm -rf ${OBJ_D} ${DEP_D}
-	@echo "${RED}rm -rf${DF} ${BIGREEN}OBJECTS: ${OBJ_F}${DF}"
-	@echo "${RED}rm -rf${DF} ${BYELLOW}DEPENDENCIES: ${DEP_F}${DF}"
-
-fclean: clean
-	@rm -rf ${NAME}
-	@rm -rf .rl_confi
-	@echo "${RED}rm -rf${DF} ${RED}PROGRAM: ${NAME}${DF}\n"
-
-re: fclean all
+	touch .rl_confi
 
 -include ${DEP}
 
-.PHONY: all clean fclean re
-#<---------------------------------------------------------------------------->#
+clean:
+	make clean -C Libft --no-print-directory
+	rm -rf ${OBJ_D} ${DEP_D}
+
+fclean: clean
+	make fclean -C Libft --no-print-directory
+	rm -rf ${NAME}
+	rm -f .rl_confi
+
+re: fclean all
+
+.PHONY: all clean fclean re readline
+
 
